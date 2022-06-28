@@ -4,7 +4,7 @@
 
 ### Run the tests by opening the Cypress UI
 ```
-npm cypress open
+npx cypress open
 ```
 -  Open the Cypress UI with the command
 -  Select the E2E Testing option
