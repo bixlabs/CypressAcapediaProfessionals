@@ -1,15 +1,15 @@
-import AcapediaSignUpPage from '../../pages/AcapediaSignUp'
+import SignUpPage from '../../pages/SignUpPage'
 
-const signUp = new AcapediaSignUpPage
+const signUpPage = new SignUpPage
 
 describe('POM Example', () => {
     beforeEach(() => {
-        signUp.navigateToSignUp()
+        signUpPage.navigateToSignUp()
     })
 
     it('There is a button with the text "Login" in the Home', () => {
-        signUp.loginButton().should('exist')
-        signUp.loginButton().click()
+        signUpPage.loginButton().should('exist')
+        signUpPage.loginButton().click()
 
         cy.get('.lg-2').should('contains.text', 'Welcome back')
     })

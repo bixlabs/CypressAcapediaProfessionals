@@ -1,4 +1,4 @@
-class AcapediaSignUpPage {
+class SignUpPage {
 
     //Navigation
     navigateToSignUp() {
@@ -17,4 +17,4 @@ class AcapediaSignUpPage {
 
 }
 
-export default AcapediaSignUpPage
+export default SignUpPage
