@@ -11,8 +11,8 @@ describe('TakeQuiz', () => {
 
   it('Can take a quiz', function() {
       cy.get('[aria-selected="false"]').click()
-      cy.get(':nth-child(1) > .v-card__actions > .primary--text').as('getCME')
-      cy.get('@getCME').click()
+      cy.get(':nth-child(1) > .v-card__actions > .primary--text > .v-btn__content').as('getCME')
+      cy.get('@getCME').click({ force: true })
   
       cy.getByTestId('questionChipList').each( ($el, index, $list) => {
   
@@ -30,15 +30,16 @@ describe('TakeQuiz', () => {
           cy.wait('@answer')
             .its('response.statusCode')
             .should('equal', 200)
-  
-          cy.getByTestId('feedbackAnswer').then( $element => {
-            let feedback = $element.text().trim()
-            if (feedback === "It's correct") {
-              cy.getByTestId('quizPanel').click('topLeft', {force: true})
-            } else {
-              cy.getByTestId('nextQuestion').click()
-            } 
-          })
+            .then( () => {
+              cy.getByTestId('feedbackAnswer').then( $element => {
+                let feedback = $element.text().trim()
+                if (feedback === "It's correct") {
+                  cy.getByTestId('quizPanel').click('topLeft', {force: true})
+                } else {
+                  cy.getByTestId('nextQuestion').click()
+                }
+              })
+            })
           
         })
       })
