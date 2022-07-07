@@ -3,6 +3,7 @@ Cypress.Commands.add('registerAccount', ({
     password = 'Ab1234567-', 
     firstName = 'Leonardo', 
     lastName = 'Guedes' 
+    phoneNumber = '5612023378'
     } = {}) => {
 
         cy.visit('/register')
@@ -16,7 +17,7 @@ Cypress.Commands.add('registerAccount', ({
         cy.contains('Continue').click()
 
         cy.get('#input-66').as('phone')
-        cy.get('@phone').type('5612023378')
+        cy.get('@phone').type(phoneNumber)
         cy.contains('Send SMS').click()
 
         cy.intercept({
