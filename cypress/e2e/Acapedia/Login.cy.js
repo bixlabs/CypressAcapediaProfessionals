@@ -1,7 +1,6 @@
 describe('LogIn E2E Test', () => {
     before(function () {
-        cy.fixture('auth/credentials').then(function(testData){
-            this.testData = testData
+        cy.fixture('auth/credentials').as('credentials')
         })
 
     })
