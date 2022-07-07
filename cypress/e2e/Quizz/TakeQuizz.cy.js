@@ -1,6 +1,6 @@
 describe('TakeQuiz', () => {
   before(() => {
-    cy.fixture('/auth/credentials')
+    cy.fixture('/auth/credentialsLogin')
       .as('credentials')
       .then(cy.loginAccount)
   });
@@ -32,7 +32,7 @@ describe('TakeQuiz', () => {
                 if (feedback === "It's correct") {
                   cy.getByTestId('quizPanel').click('topLeft', {force: true})
                 } else {
-                  cy.getByTestId('nextQuestion').click()
+                  cy.getByTestId('nextQuestion').click({force: true})
                 }
               })
             })

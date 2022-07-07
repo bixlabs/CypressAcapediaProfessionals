@@ -8,7 +8,7 @@
     "cypress": "^10.2.0",
     "cypress-file-upload": "^5.0.8",
     "cypress-mochawesome-reporter": "^3.2.0",
-    "lodash.range": "^3.2.0",
-    "cypress-xpath": "^2.0.0"
+    "cypress-xpath": "^2.0.0",
+    "lodash.range": "^3.2.0"
   }
 }

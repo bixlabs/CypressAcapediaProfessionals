@@ -2,8 +2,8 @@ describe('SignUp E2E Test', () => {
     before(function () {
         cy.visit('/register')
 
-        cy.fixture('auth/credentials').as('credentials')
-            this.testData = testData
+        cy.fixture('auth/credentialsSignup').then(function(credentials){
+        this.credentials = credentials
         })
 
     })
@@ -14,12 +14,12 @@ describe('SignUp E2E Test', () => {
 
         cy.contains('Sign up').click()
 
-        cy.get('[name=firstName]').type("Leonardo")
-        cy.get('[name=lastName]').type("Guedes")
+        cy.get('[name=firstName]').type(this.credentials.firstName)
+        cy.get('[name=lastName]').type(this.credentials.lastName)
         cy.contains('Continue').click()
 
-        cy.get('#input-66').as('phone')
-        cy.get('@phone').type('5612023378')
+        cy.get('#input-67').as('phone')
+        cy.get('@phone').type(this.credentials.phoneNumber)
         cy.contains('Send SMS').click()
 
         cy.intercept({
@@ -27,7 +27,7 @@ describe('SignUp E2E Test', () => {
             url: '/api/register',
         }).as('register')
 
-        cy.getByTestId('phoneCode').first().type('375736')
+        cy.getByTestId('phoneCode').first().type('138545')
         cy.get(':nth-child(1) > .actions > :nth-child(1) > .heading').as('continue')
         cy.get('@continue').click()
 
@@ -39,7 +39,9 @@ describe('SignUp E2E Test', () => {
 
     })
 
-
-
 })
+
+
+
+
 
