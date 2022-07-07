@@ -13,7 +13,7 @@ Cypress.Commands.add('iframe', {prevSubject:'element'}, ($iframe, selector) => {
 })
 
 Cypress.Commands.add('getByTestId', (testId, ...args) => {
-    return cy.get(`[data-test-id=${testId}]`, ...args, {timeout: 15000})
+    return cy.get(`[data-test-id=${testId}]`, {timeout: 15000, ...args})
 })
 
 Cypress.Commands.add('cleanUpDB', () => {
