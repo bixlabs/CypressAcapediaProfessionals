@@ -2,7 +2,7 @@ describe('SignUp E2E Test', () => {
     before(function () {
         cy.visit('/register')
 
-        cy.fixture('auth/credentials').then(function(testData){
+        cy.fixture('auth/credentials').as('credentials')
             this.testData = testData
         })
 
