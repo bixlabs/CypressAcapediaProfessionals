@@ -38,7 +38,7 @@ Cypress.Commands.add('registerAccount', ({
 })
 
 Cypress.Commands.add('loginAccount', () => {
-    cy.visit('https://develop-doctors-app.acapedia.com/login')
+    cy.visit('/login')
     cy.getByTestId('email').type("lguedes+03@bixlabs.com")
     cy.getByTestId('password').type("Ab1234567-")
     cy.contains('Log in').click()
