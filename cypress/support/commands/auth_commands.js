@@ -41,6 +41,17 @@ Cypress.Commands.add('loginAccount', () => {
     cy.visit('/login')
     cy.getByTestId('email').type("lguedes+03@bixlabs.com")
     cy.getByTestId('password').type("Ab1234567-")
+    
+    cy.intercept({
+        method: 'POST',
+        url: '/login',
+    }).as('login')
+
     cy.contains('Log in').click()
+
+    cy.wait('@login')
+    .its('response.statusCode')
+    .should('equal', 200)
+
     cy.get('.credit-box').should('exist')
 })
