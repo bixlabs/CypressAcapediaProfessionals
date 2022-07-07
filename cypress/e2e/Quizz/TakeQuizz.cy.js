@@ -1,8 +1,5 @@
 describe('TakeQuiz', () => {
   before(() => {
-    //cy.cleanUpDB()
-    //cy.seedDB()
-  
     cy.fixture('/auth/credentials')
       .as('credentials')
       //.then(cy.registerAccount)
