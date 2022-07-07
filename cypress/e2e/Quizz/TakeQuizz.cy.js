@@ -2,7 +2,6 @@ describe('TakeQuiz', () => {
   before(() => {
     cy.fixture('/auth/credentials')
       .as('credentials')
-      //.then(cy.registerAccount)
       .then(cy.loginAccount)
   });
 
