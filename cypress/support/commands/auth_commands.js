@@ -2,7 +2,7 @@ Cypress.Commands.add('registerAccount', ({
     email = 'lguedes+600@bixlabs.com', 
     password = 'Ab1234567-', 
     firstName = 'Leonardo', 
-    lastName = 'Guedes' 
+    lastName = 'Guedes', 
     phoneNumber = '5612023378'
     } = {}) => {
 
