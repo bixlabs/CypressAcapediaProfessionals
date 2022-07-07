@@ -2,7 +2,7 @@ class SignUpPage {
 
     //Navigation
     navigateToSignUp() {
-        cy.visit('https://develop-doctors-app.acapedia.com/register')
+        cy.visit('/register')
     }
 
     //Locators
