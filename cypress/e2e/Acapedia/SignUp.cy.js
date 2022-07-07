@@ -1,6 +1,6 @@
 describe('SignUp E2E Test', () => {
     before(function () {
-        cy.visit('https://develop-doctors-app.acapedia.com/register')
+        cy.visit('/register')
 
         cy.fixture('auth/credentials').then(function(testData){
             this.testData = testData
