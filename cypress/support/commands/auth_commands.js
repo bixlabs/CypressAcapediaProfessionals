@@ -5,7 +5,7 @@ Cypress.Commands.add('registerAccount', ({
     lastName = 'Guedes' 
     } = {}) => {
 
-        cy.visit('https://develop-doctors-app.acapedia.com/register')
+        cy.visit('/register')
         cy.getByTestId('email').type(email)
         cy.getByTestId('password').type(password)
 
