@@ -9,8 +9,8 @@ describe('SignUp E2E Test', () => {
     })
 
     it('SignUp', function() {
-        cy.getByTestId('email').type(this.testData.email)
-        cy.getByTestId('password').type(this.testData.password)
+        cy.getByTestId('email').type(this.credentials.email)
+        cy.getByTestId('password').type(this.credentials.password)
 
         cy.contains('Sign up').click()
 
