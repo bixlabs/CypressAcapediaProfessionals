@@ -11,6 +11,7 @@ module.exports = defineConfig({
   },
 
   e2e: {
+    baseUrl: "https://develop-professionals.acapedia.com",
     experimentalSessionAndOrigin: true,
     setupNodeEvents(on, config) {
       require('cypress-mochawesome-reporter/plugin')(on);
