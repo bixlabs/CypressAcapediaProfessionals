@@ -8,7 +8,7 @@ describe('LogIn E2E Test', () => {
     it('LogIn', function() {
         cy.visit('/login')
         cy.getByTestId('email').type("lguedes+03@bixlabs.com")
-        cy.getByTestId('password').type("Ab1234567-")
+        cy.getByTestId('password').type(this.credentials.password)
 
         cy.contains('Log in').click()
         cy.get('.credit-box').should('exist')
