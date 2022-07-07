@@ -7,7 +7,7 @@ describe('LogIn E2E Test', () => {
     })
 
     it('LogIn', function() {
-        cy.visit('https://develop-doctors-app.acapedia.com/login')
+        cy.visit('/login')
         cy.getByTestId('email').type("lguedes+03@bixlabs.com")
         cy.getByTestId('password').type("Ab1234567-")
 
