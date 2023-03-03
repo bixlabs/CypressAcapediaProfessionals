@@ -19,7 +19,7 @@ describe('LogIn E2E Test', () => {
         .its('response.statusCode')
         .should('equal', 200)
 
-        cy.get('.credit-box').should('exist')
+        cy.get('.text-decoration-none > .d-flex').as('.credit-box').should('exist')
 
     })
 
