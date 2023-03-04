@@ -39,7 +39,7 @@ Cypress.Commands.add('registerAccount', ({
 
 Cypress.Commands.add('loginAccount', () => {
     cy.visit('/login')
-    cy.getByTestId('email').type("lguedes+03@bixlabs.com")
+    cy.getByTestId('email').type("lguedes+031@bixlabs.com")
     cy.getByTestId('password').type("Ab1234567-")
     
     cy.intercept({
@@ -53,5 +53,5 @@ Cypress.Commands.add('loginAccount', () => {
     .its('response.statusCode')
     .should('equal', 200)
 
-    cy.get('.credit-box').should('exist')
+    cy.get('.text-decoration-none > .d-flex').as('.credit-box').should('exist')
 })

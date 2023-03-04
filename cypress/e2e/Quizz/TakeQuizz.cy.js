@@ -1,65 +1,63 @@
 describe('TakeQuiz', () => {
-  let testPassed = true; // flag variable to track pass/fail status
-  before(() => {
+  before(function () {
     cy.fixture('/auth/credentialsLogin')
       .as('credentials')
       .then(cy.loginAccount)
   })
 
-  it('Can take a quiz', function () {
-    cy.get('.feed-0 > :nth-child(2) > .card-shadow > .v-card__actions > .primary--text').as('getCME')
-    cy.get('@getCME').click({ force: true })
-    cy.contains('Agree and start').click()
-    cy.contains('Take quiz').click()
+  it('Can take a Quiz', () => {
+    cy.contains('Get CME').click();
+    cy.contains('Agree and start').click();
+    cy.contains('Take quiz').click();
 
-    let incorrectCount = 0; // counter for incorrect answers
+    // loop in a recursive way, it is easier to stop the loop
+    // when the quiz is completed or failed, because of the async nature of Cypress
+    answerQuestion({ questionNumber: 1, totalFailed: 0 });
 
-    cy.get('body').then(($body) => {
-      // synchronously ask for the body's text
-      // and do something based on whether it includes
-      // another string
-      if ($body.text().includes('See results')) {
-        // Quiz completed
-      } else {
-        // Quiz not completed
-        cy.getByTestId('questionChipList').each(($el, index, $list) => {
-          cy.wrap($el).then(() => {
-            cy.get('body').then((body) => {
-              if (body.find(`[data-test-id=answerOption]`).length > 0) {
-                cy.getByTestId('answerOption').its('length').then((optionsLength) => {
-                  cy.getByTestId('answerOption').eq(Math.floor(Math.random() * optionsLength)).click({force: true})
+    function answerQuestion({ questionNumber, totalFailed }) {
+      // check that the question number is correct
+      // TODO: we need a test-id here as we cannot get it by text value
+      cy.get('.question-number').contains(questionNumber).should('be.visible');
     
-                  if (incorrectCount === 2) {
-                    cy.log(incorrectCount)
-                    cy.log('Two incorrect answers given. Stopping the test.')
-                    testPassed = true; // set flag to false if test fails
-                  } else {
-                    cy.log(incorrectCount)
-                    cy.contains('Confirm answer').click();
-                    cy.wait(1000);
+      // select a choice
+      // TODO: we need a test-id here as we cannot get it by text value
+      cy.get('.v-input--radio-group__input > :nth-child(1)').click();
+    
+      // we want to intercept the answer api call to get the backend result
+      cy.intercept('POST', '/api/article/quiz/question/answer').as('answerQuestion');
+      cy.contains('Confirm answer').click();
+      
+      let isCorrectAnswer;
+      cy.wait('@answerQuestion').then((interception) => {
+        cy.log('Answer API response:', interception.response.body.success);
+        const isCorrectAnswer = interception.response.body.success === 1;
+    
+        if (isCorrectAnswer) {
+          cy.contains("That's correct").should('be.visible');
+        } else {
+          cy.contains("That's incorrect").should('be.visible');
+        }
 
-                    // check if answer is incorrect
-                    cy.get('.col-sm-8 > div > .heading').then(($heading) => {
-                      const text = $heading.text();
-                      if (text.includes('incorrect')) {
-                        incorrectCount++;
-                        cy.log(incorrectCount)
-                      }
-                    });
-
-                    // handle Finish Quiz button or Next question button
-                    try {
-                      cy.contains('Next question').should('be.visible').click();
-                    } catch (error) {
-                      cy.contains('Finish Quiz').click();
-                    }
-                  }
-                })
-              }
-            })
-          })
-        })
-      }
-    })
-  })
-})
+        if (questionNumber === 5) {
+          cy.contains('Finish quiz').click();
+        } else {
+          cy.contains('Next question').click();
+        }
+    
+        const newTotalFailed = isCorrectAnswer ? totalFailed : totalFailed + 1;
+        const isFailed = newTotalFailed === 2;
+        const isCompleted = newTotalFailed < 2 && questionNumber === 5;
+    
+        if (isFailed) {
+          cy.contains('You did not pass').should('be.visible');
+        } else if (isCompleted) {
+          cy.contains('PASSED!').should('be.visible');
+        } else {
+          // we continue the loop recursively until the quiz is completed or failed
+          // using the new question number, and tracking the new totalFailed count
+          answerQuestion({ questionNumber: questionNumber + 1, totalFailed: newTotalFailed });
+        }
+      });
+    }
+  });
+});
