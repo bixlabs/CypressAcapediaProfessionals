@@ -10,21 +10,29 @@ describe('SignUp E2E Test', () => {
         cy.getByTestId('password').type(this.credentials.password)
 
         cy.contains('Sign up').click()
-
+        // TODO: we need a test-id here as we cannot get it by text value
         cy.get('[name=firstName]').type(this.credentials.firstName)
+        // TODO: we need a test-id here as we cannot get it by text value
         cy.get('[name=lastName]').type(this.credentials.lastName)
+        // TODO: we need a test-id here as we cannot get it by text value
         cy.get(('.v-select__selections')).as('degree').click()
         cy.contains('M.D').click()
         cy.contains('Continue').click()
 
+        // TODO: we need a test-id here as we cannot get it by text value
         cy.get('.text-left > .v-text-field--single-line > .v-input__control > .v-input__slot > .v-select__slot > .v-select__selections').as('selectMedicalBoard').click()
         cy.contains('American Board of Anesthesia').click()
+        // TODO: we need a test-id here as we cannot get it by text value
         cy.get('#boardId').type('123456')
+        // TODO: we need a test-id here as we cannot get it by text value
         cy.get('#input-90').as('dateBirth').click()
         cy.contains('28').click()
+        // TODO: we need a test-id here as we cannot get it by text value
         cy.get('.v-window-item--active > .mt-5 > :nth-child(1) > :nth-child(1) > :nth-child(2) > .container-actions > :nth-child(1) > .heading').as('Continue').click()
 
+        // TODO: we need a test-id here as we cannot get it by text value
         cy.get('#input-122').as('phone')
+        // TODO: we need a test-id here as we cannot get it by text value
         cy.get('@phone').type(this.credentials.phoneNumber)
         cy.contains('Send SMS').click()
 
@@ -34,6 +42,7 @@ describe('SignUp E2E Test', () => {
         }).as('register')
 
         cy.getByTestId('phoneCode').first().type('720021')
+        // TODO: we need a test-id here as we cannot get it by text value
         cy.get(':nth-child(3) > .row > .container-actions > :nth-child(1) > .heading').as('continue')
         cy.get('@continue').click()
 
@@ -41,6 +50,7 @@ describe('SignUp E2E Test', () => {
         .its('response.statusCode')
         .should('equal', 200)
 
+        // TODO: we need a test-id here as we cannot get it by text value
         cy.get('.onboarding-panel').should('exist')
 
     })

@@ -12,10 +12,13 @@ Cypress.Commands.add('registerAccount', ({
 
         cy.contains('Sign up').click()
 
+        // TODO: we need a test-id here as we cannot get it by text value
         cy.get('[name=firstName]').type(firstName)
+        // TODO: we need a test-id here as we cannot get it by text value
         cy.get('[name=lastName]').type(lastName)
         cy.contains('Continue').click()
 
+        // TODO: we need a test-id here as we cannot get it by text value
         cy.get('#input-66').as('phone')
         cy.get('@phone').type(phoneNumber)
         cy.contains('Send SMS').click()
@@ -26,6 +29,7 @@ Cypress.Commands.add('registerAccount', ({
         }).as('register')
 
         cy.getByTestId('phoneCode').first().type('375736')
+        // TODO: we need a test-id here as we cannot get it by text value
         cy.get(':nth-child(1) > .actions > :nth-child(1) > .heading').as('continue')
         cy.get('@continue').click()
 
@@ -33,6 +37,7 @@ Cypress.Commands.add('registerAccount', ({
         .its('response.statusCode')
         .should('equal', 200)
 
+        // TODO: we need a test-id here as we cannot get it by text value
         cy.get('.onboarding-panel').should('exist')
 
 })
@@ -53,5 +58,6 @@ Cypress.Commands.add('loginAccount', () => {
     .its('response.statusCode')
     .should('equal', 200)
 
+    // TODO: we need a test-id here as we cannot get it by text value
     cy.get('.text-decoration-none > .d-flex').as('.credit-box').should('exist')
 })

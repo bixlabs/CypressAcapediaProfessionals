@@ -27,7 +27,6 @@ describe('TakeQuiz', () => {
       cy.intercept('POST', '/api/article/quiz/question/answer').as('answerQuestion');
       cy.contains('Confirm answer').click();
       
-      let isCorrectAnswer;
       cy.wait('@answerQuestion').then((interception) => {
         cy.log('Answer API response:', interception.response.body.success);
         const isCorrectAnswer = interception.response.body.success === 1;
