@@ -2,7 +2,10 @@
   "scripts": {
     "cy:run:edge": "cypress run b- Edge",
     "cy:run:chrome": "cypress run b- Chrome",
-    "cy:run:firefox": "cypress run b- Firefox"
+    "cy:run:firefox": "cypress run b- Firefox",
+    "ci:test": "npm run cy:test",
+    "cy:test": "npm run cy:run --",
+    "cy:run": "cypress run"
   },
   "devDependencies": {
     "cypress": "^10.2.0",
