@@ -1,11 +1,13 @@
 {
+  "name": "qa-e2e-acapedia-professionals",
   "scripts": {
-    "cy:run:edge": "cypress run b- Edge",
-    "cy:run:chrome": "cypress run b- Chrome",
-    "cy:run:firefox": "cypress run b- Firefox",
     "ci:test": "npm run cy:test",
-    "cy:test": "npm run cy:run --",
-    "cy:run": "cypress run"
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:run:chrome": "npm run cy:run b- Chrome",
+    "cy:run:edge": "npm run cy:run b- Edge",
+    "cy:run:firefox": "npm run cy:run b- Firefox",
+    "cy:test": "npm run cy:run --"
   },
   "devDependencies": {
     "cypress": "^12.7.0",
