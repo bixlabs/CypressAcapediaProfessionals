@@ -39,7 +39,7 @@ describe('SignUp E2E Test', () => {
       .click();
 
     // TODO: we need a test-id here as we cannot get it by text value
-    cy.get('#input-122').as('phone');
+    cy.get('.field-background-white > .v-input__control > .v-input__slot > .v-text-field__slot > input').as('phone');
     // TODO: we need a test-id here as we cannot get it by text value
     cy.get('@phone').type(this.credentials.phoneNumber);
     cy.contains('Send SMS').click();
