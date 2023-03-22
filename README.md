@@ -1,6 +1,6 @@
 # Acapedia
 
-## How to run tests
+## How to run the tests
 
 ### #1 Run the tests by opening the Cypress UI
 -  Open the Cypress UI with the command:
