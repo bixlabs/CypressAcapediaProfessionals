@@ -30,7 +30,11 @@ describe('SignUp E2E Test', () => {
     cy.get('#boardId').type('123456');
     // TODO: we need a test-id here as we cannot get it by text value
     cy.getByTestId('boardDateOfBirdInput').click();
-    cy.contains('28').click();
+    cy.contains('2023').click();
+    cy.contains('2023').click();
+    cy.contains('1952').click();
+    cy.contains('May').click();
+    cy.contains('20').click();
     // TODO: we need a test-id here as we cannot get it by text value
     cy.get(
       '.v-window-item--active > .mt-5 > :nth-child(1) > :nth-child(1) > :nth-child(2) > .container-actions > :nth-child(1) > .heading',
@@ -49,7 +53,7 @@ describe('SignUp E2E Test', () => {
       url: '/api/register',
     }).as('register');
 
-    cy.getByTestId('phoneCode').first().type('720021');
+    cy.getByTestId('phoneCode').first().type('429866');
     // TODO: we need a test-id here as we cannot get it by text value
     cy.get(':nth-child(3) > .row > .container-actions > :nth-child(1) > .heading').as('continue');
     cy.get('@continue').click();
