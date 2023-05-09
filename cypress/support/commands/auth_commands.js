@@ -43,8 +43,8 @@ Cypress.Commands.add(
 
 Cypress.Commands.add('loginAccount', () => {
   cy.visit('/login');
-  cy.getByTestId('email').type('acabrera+demo98-free@bixlabs.com');
-  cy.getByTestId('password').type('2yEmok&5HP@Snc57');
+  cy.getByTestId('email').type('fresh-e2e-user@example.com');
+  cy.getByTestId('password').type('ew6nnwRc!s');
 
   cy.intercept({
     method: 'POST',
