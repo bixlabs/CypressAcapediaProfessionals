@@ -12,6 +12,7 @@ describe('TakeQuiz', () => {
     let answerIndex = 1;
     let questionNumber = 1;
     let totalQuizFailedQuestions = 0;
+    let correctQuestionsNumber = 0;
 
     // check that the question number is correct
     // TODO: we need a test-id here as we cannot get it by text value
@@ -28,24 +29,34 @@ describe('TakeQuiz', () => {
         const newFailedAnswerNumber = !isCorrectAnswer ? failedAnswerNumber + 1 : failedAnswerNumber;
         const maxQuestionAttempts = responseBody.maxAttempts;
 
+        correctQuestionsNumber = isCorrectAnswer ? correctQuestionsNumber + 1 : correctQuestionsNumber;
         totalQuizFailedQuestions = newFailedAnswerNumber === maxQuestionAttempts
           ? totalQuizFailedQuestions + 1
           : totalQuizFailedQuestions;
-        
-        const isFailedQuiz = totalQuizFailedQuestions === 2;
-        const isCompletedQuiz = !isFailedQuiz && questionNumber === 5;
+
+        const isFailedQuiz = totalQuizFailedQuestions === 2 || 
+          (
+            !isCorrectAnswer && 
+            questionNumber === 5 && 
+            correctQuestionsNumber < 4 && 
+            newFailedAnswerNumber === maxQuestionAttempts
+          );
+        const isPassedQuiz = !isFailedQuiz && 
+          isCorrectAnswer && 
+          questionNumber === 5 && 
+          correctQuestionsNumber >= 4;
 
         if (isFailedQuiz) {
           cy.contains('You did not pass').should('be.visible');
-        } else if (isCompletedQuiz) {
+        } else if (isPassedQuiz) {
           cy.contains('PASSED!').should('be.visible');
         } else {
-          handleAnswerResponse(isCorrectAnswer, newFailedAnswerNumber, maxQuestionAttempts);
+          verifyAnswerTaken(isCorrectAnswer, newFailedAnswerNumber, maxQuestionAttempts);
         }
       });
     }
 
-    function handleAnswerResponse(isCorrectAnswer, failedAnswerNumber, maxQuestionAttempts) {
+    function verifyAnswerTaken(isCorrectAnswer, failedAnswerNumber, maxQuestionAttempts) {
       if (isCorrectAnswer) {
         cy.contains("That's correct").should('be.visible');
         nextQuestion();
