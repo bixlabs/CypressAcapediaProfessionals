@@ -10,13 +10,17 @@ describe('SignUp E2E Test', () => {
     cy.getByTestId('password').type(this.credentials.password);
 
     cy.contains('Sign up').click();
-    // TODO: we need a test-id here as we cannot get it by text value
     cy.get('[name=firstName]').type(this.credentials.firstName);
-    // TODO: we need a test-id here as we cannot get it by text value
     cy.get('[name=lastName]').type(this.credentials.lastName);
-    // TODO: we need a test-id here as we cannot get it by text value
-    cy.get('.v-select__selections').as('degree').click();
+    cy.get('[name=degree]').parent().click();
     cy.contains('M.D').click();
+
+    cy.get('[name=stateOfPractice]').parent().click();
+    cy.contains('Alabama').click();
+
+    // click anywhere to close the states selector
+    cy.get('.v-application').click();
+
     cy.contains('Continue').click();
 
     // TODO: we need a test-id here as we cannot get it by text value
