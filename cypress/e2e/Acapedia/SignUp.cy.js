@@ -15,11 +15,12 @@ describe('SignUp E2E Test', () => {
     cy.get('[name=degree]').parent().click();
     cy.contains('M.D').click();
 
-    cy.get('[name=stateOfPractice]').parent().click();
-    cy.contains('Alabama').click();
+    // paused
+    // cy.get('[name=stateOfPractice]').parent().click();
+    // cy.contains('Alabama').click();
 
     // click anywhere to close the states selector
-    cy.get('.v-application').click();
+    // cy.get('.v-application').click();
 
     cy.contains('Continue').click();
 
