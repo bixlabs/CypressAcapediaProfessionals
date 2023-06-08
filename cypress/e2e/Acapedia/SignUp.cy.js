@@ -15,12 +15,6 @@ describe('SignUp E2E Test', () => {
     cy.get('[name=degree]').parent().click();
     cy.contains('M.D').click();
 
-    cy.get('[name=stateOfPractice]').parent().click();
-    cy.contains('Alabama').click();
-
-    // click anywhere to close the states selector
-    cy.get('.v-application').click();
-
     cy.contains('Continue').click();
 
     // TODO: we need a test-id here as we cannot get it by text value
