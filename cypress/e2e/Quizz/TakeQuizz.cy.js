@@ -16,6 +16,7 @@ describe('TakeQuiz', () => {
 
     // check that the question number is correct
     // TODO: we need a test-id here as we cannot get it by text value
+    // we are forcing a "click" only to prevent the cypress async
     cy.get('.question-number').contains(questionNumber).should('be.visible').click({ force: true });
     cy.intercept('POST', '/api/article/quiz/question/answer').as('answerQuestion');
 
@@ -74,6 +75,8 @@ describe('TakeQuiz', () => {
       cy.contains('Next question').click();
       questionNumber++;
       answerIndex = 1;
+      
+      // we are forcing a "click" only to prevent the cypress async
       cy.get('.question-number').contains(questionNumber).should('be.visible').click({ force: true });
       answerQuestion({ failedAnswerNumber: 0 });
     }
