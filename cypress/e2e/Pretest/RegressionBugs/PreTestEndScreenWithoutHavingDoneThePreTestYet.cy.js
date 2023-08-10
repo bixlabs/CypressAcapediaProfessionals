@@ -18,7 +18,7 @@ describe('Pre-test "End" screen without having done the pre-test yet', () => {
       },
     ).as('showPretest');
 
-    const articlesWithPretest = ['Effectiveness of COVID-19', 'Production of single cell protein from manure'];
+    const articlesWithPretest = ['Production of single cell protein from manure', 'Effectiveness of COVID-19'];
 
     cy.get('[name="search"]').type(`${articlesWithPretest[0]}{enter}`);
     cy.contains('Get CME').click();
