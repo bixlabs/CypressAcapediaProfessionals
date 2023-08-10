@@ -1,12 +1,12 @@
 // https://app.clickup.com/t/865cwxz4q
 
-describe('Pre-test "End" screen without having done the pre-test yet', () => {
+describe('Regression Bug: Pre-test "End" screen without having done the pre-test yet', () => {
   before(() => {
     cy.fixture('/auth/credentialsLogin').as('credentials');
     cy.loginAccount('@credentials');
   });
 
-  it('Can take a Pretest', () => {
+  it('should not show the "End" screen after completing a pre-test and starting a new one', () => {
     // Intercept the request to always show the pretest
     cy.intercept(
       {
