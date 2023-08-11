@@ -1,4 +1,4 @@
-describe('TakeQuiz', () => {
+describe('UTakeQuiz', () => {
   before(() => {
     cy.fixture('/auth/credentialsLogin').as('credentials');
     cy.loginAccount('@credentials');
@@ -30,21 +30,16 @@ describe('TakeQuiz', () => {
         const maxQuestionAttempts = responseBody.maxAttempts;
 
         correctQuestionsNumber = isCorrectAnswer ? correctQuestionsNumber + 1 : correctQuestionsNumber;
-        totalQuizFailedQuestions = newFailedAnswerNumber === maxQuestionAttempts
-          ? totalQuizFailedQuestions + 1
-          : totalQuizFailedQuestions;
+        totalQuizFailedQuestions =
+          newFailedAnswerNumber === maxQuestionAttempts ? totalQuizFailedQuestions + 1 : totalQuizFailedQuestions;
 
-        const isFailedQuiz = totalQuizFailedQuestions === 2 || 
-          (
-            !isCorrectAnswer && 
-            questionNumber === 5 && 
-            correctQuestionsNumber < 4 && 
-            newFailedAnswerNumber === maxQuestionAttempts
-          );
-        const isPassedQuiz = !isFailedQuiz && 
-          isCorrectAnswer && 
-          questionNumber === 5 && 
-          correctQuestionsNumber >= 4;
+        const isFailedQuiz =
+          totalQuizFailedQuestions === 2 ||
+          (!isCorrectAnswer &&
+            questionNumber === 5 &&
+            correctQuestionsNumber < 4 &&
+            newFailedAnswerNumber === maxQuestionAttempts);
+        const isPassedQuiz = !isFailedQuiz && isCorrectAnswer && questionNumber === 5 && correctQuestionsNumber >= 4;
 
         if (isFailedQuiz) {
           cy.contains('You did not pass').should('be.visible');
