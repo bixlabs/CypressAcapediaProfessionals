@@ -34,11 +34,8 @@ describe('Regression Bug: Pre-test "End" screen without having done the pre-test
 
     const firstOptionSelector = '.v-input--radio-group__input > :nth-child(1)';
     cy.get(firstOptionSelector).click();
-    cy.contains('Confirm answer').click();
     cy.get(firstOptionSelector).click();
-    cy.contains('Confirm answer').click();
     cy.get(firstOptionSelector).click();
-    cy.contains('Confirm answer').click();
     cy.contains('Read article and take quiz').click();
     cy.contains('Back to Feed').click();
 
@@ -71,11 +68,8 @@ describe('Regression Bug: Pre-test "End" screen without having done the pre-test
 
     const firstOptionSelector = '.v-input--radio-group__input > :nth-child(1)';
     cy.get(firstOptionSelector).click();
-    cy.contains('Confirm answer').click();
     cy.get(firstOptionSelector).click();
-    cy.contains('Confirm answer').click();
     cy.get(firstOptionSelector).click();
-    cy.contains('Confirm answer').click();
     cy.contains('Read article and take quiz').click();
     cy.contains('Back to Feed').click();
 
@@ -84,20 +78,14 @@ describe('Regression Bug: Pre-test "End" screen without having done the pre-test
     cy.contains('Next').click();
     cy.contains('Start pre-test').click();
     cy.get(firstOptionSelector).click();
-    cy.contains('Confirm answer').click();
     cy.get(firstOptionSelector).click();
-    cy.contains('Confirm answer').click();
     cy.get(firstOptionSelector).click();
-    cy.contains('Confirm answer').click();
 
-    cy.url().should('include', `/article/${articleSlugs[0]}`);
-    // wait for the url change to happen
-
-    // cy.get('.align-center > .heading').should('have.text', ' Thank you! ');
-    // cy.get('.descriptions').should(
-    //   'have.text',
-    //   'Now you can read the article, complete the post-test and get CME credit.',
-    // );
+    cy.get('.align-center > .heading').should('have.text', ' Thank you! ');
+    cy.get('.descriptions').should(
+      'have.text',
+      'Now you can read the article, complete the post-test and get CME credit.',
+    );
   });
 
   it('should show the overlay when returning to the results step of the pretest', () => {
@@ -121,13 +109,9 @@ describe('Regression Bug: Pre-test "End" screen without having done the pre-test
 
     const firstOptionSelector = '.v-input--radio-group__input > :nth-child(1)';
     cy.get(firstOptionSelector).click();
-    cy.contains('Confirm answer').click();
     cy.get(firstOptionSelector).click();
-    cy.contains('Confirm answer').click();
     cy.get(firstOptionSelector).click();
-    cy.contains('Confirm answer').click();
 
-    cy.url().should('include', `/article/${articleSlugs[0]}`);
     cy.get('.align-center > .heading').should('have.text', ' Thank you! ');
     cy.getByTestId('veil').should('be.visible');
   });
