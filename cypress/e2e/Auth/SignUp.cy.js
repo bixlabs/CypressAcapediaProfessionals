@@ -24,17 +24,11 @@ describe('SignUp E2E Test', () => {
       .as('selectMedicalBoard')
       .click();
     cy.contains('American Board of Anesthesia').click();
-    // TODO: we need a test-id here as we cannot get it by text value
     cy.get('#boardId').type('123456');
-    // TODO: we need a test-id here as we cannot get it by text value
     cy.getByTestId('boardDateOfBirdInput').click();
-    cy.contains('2023').click();
-    cy.contains('2023').click();
-    cy.contains('1952').click();
+    cy.contains('1991').click();
     cy.contains('May').click();
-
-    cy.get('.fade-transition-enter-active > .v-date-picker-table').as('datePickerTable');
-    cy.get('@datePickerTable').contains('20').click();
+    cy.contains('10').click();
 
     // TODO: we need a test-id here as we cannot get it by text value
     cy.get(
