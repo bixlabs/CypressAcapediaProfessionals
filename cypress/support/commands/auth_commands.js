@@ -1,26 +1,54 @@
+import { faker } from '@faker-js/faker';
+
 Cypress.Commands.add(
   'registerAccount',
-  ({
-    email = 'lguedes+600@bixlabs.com',
-    password = 'Ab1234567-',
-    firstName = 'Leonardo',
-    lastName = 'Guedes',
-    phoneNumber = '5612023378',
-  } = {}) => {
-    cy.visit('/register');
+  (
+    {
+      email = 'lguedes+600@bixlabs.com',
+      password = 'Ab1234567-',
+      firstName = 'Leonardo',
+      lastName = 'Guedes',
+      phoneNumber = faker.phone.number('6#########'),
+    } = {},
+    { hasToVisitUrl = true } = {},
+  ) => {
+    if (hasToVisitUrl) {
+      cy.visit('/register');
+    }
+
     cy.getByTestId('email').type(email);
     cy.getByTestId('password').type(password);
-
     cy.contains('Sign up').click();
 
-    // TODO: we need a test-id here as we cannot get it by text value
     cy.get('[name=firstName]').type(firstName);
-    // TODO: we need a test-id here as we cannot get it by text value
     cy.get('[name=lastName]').type(lastName);
+    cy.get('[name=degree]').parent().click();
+    cy.contains('M.D').click();
     cy.contains('Continue').click();
 
     // TODO: we need a test-id here as we cannot get it by text value
-    cy.get('#input-66').as('phone');
+    cy.get(
+      '.text-left > .v-text-field--single-line > .v-input__control > .v-input__slot > .v-select__slot > .v-select__selections',
+    )
+      .as('selectMedicalBoard')
+      .click();
+    cy.contains('American Board of Anesthesia').click();
+    cy.get('#boardId').type('123456');
+    cy.getByTestId('boardDateOfBirdInput').click();
+    cy.contains('1991').click();
+    cy.contains('May').click();
+    cy.contains('10').click();
+
+    // TODO: we need a test-id here as we cannot get it by text value
+    cy.get(
+      '.v-window-item--active > .mt-5 > :nth-child(1) > :nth-child(1) > :nth-child(2) > .container-actions > :nth-child(1) > .heading',
+    )
+      .as('Continue')
+      .click();
+
+    // TODO: we need a test-id here as we cannot get it by text value
+    cy.get('.field-background-white > .v-input__control > .v-input__slot > .v-text-field__slot > input').as('phone');
+    // TODO: we need a test-id here as we cannot get it by text value
     cy.get('@phone').type(phoneNumber);
     cy.contains('Send SMS').click();
 
@@ -29,9 +57,9 @@ Cypress.Commands.add(
       url: '/api/register',
     }).as('register');
 
-    cy.getByTestId('phoneCode').first().type('375736');
+    cy.getByTestId('phoneCode').first().type('429866');
     // TODO: we need a test-id here as we cannot get it by text value
-    cy.get(':nth-child(1) > .actions > :nth-child(1) > .heading').as('continue');
+    cy.get(':nth-child(3) > .row > .container-actions > :nth-child(1) > .heading').as('continue');
     cy.get('@continue').click();
 
     cy.wait('@register').its('response.statusCode').should('equal', 200);
