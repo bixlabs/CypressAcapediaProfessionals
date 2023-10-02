@@ -4,10 +4,10 @@ Cypress.Commands.add(
   'registerAccount',
   (
     {
-      email = 'lguedes+600@bixlabs.com',
+      email = faker.internet.email(),
       password = 'Ab1234567-',
-      firstName = 'Leonardo',
-      lastName = 'Guedes',
+      firstName = faker.name.firstName(),
+      lastName = faker.name.lastName(),
       phoneNumber = faker.phone.number('6#########'),
     } = {},
     { hasToVisitUrl = true } = {},

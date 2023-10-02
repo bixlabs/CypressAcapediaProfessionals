@@ -1,4 +1,4 @@
-describe('UTakeQuiz', () => {
+describe('UserTakeQuiz', () => {
   before(() => {
     cy.fixture('/auth/credentialsLogin').as('credentials');
     cy.loginAccount('@credentials');
