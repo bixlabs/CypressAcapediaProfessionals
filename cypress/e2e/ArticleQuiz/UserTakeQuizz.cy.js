@@ -77,4 +77,12 @@ describe('UserTakeQuiz', () => {
     // when the quiz is completed or failed, because of the async nature of Cypress
     answerQuestion({ failedAnswerNumber: 0 });
   });
+
+  it('Download transcript PDF', function () {
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('[class-name-for-credit-text="credit-number-state-awarded"]').click();
+    cy.get('.text-decoration-none > .d-flex > :nth-child(3)').click();
+    cy.get('.download-pdf-button > .heading > .v-btn__content').click();
+    /* ==== End Cypress Studio ==== */
+  });
 });
