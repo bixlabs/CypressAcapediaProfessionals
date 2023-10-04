@@ -1,4 +1,5 @@
 const { defineConfig } = require('cypress');
+const fs = require('fs');
 
 module.exports = defineConfig({
   projectId: 'c1jrzq',
@@ -10,13 +11,17 @@ module.exports = defineConfig({
     embeddedScreenshots: true,
     inlineAssets: true,
   },
-
   e2e: {
     baseUrl: 'https://develop-professionals.acapedia.com',
     defaultCommandTimeout: 20000,
     requestTimeout: 20000,
     setupNodeEvents(on, config) {
       require('cypress-mochawesome-reporter/plugin')(on);
+      on('task', {
+        downloads: (downloadspath) => {
+          return fs.readdirSync(downloadspath);
+        },
+      });
     },
     experimentalStudio: true,
     watchForFileChanges: false,

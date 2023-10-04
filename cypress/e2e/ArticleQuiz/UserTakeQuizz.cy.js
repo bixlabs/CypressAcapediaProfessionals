@@ -79,10 +79,14 @@ describe('UserTakeQuiz', () => {
   });
 
   it('Download transcript PDF', function () {
-    /* ==== Generated with Cypress Studio ==== */
-    cy.get('[class-name-for-credit-text="credit-number-state-awarded"]').click();
-    cy.get('.text-decoration-none > .d-flex > :nth-child(3)').click();
-    cy.get('.download-pdf-button > .heading > .v-btn__content').click();
-    /* ==== End Cypress Studio ==== */
+    cy.contains('CME credits').click();
+
+    cy.task('downloads', './cypress/downloads').then((before) => {
+      cy.contains('Download PDF').click();
+      cy.wait(2000);
+      cy.task('downloads', './cypress/downloads').then((after) => {
+        expect(after.length).to.be.greaterThan(before.length);
+      });
+    });
   });
 });
