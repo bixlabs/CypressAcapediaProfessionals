@@ -1,6 +1,6 @@
 describe('Smoke Tests', () => {
   const pages = [
-    { url: '/', element: 'Acapedia is where the brightest minds of the world come together' },
+    { url: '/', element: 'Fast. Relevant. All in one place' },
     { url: '/premium-courses', element: 'Boost your career, knowledge and learning with our exclusive content' },
     { url: '/special-requirements', element: 'Complete your special requirements with our exclusive content' },
     { url: '/login', element: 'Continue earning CME and MOC credits' },
