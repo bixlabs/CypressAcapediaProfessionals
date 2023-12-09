@@ -46,26 +46,20 @@ Cypress.Commands.add(
       .as('Continue')
       .click();
 
-    // TODO: we need a test-id here as we cannot get it by text value
-    cy.get('.field-background-white > .v-input__control > .v-input__slot > .v-text-field__slot > input').as('phone');
-    // TODO: we need a test-id here as we cannot get it by text value
-    cy.get('@phone').type(phoneNumber);
-    cy.contains('Send SMS').click();
-
     cy.intercept({
       method: 'POST',
       url: '/api/register',
     }).as('register');
 
-    cy.getByTestId('phoneCode').first().type('429866');
-    // TODO: we need a test-id here as we cannot get it by text value
-    cy.get(':nth-child(3) > .row > .container-actions > :nth-child(1) > .heading').as('continue');
-    cy.get('@continue').click();
-
     cy.wait('@register').its('response.statusCode').should('equal', 200);
 
     // TODO: we need a test-id here as we cannot get it by text value
     cy.get('.onboarding-panel').should('exist');
+    cy.contains('Select specialty').click();
+    cy.get('svg.clickable.mr-3.secondary--text').first().click({ force: true });
+    cy.contains('Continue').click();
+    cy.contains('Go to feed').click();
+    cy.get('.text-decoration-none > .d-flex').as('.credit-box').should('exist');
   },
 );
 

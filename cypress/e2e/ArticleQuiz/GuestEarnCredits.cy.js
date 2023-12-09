@@ -4,7 +4,7 @@ describe('GuestEarnCredits', () => {
   it('should add the ability to earn credits after sign up', () => {
     cy.visit('/');
 
-    const articleSlugs = ['firefighers-pfas-donations-trial', 'cmv-ebv-hhv6-pregnant-women-hiv-burkina-faso'];
+    const articleSlugs = ['427-Outcomes%20o', '399-Likelihood'];
 
     articleSlugs.forEach((slug, index) => {
       const isLastArticle = index === articleSlugs.length - 1;
