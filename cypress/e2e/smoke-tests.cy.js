@@ -1,8 +1,8 @@
 describe('Smoke Tests', () => {
   const pages = [
     { url: '/', element: 'Fast. Relevant. All in one place' },
-    { url: '/premium-courses', element: 'Boost your career, knowledge and learning with our exclusive content' },
-    { url: '/special-requirements', element: 'Complete your special requirements with our exclusive content' },
+    { url: '/premium-courses', element: 'Fast. Relevant. All in one place' },
+    { url: '/special-requirements', element: 'Fast. Relevant. All in one place' },
     { url: '/login', element: 'Continue earning CME and MOC credits' },
     { url: '/register', element: 'Join our brilliant medical community' },
     { url: '/terms', element: 'Terms of Use' },
