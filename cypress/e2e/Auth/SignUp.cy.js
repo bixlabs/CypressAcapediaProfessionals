@@ -45,9 +45,6 @@ describe('SignUp E2E Test', () => {
 
     // TODO: we need a test-id here as we cannot get it by text value
     cy.get('.onboarding-panel').should('exist');
-    cy.contains('Select specialty').click();
-    cy.get('svg.clickable.mr-3.secondary--text').first().click({ force: true });
-    cy.contains('Continue').click();
     cy.contains('Go to feed').click();
     cy.get('.text-decoration-none > .d-flex').as('.credit-box').should('exist');
   });
