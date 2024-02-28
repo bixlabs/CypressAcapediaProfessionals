@@ -1,0 +1,17 @@
+describe('UserDownloadTranscriptPDF', () => {
+  before(() => {
+    cy.fixture('/auth/credentialsLogin').as('credentials');
+    cy.loginAccount('@credentials');
+  });
+  it('Download transcript PDF', function () {
+    cy.contains('CME credits').click();
+
+    cy.task('downloads', './cypress/downloads').then((before) => {
+      cy.contains('Download PDF').click();
+      cy.wait(2000);
+      cy.task('downloads', './cypress/downloads').then((after) => {
+        expect(after.length).to.be.greaterThan(before.length);
+      });
+    });
+  });
+});

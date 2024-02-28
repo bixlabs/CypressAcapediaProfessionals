@@ -70,9 +70,29 @@ Cypress.Commands.add(
 );
 
 Cypress.Commands.add('loginAccount', () => {
+  
   cy.visit('/login');
   cy.getByTestId('email').type('fresh-e2e-user@example.com');
   cy.getByTestId('password').type('ew6nnwRc!s');
+
+  cy.intercept({
+    method: 'POST',
+    url: '/api/login',
+  }).as('login');
+
+  cy.contains('Log in').click();
+
+  cy.wait('@login').its('response.statusCode').should('equal', 200);
+
+  // TODO: we need a test-id here as we cannot get it by text value
+  cy.get('.text-decoration-none > .d-flex').as('.credit-box').should('exist');
+});
+
+Cypress.Commands.add('loginAccountFromFixture', (email, password) => {
+  
+  cy.visit('/login');
+  cy.getByTestId('email').type(email);
+  cy.getByTestId('password').type(password);
 
   cy.intercept({
     method: 'POST',
