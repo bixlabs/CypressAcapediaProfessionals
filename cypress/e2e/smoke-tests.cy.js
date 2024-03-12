@@ -10,7 +10,7 @@ describe('Smoke Tests', () => {
     { url: '/article/firefighers-pfas-donations-trial', element: 'Get CME' },
     {
       url: '/premium-courses/the-original-advanced-training-program-on-the-safe-of-use-of-fluoroscopy/abstract',
-      element: 'You need to have a paid account to access premium courses',
+      element: 'You need a paid account to access premium courses',
     },
   ];
 
