@@ -5,6 +5,7 @@ describe('UserTakeQuiz', () => {
   });
 
   it('Can take a Quiz', () => {
+    cy.visit('/');
     cy.contains('Get CME').click();
     cy.contains('Agree and start').click();
     cy.contains('Take quiz').click();

@@ -46,43 +46,37 @@ Cypress.Commands.add(
       .as('Continue')
       .click();
 
-    // TODO: we need a test-id here as we cannot get it by text value
-    cy.get('.field-background-white > .v-input__control > .v-input__slot > .v-text-field__slot > input').as('phone');
-    // TODO: we need a test-id here as we cannot get it by text value
-    cy.get('@phone').type(phoneNumber);
-    cy.contains('Send SMS').click();
-
     cy.intercept({
       method: 'POST',
       url: '/api/register',
     }).as('register');
 
-    cy.getByTestId('phoneCode').first().type('429866');
-    // TODO: we need a test-id here as we cannot get it by text value
-    cy.get(':nth-child(3) > .row > .container-actions > :nth-child(1) > .heading').as('continue');
-    cy.get('@continue').click();
-
     cy.wait('@register').its('response.statusCode').should('equal', 200);
 
     // TODO: we need a test-id here as we cannot get it by text value
     cy.get('.onboarding-panel').should('exist');
+    cy.contains('Go to feed').click();
+    cy.get('.text-decoration-none > .d-flex').as('.credit-box').should('exist');
   },
 );
 
 Cypress.Commands.add('loginAccount', () => {
-  cy.visit('/login');
-  cy.getByTestId('email').type('fresh-e2e-user@example.com');
-  cy.getByTestId('password').type('ew6nnwRc!s');
+  // TODO: make this dynamic
+  cy.session('fresh-e2e-user@example.com', () => {
+    cy.visit('/login');
+    cy.getByTestId('email').type('fresh-e2e-user@example.com');
+    cy.getByTestId('password').type('ew6nnwRc!s');
 
-  cy.intercept({
-    method: 'POST',
-    url: '/api/login',
-  }).as('login');
+    cy.intercept({
+      method: 'POST',
+      url: '/api/login',
+    }).as('login');
 
-  cy.contains('Log in').click();
+    cy.contains('Log in').click();
 
-  cy.wait('@login').its('response.statusCode').should('equal', 200);
+    cy.wait('@login').its('response.statusCode').should('equal', 200);
 
-  // TODO: we need a test-id here as we cannot get it by text value
-  cy.get('.text-decoration-none > .d-flex').as('.credit-box').should('exist');
+    // TODO: we need a test-id here as we cannot get it by text value
+    cy.get('.text-decoration-none > .d-flex').as('.credit-box').should('exist');
+  });
 });
