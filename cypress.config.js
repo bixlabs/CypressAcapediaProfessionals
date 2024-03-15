@@ -21,4 +21,8 @@ module.exports = defineConfig({
     experimentalStudio: true,
     watchForFileChanges: false,
   },
+  retries: {
+    runMode: 2,
+    openMode: 0,
+  },
 });
