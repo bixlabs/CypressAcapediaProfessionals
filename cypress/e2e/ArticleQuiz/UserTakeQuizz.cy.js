@@ -1,7 +1,7 @@
 describe('UserTakeQuiz', () => {
   before(() => {
     cy.fixture('/auth/credentialsLogin').as('credentials');
-    cy.loginAccount('@credentials');
+    cy.registerAccount();
   });
 
   it('Can take a Quiz', () => {
