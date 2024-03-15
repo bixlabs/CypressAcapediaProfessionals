@@ -1,3 +1,5 @@
+import { faker } from '@faker-js/faker';
+
 describe('SignUp E2E Test', () => {
   before(function () {
     cy.visit('/register');
@@ -6,12 +8,17 @@ describe('SignUp E2E Test', () => {
   });
 
   it('SignUp', function () {
-    cy.getByTestId('email').type(this.credentials.email);
-    cy.getByTestId('password').type(this.credentials.password);
+    const email = faker.internet.email();
+    const password = `Abc12345-`;
+    const firstName = faker.person.firstName();
+    const lastName = faker.person.lastName();
+
+    cy.getByTestId('email').type(email);
+    cy.getByTestId('password').type(password);
 
     cy.contains('Sign up').click();
-    cy.get('[name=firstName]').type(this.credentials.firstName);
-    cy.get('[name=lastName]').type(this.credentials.lastName);
+    cy.get('[name=firstName]').type(firstName);
+    cy.get('[name=lastName]').type(lastName);
     cy.get('[name=degree]').parent().click();
     cy.contains('M.D').click();
 
