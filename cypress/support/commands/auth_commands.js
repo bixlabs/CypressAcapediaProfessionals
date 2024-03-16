@@ -60,12 +60,11 @@ Cypress.Commands.add(
   },
 );
 
-Cypress.Commands.add('loginAccount', () => {
-  // TODO: make this dynamic
-  cy.session('fresh-e2e-user@example.com', () => {
+Cypress.Commands.add('loginAccount', ({ email, password } = {}) => {
+  cy.session(email, () => {
     cy.visit('/login');
-    cy.getByTestId('email').type('fresh-e2e-user@example.com');
-    cy.getByTestId('password').type('ew6nnwRc!s');
+    cy.getByTestId('email').type(email);
+    cy.getByTestId('password').type(password);
 
     cy.intercept({
       method: 'POST',
