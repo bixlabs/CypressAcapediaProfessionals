@@ -3,8 +3,9 @@
 
 describe('Transcript Page Copy Validation for Different User Types - Task 8687rxezx', () => {
   beforeEach(() => {
-    cy.fixture('/auth/credentialsLogin').as('credentials');
-    cy.loginAccount('@credentials');
+    cy.fixture('/auth/credentialsLogin').then((credentials) => {
+      cy.loginAccount(credentials);
+    });
   });
 
   describe('When User is on a Free Plan', () => {
