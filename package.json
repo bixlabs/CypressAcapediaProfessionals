@@ -10,6 +10,8 @@
     "cy:test": "npm run cy:run --"
   },
   "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^20.0.2",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
     "@faker-js/faker": "^8.0.2",
     "cypress": "^12.7.0",
     "cypress-file-upload": "^5.0.8",
