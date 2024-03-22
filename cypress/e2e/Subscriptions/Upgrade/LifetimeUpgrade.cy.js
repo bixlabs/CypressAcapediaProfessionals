@@ -1,4 +1,5 @@
-describe('Lifetime plan upgrade', () => {
+// TODO: enable this when enabling the MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED FF
+describe.skip('Lifetime plan upgrade', () => {
   before(() => {
     cy.registerAccount();
   });
