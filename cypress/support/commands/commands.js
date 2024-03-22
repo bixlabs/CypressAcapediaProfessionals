@@ -27,3 +27,26 @@ Cypress.Commands.add('cleanUpDB', () => {
 Cypress.Commands.add('seedDB', () => {
   cy.request('POST', '/api/testing/db/seed', { timeout: 15000 });
 });
+
+// Iframe commands taken from
+// https://www.mikefettes.com/blog/cypress-and-stripe-payments-testing
+Cypress.Commands.add('iframeLoaded', { prevSubject: 'element' }, ($iframe) => {
+  const contentWindow = $iframe.prop('contentWindow');
+  return new Promise((resolve) => {
+    if (contentWindow && contentWindow.document.readyState === 'complete') {
+      resolve(contentWindow);
+    } else {
+      $iframe.on('load', () => {
+        resolve(contentWindow);
+      });
+    }
+  });
+});
+
+Cypress.Commands.add('getInDocument', { prevSubject: 'document' }, (document, selector) =>
+  Cypress.$(selector, document),
+);
+
+Cypress.Commands.add('getWithinIframe', (targetElement) => {
+  return cy.get('iframe').iframeLoaded().its('document').getInDocument(targetElement);
+});

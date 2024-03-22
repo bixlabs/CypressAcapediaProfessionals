@@ -6,6 +6,7 @@ import createEsbuildPlugin from '@badeball/cypress-cucumber-preprocessor/esbuild
 module.exports = defineConfig({
   projectId: 'c1jrzq',
   reporter: 'cypress-mochawesome-reporter',
+  chromeWebSecurity: false,
   reporterOptions: {
     reportDir: 'cypress/reports',
     charts: true,
