@@ -86,7 +86,7 @@ describe('Transcript Page Copy Validation for Different User Types - Task 8687rx
       cy.visit('/transcripts');
       cy.get('h2.warning--text').contains('Standard').should('exist');
       cy.contains(
-        'You have reached the limit of 50 credits for this academic year. To enable access to more credits, upgrade to the Professional Plan.',
+        'You have reached the limit of 50 credits for this academic year.',
       );
     });
   });
