@@ -1,6 +1,8 @@
 // Test Suite for Validating Copy on Transcript Page for Different User Types
 // https://app.clickup.com/t/8687rxezx
 
+const MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED = false;
+
 describe('Transcript Page Copy Validation for Different User Types - Task 8687rxezx', () => {
   beforeEach(() => {
     cy.fixture('/auth/credentialsLogin').then((credentials) => {
@@ -11,9 +13,11 @@ describe('Transcript Page Copy Validation for Different User Types - Task 8687rx
   describe('When User is on a Free Plan', () => {
     it('should display the correct message for users without pending credits', () => {
       cy.visit('/transcripts');
-      cy.contains('Free Trial');
+      cy.contains(MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED ? 'Free plan' : 'Free Trial');
       cy.contains(
-        ' Free trials start with 5 FREE credits. You can earn additional FREE credits up to a maximum of 20 credits by making referrals. For each successful referral, you will earn an additional 5 FREE credits. ',
+        MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED 
+        ? ' The Free plan starts with 5 FREE credits. You can earn additional FREE credits up to a maximum of 20 credits by making referrals. For each successful referral, you will earn an additional 5 FREE credits. '
+        : ' Free trials start with 5 FREE credits. You can earn additional FREE credits up to a maximum of 20 credits by making referrals. For each successful referral, you will earn an additional 5 FREE credits. ',
       );
     });
 
@@ -27,9 +31,11 @@ describe('Transcript Page Copy Validation for Different User Types - Task 8687rx
       }).as('user');
 
       cy.visit('/transcripts');
-      cy.contains('Free Trial');
+      cy.contains(MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED ? 'Free plan' : 'Free Trial');
       cy.contains(
-        'You’ve hit your credit limit. You can get up to 20 credits with the Free Trial through referrals, or you can upgrade your plan.',
+        MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED
+        ? 'You’ve hit your credit limit. You can get up to 20 credits with the Free plan through referrals, or you can upgrade your plan.'
+        : 'You’ve hit your credit limit. You can get up to 20 credits with the Free Trial through referrals, or you can upgrade your plan.',
       );
     });
 
@@ -43,9 +49,11 @@ describe('Transcript Page Copy Validation for Different User Types - Task 8687rx
       }).as('user');
 
       cy.visit('/transcripts');
-      cy.contains('Free Trial');
+      cy.contains(MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED ? 'Free plan' : 'Free Trial');
       cy.contains(
-        'You have reached the limit of 20 total credits on the Free Trial. To enable access to more credits, upgrade to the Standard Plan.',
+        MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED
+        ? 'You have reached the limit of 20 total credits on the Free plan. To enable access to more credits, upgrade to the Standard Plan.'
+        : 'You have reached the limit of 20 total credits on the Free Trial. To enable access to more credits, upgrade to the Standard Plan.',
       );
     });
   });
