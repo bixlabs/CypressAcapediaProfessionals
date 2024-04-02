@@ -30,5 +30,5 @@ npm run cy:run:firefox
 ```
 Edge
 ```
-npm run cy:run:edge 
+npm run cy:run:edge
 ```
