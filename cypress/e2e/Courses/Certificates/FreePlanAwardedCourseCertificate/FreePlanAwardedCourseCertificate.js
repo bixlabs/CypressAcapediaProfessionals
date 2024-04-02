@@ -7,11 +7,11 @@ Given('a free plan user has some completed awarded premium courses', () => {
   });
 });
 
-Given('the user is not on an iOS mobile device', () => {
+Given('an iOS mobile device is not being used', () => {
   this.userAgent = undefined;
 });
 
-Given('the user is on an iOS mobile device', () => {
+Given('an iOS mobile device is being used', () => {
   const userAgent =
     'Mozilla/5.0 (iPhone; CPU iPhone OS 17_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/123.0.6312.52 Mobile/15E148 Safari/604.1';
   cy.viewport('iphone-6');
@@ -29,19 +29,15 @@ Given('the user is on an iOS mobile device', () => {
   });
 });
 
-Given('the user sees {string} for awarded courses', (awardedCallToActionText) => {
-  cy.contains(awardedCallToActionText).should('exist');
+Given('the call to action "Download certificate" is displayed to the user', () => {
+  cy.contains('Download certificate').should('exist');
 });
 
-When('the user clicks on "Download certificate"', () => {
+When('the user requests to "Download certificate"', () => {
   cy.contains('Download certificate').click();
 });
 
-When('the user clicks on "Upgrade for certificate"', () => {
-  cy.contains('Upgrade for certificate').click();
-});
-
-Given('the user has navigated to the premium courses page', () => {
+Given('the premium courses page has been navigated to', () => {
   const options = this.userAgent
     ? {
         onBeforeLoad: (win) => {
@@ -55,16 +51,20 @@ Given('the user has navigated to the premium courses page', () => {
   cy.visit('/premium-courses', options);
 });
 
-When('the user selects the Completed tab', () => {
+Given('the "Completed" tab is selected', () => {
+  cy.contains('Completed').click();
+});
+
+When('the user selects the "Completed" tab', () => {
   cy.intercept('GET', '/api/feed/premium-courses?enrollmentStatus=completed').as('completedCourses');
   cy.contains('Completed').click();
 });
 
-Then('the user should see {string} for awarded courses', (awardedCallToActionText) => {
+Then('the user should see the call to action "Download certificate" for awarded courses', () => {
   cy.wait('@completedCourses').then((interception) => {
     interception.response.body.data.forEach((course, index) => {
       if (course.isAwarded) {
-        cy.getByTestId('status-completed').eq(index).contains(awardedCallToActionText).should('exist');
+        cy.getByTestId('status-completed').eq(index).contains('Download certificate').should('exist');
       }
     });
   });
@@ -73,10 +73,6 @@ Then('the user should see {string} for awarded courses', (awardedCallToActionTex
 Then('the certificate should be downloaded successfully', () => {
   cy.contains('Download certificate').click();
   cy.readFile('./cypress/downloads/user_Course_Activity_Test_2_2024.pdf').should('exist');
-});
-
-Then('the user should be redirected to the my-plan page', () => {
-  cy.url().should('include', '/my-plan');
 });
 
 Given('the user navigates to the premium courses page', () => {
@@ -93,6 +89,6 @@ Then('the user should be advised to "Download the certificate from desktop"', ()
   cy.contains('Download the certificate from desktop').should('exist');
 });
 
-Then('should not see the option to "Download certificate"', () => {
+Then('should not see the call to action to "Download certificate"', () => {
   cy.contains('Download certificate').should('not.exist');
 });
