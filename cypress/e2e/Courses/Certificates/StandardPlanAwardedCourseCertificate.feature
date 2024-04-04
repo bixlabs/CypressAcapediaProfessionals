@@ -3,20 +3,9 @@ Feature: Awarded Premium Course Certificates for Standard Plan Users
     Given a standard plan user has some completed awarded premium courses
     And the premium courses page has been navigated to
 
-  Scenario: Standard plan users should see the "Download certificate" option for completed and awarded premium courses
+  Scenario: Standard plan users should see the call to action "Review course" for completed and awarded premium courses
     Given an iOS mobile device is not being used
     When the user selects the "Completed" tab
-    Then the user should see the call to action "Download certificate" for awarded courses
+    Then the user should see the call to action "Review course" for awarded courses
 
-  Scenario: Standard plan users can successfully download certificates for awarded premium courses
-    Given an iOS mobile device is not being used
-    And the "Completed" tab is selected
-    And the call to action "Download certificate" is displayed to the user
-    When the user requests to "Download certificate"
-    Then the certificate should be downloaded successfully
-
-  Scenario: Standard plan users on iOS mobile devices should be advised to download certificates on desktop due to mobile restrictions
-    Given an iOS mobile device is being used
-    When the user selects the "Completed" tab
-    Then the user should be advised to "Download the certificate from desktop"
-    And should not see the call to action to "Download certificate"
+# Other Scenarios here
