@@ -4,21 +4,17 @@ Feature: Awarded Premium Course Certificates for Standard Plan Users
     And the premium courses page has been navigated to
 
   Scenario: Standard plan users should see the call to action "Review course" for completed and awarded premium courses
-    Given an iOS mobile device is not being used
     When the user selects the "Completed" tab
     Then the user should see the call to action "Review course" for awarded courses
 
-  Scenario: Standard plan users can successfully go to "Review course"
-    Given an iOS mobile device is not used
+  Scenario: Standard plan users can successfully go to "Course overview" page for completed and awarded premium courses
     And the "Completed" tab is selected
     And the call to action "Review course" is displayed to the user
-    When the user click to "Review course"
-    Then the user should be taken to "Review course"
+    When the user requests to "Review course"
+    Then the user should be navigated to "Course overview" page
 
-  Scenario: Standard plan users can successfully download certificate
+  Scenario: Standard plan users can successfully download certificate for completed and awarded premium courses
     Given a standard plan users in the review course page
     And the call to action "Download certificate" is displayed to the user
     When the user requests to "Download certificate"
     Then the certificate should be downloaded successfully
-
-# Other Scenarios here
