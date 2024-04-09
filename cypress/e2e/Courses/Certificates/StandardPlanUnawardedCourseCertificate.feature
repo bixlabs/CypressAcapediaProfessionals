@@ -4,23 +4,22 @@ Feature: Unawarded Premium Course Certificates for Standard Plan Users
     And the premium courses page has been navigated to
 
   Scenario: Standard plan users should see the call to action "Review course" for completed and unawarded premium courses
-    Given an iOS mobile device is not being used
     When the user selects the "Completed" tab
-    Then the user should see for unawarded courses cards the warning style
+    Then the user should see a warning style for unawarded courses
     And should see the call to action "Review course"
 
-  Scenario: Standard plan users can successfully go to "Review course"
-    Given an iOS mobile device is not used
-    And the "Completed" tab is selected
-    And the user should see for unawarded courses cards the warning style
-    And the call to action "Review course" is displayed to the user
-    When the user click to "Review course"
-    Then the user should be taken to "Review course"
+  Scenario: Standard plan users can successfully go to "Course overview" page for completed and unawarded premium courses
+    Given the "Completed" tab is selected
+    When the user requests to "Review course"
+    Then the user should be navigated to "Course overview" page
 
-  Scenario: Standard plan users with unawarded course credits can not download certificate
-    Given a standard plan users in the review course page
-    And the call to action "Download certificate" is not displayed to the user
-    And the call to action "Upgrade" is displayed to the user
-    And shows a copy text alert explaining the situation to the user
-    When the user requests to "Upgrade"
-    Then the user should be taken to plans page
+  Scenario: Standard plan users with unawarded course credits can not download certificate for completed and unawarded premium courses
+    Given a standard plan user in the "Course overview" page
+    Then the call to action "Download certificate" is not displayed to the user
+    And the call to action "contact support" is displayed to the user
+    And shows a copy text encouraging to the user to contact support
+
+  Scenario: Standard plan users with unawarded course credits can contact support for completed and unawarded premium courses
+    Given a standard plan user in the "Course overview" page
+    When the user requests to "contact support"
+    Then the user should be navigated to the "Contact support" external page
