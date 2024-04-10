@@ -26,7 +26,7 @@ Given('the call to action "Review course" is displayed to the user', () => {
   });
 });
 
-Given('a standard plan users in the review course page', () => {
+Given('a standard plan user in the "Course overview" page', () => {
   cy.intercept('GET', '/api/feed/premium-courses?enrollmentStatus=completed').as('completedCourses');
   cy.contains('Completed').click();
   cy.wait('@completedCourses').then((interception) => {
