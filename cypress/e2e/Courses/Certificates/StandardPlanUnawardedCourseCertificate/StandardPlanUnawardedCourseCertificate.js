@@ -1,7 +1,7 @@
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('a standard plan user has some completed unawarded premium courses', () => {
-  cy.fixture('/Certificate/CourseCertificate/credentials').then((credentials) => {
+  cy.fixture('/Courses/Certificates/credentials').then((credentials) => {
     cy.log(credentials);
     cy.loginAccount(credentials.standard);
   });
@@ -29,7 +29,9 @@ Given('the call to action "contact support" is displayed to the user', () => {
 });
 
 Given('shows a copy text encouraging to the user to contact support', () => {
-  cy.contains('You have reached your CME limit. By completing this course, you are over the limit and cannot download the certificate until the next billing cycle. You can read articles, take another course or contact support to have your limit increased.').should('exist');
+  cy.contains(
+    'You have reached your CME limit. By completing this course, you are over the limit and cannot download the certificate until the next billing cycle. You can read articles, take another course or contact support to have your limit increased.',
+  ).should('exist');
 });
 
 When('the user selects the "Completed" tab', () => {
@@ -55,16 +57,14 @@ Then('the user should see a warning style for unawarded courses', () => {
   cy.wait('@completedCourses').then((interception) => {
     interception.response.body.data.forEach((course, index) => {
       if (!course.isAwarded) {
-        cy.getByTestId('status-completed').eq(index)
-        .contains('1/1')
-        .should('have.css', 'color', 'rgb(234, 120, 14)');
+        cy.getByTestId('status-completed').eq(index).contains('1/1').should('have.css', 'color', 'rgb(234, 120, 14)');
 
-        cy.getByTestId('progress-bar-warning').eq(index)
-        .should('exist');
+        cy.getByTestId('progress-bar-warning').eq(index).should('exist');
 
-        cy.getByTestId('status-completed').eq(index)
-        .contains('Review course')
-        .should('have.css', 'background-color', 'rgb(234, 120, 14)');
+        cy.getByTestId('status-completed')
+          .eq(index)
+          .contains('Review course')
+          .should('have.css', 'background-color', 'rgb(234, 120, 14)');
       }
     });
   });

@@ -1,7 +1,7 @@
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('a standard plan user has some completed awarded premium courses', () => {
-  cy.fixture('/Certificate/CourseCertificate/credentials').then((credentials) => {
+  cy.fixture('/Courses/Certificates/credentials').then((credentials) => {
     cy.log(credentials);
     cy.loginAccount(credentials.standard);
   });
