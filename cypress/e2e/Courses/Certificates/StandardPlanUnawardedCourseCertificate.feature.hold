@@ -1,3 +1,4 @@
+## when FF MILESTONE_PLANS_UPDATES_PART_ONE_ENABLED is activate please remove .hold extension from this file
 Feature: Unawarded Premium Course Certificates for Standard Plan Users
   Background:
     Given a standard plan user has some completed unawarded premium courses
