@@ -2,7 +2,6 @@ import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('a free plan user has some completed awarded premium courses', () => {
   cy.fixture('/Courses/Certificates/credentials').then((credentials) => {
-    cy.log(credentials);
     cy.loginAccount(credentials.free);
   });
 });
@@ -85,7 +84,7 @@ Given('the user navigates to the premium courses page', () => {
   });
 });
 
-Then('the user should be advised to "Download the certificate from desktop"', () => {
+Then('the user should be advised to download the certificate from desktop', () => {
   cy.contains('Download the certificate from desktop').should('exist');
 });
 
