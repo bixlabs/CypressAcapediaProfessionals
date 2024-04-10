@@ -18,5 +18,5 @@ Feature: Awarded Premium Course Certificates for Free Plan Users
   Scenario: Free plan users on iOS mobile devices should be advised to download certificates on desktop due to mobile restrictions
     Given an iOS mobile device is being used
     When the user selects the "Completed" tab
-    Then the user should be advised to "Download the certificate from desktop"
+    Then the user should be advised to download the certificate from desktop
     And should not see the call to action to "Download certificate"
