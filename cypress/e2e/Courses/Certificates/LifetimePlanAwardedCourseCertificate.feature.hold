@@ -1,3 +1,4 @@
+## when FF MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED is activate please remove .hold extension from this file
 Feature: Awarded Premium Course Certificates for Lifetime Plan Users
   Background:
     Given a lifetime plan user has some completed awarded premium courses
