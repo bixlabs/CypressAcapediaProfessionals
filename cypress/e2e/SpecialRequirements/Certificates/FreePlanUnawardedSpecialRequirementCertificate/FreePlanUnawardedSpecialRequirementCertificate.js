@@ -17,6 +17,7 @@ Given('the "Completed" tab is selected', () => {
 });
 
 When('the user selects the "Completed" tab', () => {
+  cy.intercept('GET', '/api/special-requirements/feed/completed').as('completedSpecialRequirements');
   cy.contains('Completed').click();
 
   // There is a weird situation that only happens in the e2e tests where
@@ -28,6 +29,39 @@ When('the user selects the "Completed" tab', () => {
 
 When('the user requests to "Upgrade for certificate"', () => {
   cy.contains('Upgrade for certificate').click();
+});
+
+Then('the user should see a warning style for unawarded special requirements', () => {
+  cy.wait('@completedSpecialRequirements').then((interception) => {
+    interception.response.body.data.forEach((specialRequirement, index) => {
+      // There is a bug in the value of the api response
+      const isAwarded = !specialRequirement.wasCompletedWithAllCreditsAwarded;
+
+      if (isAwarded) {
+        cy.getByTestId('status-completed').eq(index).contains('Download certificate').should('exist');
+      }
+    });
+  });
+
+  cy.wait('@completedSpecialRequirements').then((interception) => {
+    interception.response.body.data.forEach((specialRequirement, index) => {
+      // There is a bug in the value of the api response
+      const isAwarded = !specialRequirement.wasCompletedWithAllCreditsAwarded;
+
+      if (!isAwarded) {
+        const warningStyleColor = 'rgb(234, 120, 14)';
+
+        cy.getByTestId('status-completed').eq(index).contains('1/1').should('have.css', 'color', warningStyleColor);
+
+        cy.getByTestId('progress-bar-warning').eq(index).should('exist');
+
+        cy.getByTestId('status-completed')
+          .eq(index)
+          .contains('Upgrade for certificate')
+          .should('have.css', 'background-color', warningStyleColor);
+      }
+    });
+  });
 });
 
 Then('the user should see  the call to action "Upgrade for certificate" for unawarded special requirements', () => {

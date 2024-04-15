@@ -6,6 +6,7 @@ Feature: Unawarded Special Requirement Certificates for Free Plan Users
   Scenario: Free plan users should see the option to upgrade for unawarded special requirements
     When the user selects the "Completed" tab
     Then the user should see  the call to action "Upgrade for certificate" for unawarded special requirements
+    And the user should see a warning style for unawarded special requirements
 
   Scenario: Free plan users navigate to "My Plan" page when seeking an upgrade for certificate
     Given the "Completed" tab is selected
