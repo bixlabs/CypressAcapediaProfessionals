@@ -2,7 +2,6 @@ import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('a free plan user has some completed unawarded premium courses', () => {
   cy.fixture('/Courses/Certificates/credentials').then((credentials) => {
-    cy.log(credentials);
     cy.loginAccount(credentials.free);
   });
 });

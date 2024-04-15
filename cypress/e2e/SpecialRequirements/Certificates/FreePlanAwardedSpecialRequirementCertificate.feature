@@ -1,14 +1,14 @@
-Feature: Awarded Premium Course Certificates for Free Plan Users
+Feature: Awarded Special Requirement Certificates for Free Plan Users
   Background:
-    Given a free plan user has some completed awarded premium courses
-    And the premium courses page has been navigated to
+    Given a free plan user has some completed awarded special requirements
+    And the special requirements page has been navigated to
 
-  Scenario: Free plan users should see the "Download certificate" option for completed and awarded premium courses
+  Scenario: Free plan users should see the "Download certificate" option for completed and awarded special requirements
     Given an iOS mobile device is not being used
     When the user selects the "Completed" tab
-    Then the user should see the call to action "Download certificate" for awarded courses
+    Then the user should see the call to action "Download certificate" for awarded special requirements
 
-  Scenario: Free plan users can successfully download certificates for awarded premium courses
+  Scenario: Free plan users can successfully download certificates for awarded special requirements
     Given an iOS mobile device is not being used
     And the "Completed" tab is selected
     And the call to action "Download certificate" is displayed to the user
