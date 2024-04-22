@@ -1,7 +1,6 @@
 Feature: The user is required to complete their profile to see the transcripts
   Background:
     Given a registered user
-    And they have selected that they have a medical board.
     And they did not provide the required <MedicalBoardInformation>
 
   Scenario: user having empty board or date of birth details cannot access the transcript page
