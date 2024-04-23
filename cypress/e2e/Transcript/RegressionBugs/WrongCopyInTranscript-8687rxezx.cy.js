@@ -2,7 +2,7 @@
 // https://app.clickup.com/t/8687rxezx
 
 const MILESTONE_PLANS_UPDATES_PART_ONE_ENABLED = true;
-const MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED = false;
+const MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED = true;
 
 describe('Transcript Page Copy Validation for Different User Types - Task 8687rxezx', () => {
   beforeEach(() => {
