@@ -71,5 +71,5 @@ Then('the user should see the call to action "Review course" for awarded courses
 });
 
 Then('the certificate should be downloaded successfully', () => {
-  cy.readFile('./cypress/downloads/Testing_The_greatest_activity_of_all_the_time_2024.pdf').should('exist');
+  cy.readFile('./cypress/downloads/Course_Activity_Example_2024.pdf').should('exist');
 });
