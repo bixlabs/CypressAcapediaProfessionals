@@ -62,8 +62,15 @@ When('the user requests to "Download certificate"', () => {
 });
 
 Then('the certificate should be downloaded successfully', () => {
+  const filePath = './cypress/downloads/Cabrera_Controlled_Substances_Alaska_2024.pdf';
+
   cy.contains('Download certificate').click();
-  cy.readFile('./cypress/downloads/Cabrera_Controlled_Substances_Alaska_2024.pdf').should('exist');
+  cy.readFile(filePath).should('exist');
+
+  // delete created files after run to avoid false positives
+  cy.task('deleteFile', filePath).then(result => {
+    expect(result).to.be.null;
+  });
 });
 
 Then('the user should see the call to action "Download certificate" for awarded special requirements', () => {

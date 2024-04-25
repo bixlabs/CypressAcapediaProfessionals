@@ -70,8 +70,14 @@ Then('the user should see the call to action "Download certificate" for awarded 
 });
 
 Then('the certificate should be downloaded successfully', () => {
+  const filePath = './cypress/downloads/user_Course_Activity_Test_2_2024.pdf';
   cy.contains('Download certificate').click();
-  cy.readFile('./cypress/downloads/user_Course_Activity_Test_2_2024.pdf').should('exist');
+  cy.readFile(filePath).should('exist');
+
+    // delete created files after run to avoid false positives
+    cy.task('deleteFile', filePath).then(result => {
+      expect(result).to.be.null;
+    });
 });
 
 Given('the user navigates to the premium courses page', () => {

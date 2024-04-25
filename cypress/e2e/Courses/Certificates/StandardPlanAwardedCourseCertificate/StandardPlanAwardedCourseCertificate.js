@@ -70,5 +70,12 @@ Then('the user should see the call to action "Review course" for awarded courses
 });
 
 Then('the certificate should be downloaded successfully', () => {
-  cy.readFile('./cypress/downloads/Testing_The_greatest_activity_of_all_the_time_2024.pdf').should('exist');
+  const filePath = './cypress/downloads/Testing_The_greatest_activity_of_all_the_time_2024.pdf';
+
+  cy.readFile(filePath).should('exist');
+
+  // delete created files after run to avoid false positives
+  cy.task('deleteFile', filePath).then(result => {
+    expect(result).to.be.null;
+  });
 });
