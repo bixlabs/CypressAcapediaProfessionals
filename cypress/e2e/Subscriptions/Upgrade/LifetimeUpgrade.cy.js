@@ -8,7 +8,7 @@ describe('Lifetime plan upgrade', () => {
     cy.visit('/my-plan');
     cy.contains('Upgrade plan').click();
     cy.contains('Upgrade to Lifetime').click();
-    cy.contains('Proceed to checkout').click();
+    cy.getByTestId('upgrade-downgrade-button').click();
 
     cy.get('#chn').type('John Doe');
     cy.get('#card-holder-address').type('123 Main St');
