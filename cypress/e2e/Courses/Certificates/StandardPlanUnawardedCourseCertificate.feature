@@ -21,6 +21,5 @@ Feature: Unawarded Premium Course Certificates for Standard Plan Users
     And shows a copy text encouraging to the user to contact support
 
   Scenario: Standard plan users with unawarded course credits can contact support for completed and unawarded premium courses
-    Given a standard plan user in the "Course overview" page
-    When the user requests to "contact support"
-    Then the user should be navigated to the "Contact support" external page
+    When a standard plan user access the "Course overview" page
+    Then the user should see the "contact support" with a link to the external page

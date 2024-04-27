@@ -47,8 +47,9 @@ When('the user requests to "Review course"', () => {
   cy.getByTestId('status-completed').eq(0).contains('Review course').click();
 });
 
-When('the user requests to "contact support"', () => {
-  cy.get('a').contains('contact support').click();
+When('a standard plan user access the "Course overview" page', () => {
+  cy.contains('Completed').click();
+  cy.getByTestId('status-completed').eq(0).contains('Review course').click();
 });
 
 Then('the user should see a warning style for unawarded courses', () => {
@@ -73,7 +74,7 @@ Then('the user should be navigated to "Course overview" page', () => {
   cy.url().should('match', /\/premium-courses\/.+\/overview/);
 });
 
-Then('the user should be navigated to the "Contact support" external page', () => {
+Then('the user should see the "contact support" with a link to the external page', () => {
   // we can't test external pages thus only making sure that the link is correct should be enough
   cy.get('a')
     .contains('contact support')
