@@ -16,9 +16,9 @@ describe('Transcript Page Copy Validation for Different User Types - Task 8687rx
       cy.visit('/transcripts');
       cy.contains(MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED ? 'Free plan' : 'Free Trial');
       cy.contains(
-        MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED 
-        ? ' The Free plan starts with 5 FREE credits. You can earn additional FREE credits up to a maximum of 20 credits by making referrals. For each successful referral, you will earn an additional 5 FREE credits. '
-        : ' Free trials start with 5 FREE credits. You can earn additional FREE credits up to a maximum of 20 credits by making referrals. For each successful referral, you will earn an additional 5 FREE credits. '
+        MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED
+          ? ' The Free plan starts with 5 FREE credits. You can earn additional FREE credits up to a maximum of 20 credits by making referrals. For each successful referral, you will earn an additional 5 FREE credits. '
+          : ' Free trials start with 5 FREE credits. You can earn additional FREE credits up to a maximum of 20 credits by making referrals. For each successful referral, you will earn an additional 5 FREE credits. ',
       );
     });
 
@@ -32,11 +32,14 @@ describe('Transcript Page Copy Validation for Different User Types - Task 8687rx
       }).as('user');
 
       cy.visit('/transcripts');
+
+      cy.wait('@user');
+
       cy.contains(MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED ? 'Free plan' : 'Free Trial');
       cy.contains(
         MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED
-        ? 'You’ve hit your credit limit. You can get up to 20 credits with the Free plan through referrals, or you can upgrade your plan.'
-        : 'You’ve hit your credit limit. You can get up to 20 credits with the Free Trial through referrals, or you can upgrade your plan.'
+          ? 'You’ve hit your credit limit. You can get up to 20 credits with the Free plan through referrals, or you can upgrade your plan.'
+          : 'You’ve hit your credit limit. You can get up to 20 credits with the Free Trial through referrals, or you can upgrade your plan.',
       );
     });
 
@@ -50,11 +53,14 @@ describe('Transcript Page Copy Validation for Different User Types - Task 8687rx
       }).as('user');
 
       cy.visit('/transcripts');
+
+      cy.wait('@user');
+
       cy.contains(MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED ? 'Free plan' : 'Free Trial');
       cy.contains(
         MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED
-        ? 'You have reached the limit of 20 total credits on the Free plan. To enable access to more credits, upgrade to the Standard Plan.'
-        : 'You have reached the limit of 20 total credits on the Free Trial. To enable access to more credits, upgrade to the Standard Plan.'
+          ? 'You have reached the limit of 20 total credits on the Free plan. To enable access to more credits, upgrade to the Standard Plan.'
+          : 'You have reached the limit of 20 total credits on the Free Trial. To enable access to more credits, upgrade to the Standard Plan.',
       );
     });
   });
@@ -71,6 +77,9 @@ describe('Transcript Page Copy Validation for Different User Types - Task 8687rx
       }).as('user');
 
       cy.visit('/transcripts');
+
+      cy.wait('@user');
+
       cy.contains('Standard');
       cy.contains('Up to 50 CME credits until Mar 12, 2030');
     });
@@ -93,11 +102,14 @@ describe('Transcript Page Copy Validation for Different User Types - Task 8687rx
       }).as('user');
 
       cy.visit('/transcripts');
+
+      cy.wait('@user');
+
       cy.get('h2.warning--text').contains('Standard').should('exist');
       cy.contains(
-        MILESTONE_PLANS_UPDATES_PART_ONE_ENABLED 
-        ? 'You have reached the limit of 50 credits for this academic year.'
-        : 'You have reached the limit of 50 credits for this academic year. To enable access to more credits, upgrade to the Professional Plan.'
+        MILESTONE_PLANS_UPDATES_PART_ONE_ENABLED
+          ? 'You have reached the limit of 50 credits for this academic year.'
+          : 'You have reached the limit of 50 credits for this academic year. To enable access to more credits, upgrade to the Professional Plan.',
       );
     });
   });
@@ -114,6 +126,9 @@ describe('Transcript Page Copy Validation for Different User Types - Task 8687rx
       }).as('user');
 
       cy.visit('/transcripts');
+
+      cy.wait('@user');
+
       cy.contains('Professional');
       cy.contains('Up to 100 CME credits until Mar 12, 2032');
     });
@@ -136,6 +151,9 @@ describe('Transcript Page Copy Validation for Different User Types - Task 8687rx
       }).as('user');
 
       cy.visit('/transcripts');
+
+      cy.wait('@user');
+
       cy.get('h2.warning--text').contains('Professional').should('exist');
       cy.contains('You have reached the limit of 100 credits for this academic year.');
     });
