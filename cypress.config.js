@@ -1,5 +1,6 @@
 const { defineConfig } = require('cypress');
 const fs = require('fs');
+const path = require('path');
 import { addCucumberPreprocessorPlugin } from '@badeball/cypress-cucumber-preprocessor';
 import createBundler from '@bahmutov/cypress-esbuild-preprocessor';
 import createEsbuildPlugin from '@badeball/cypress-cucumber-preprocessor/esbuild';
@@ -33,9 +34,22 @@ module.exports = defineConfig({
           if (fs.existsSync(filePath)) {
             fs.unlinkSync(filePath);
             return null;
-          } else {
-            throw new Error('File does not exist');
           }
+        }
+      });
+
+      on('task', {
+        deleteAllFilesInFolder(folderPath) {
+          const files = fs.readdirSync(folderPath);
+
+          files.forEach(file => {
+            const filePath = path.join(folderPath, file);
+            if (fs.existsSync(filePath)) {
+              fs.unlinkSync(filePath);
+            }
+          });
+    
+          return null; 
         }
       });
 

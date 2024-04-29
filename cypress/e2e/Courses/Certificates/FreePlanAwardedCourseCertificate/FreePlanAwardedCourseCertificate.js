@@ -1,4 +1,12 @@
-import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
+
+BeforeAll(function () {
+  const folderPath = './cypress/downloads/';
+  // delete created any files before run to avoid false positives
+  cy.task('deleteAllFilesInFolder', folderPath).then(result => {
+    expect(result).to.be.null;
+  });
+});
 
 Given('a free plan user has some completed awarded premium courses', () => {
   cy.fixture('/Courses/Certificates/credentials').then((credentials) => {
@@ -73,11 +81,6 @@ Then('the certificate should be downloaded successfully', () => {
   const filePath = './cypress/downloads/user_Course_Activity_Test_2_2024.pdf';
   cy.contains('Download certificate').click();
   cy.readFile(filePath).should('exist');
-
-    // delete created files after run to avoid false positives
-    cy.task('deleteFile', filePath).then(result => {
-      expect(result).to.be.null;
-    });
 });
 
 Given('the user navigates to the premium courses page', () => {

@@ -1,4 +1,12 @@
-import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
+
+BeforeAll(function () {
+  const folderPath = './cypress/downloads/';
+  // delete created any files before run to avoid false positives
+  cy.task('deleteAllFilesInFolder', folderPath).then(result => {
+    expect(result).to.be.null;
+  });
+});
 
 Given('a standard plan user has some completed awarded special requirements', () => {
   cy.fixture('/SpecialRequirements/Certificates/credentials').then((credentials) => {
@@ -66,11 +74,6 @@ Then('the certificate should be downloaded successfully', () => {
 
   cy.contains('Download certificate').click();
   cy.readFile(filePath).should('exist');
-
-  // delete created files after run to avoid false positives
-  cy.task('deleteFile', filePath).then(result => {
-    expect(result).to.be.null;
-  });
 });
 
 Then('the user should see the call to action "Download certificate" for awarded special requirements', () => {
