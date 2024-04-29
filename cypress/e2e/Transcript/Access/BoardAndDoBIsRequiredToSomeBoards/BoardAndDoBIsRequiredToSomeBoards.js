@@ -1,4 +1,34 @@
-import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
+
+BeforeAll(function () {
+  // we need to reset to the initial status this test before everything
+  // boardId: 1
+  // boardNumber: ""
+  // dateOfBirth: ""
+  // degree: "M.D."
+  cy.fixture('/Transcripts/credentials').then((credentials) => {
+    cy.loginAccount(credentials.incompleteProfile);
+  });
+  cy.visit('/');
+  cy.wait(1000);
+
+  cy.get('body').then($body => {
+    if (!$body.find(':contains("Complete profile")').is(':visible')) {
+      cy.visit('/profile');
+      cy.contains('Edit info').click();
+      cy.wait(1000);
+      cy.intercept('PUT', '/api/user/boards', (req) => {
+        if (req.body) {
+          req.body.dateOfBirth = '';
+        }
+      }).as('requestModified');
+      cy.contains('Board ID').parents('.v-input').find('input').clear();
+      cy.contains('Confirm information').click();
+    }
+  });
+
+  cy.visit('/');
+});
 
 Given('a registered user', () => {
   cy.fixture('/Transcripts/credentials').then((credentials) => {
@@ -58,21 +88,4 @@ Given('the modal is blocking the transcript page behind', () => {
 Then('the modal is automatically closed and the transcript page is not blocked', () => {
   cy.getByTestId('veil').should('not.be.visible');
   cy.get('.aca-dialog-container').should('not.exist');
-
-  // we need to reset to the initial status this test after everything
-  // boardId: 1
-  // boardNumber: ""
-  // dateOfBirth: ""
-  // degree: "M.D."
-  cy.visit('/profile');
-  cy.contains('Edit info').click();
-  cy.wait(1000);
-  cy.intercept('PUT', '/api/user/boards', (req) => {
-    if (req.body) {
-      req.body.dateOfBirth = '';
-    }
-  }).as('requestModified');
-  cy.contains('Board ID').parents('.v-input').find('input').clear();
-  cy.contains('Confirm information').click();
-  cy.visit('/');
 });

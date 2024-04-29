@@ -13,6 +13,7 @@ Given('they provided the required <MedicalBoardInformation> if any', () => {
 });
 
 Given('the user has complete board details in its profile', () => {
+  // Simply to grab the menu options when they are visible or hidden (mobile version)
   cy.get('body').then($body => {
     if ($body.find(':contains("Account")').is(':visible')) {
       cy.contains('Account').parents('.menu-item').parent().click();
