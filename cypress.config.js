@@ -40,7 +40,8 @@ module.exports = defineConfig({
 
       on('task', {
         deleteAllFilesInFolder(folderPath) {
-          const files = fs.readdirSync(folderPath);
+          const dirPath = path.resolve(__dirname, folderPath);
+          const files = fs.readdirSync(dirPath);
 
           files.forEach(file => {
             const filePath = path.join(folderPath, file);
