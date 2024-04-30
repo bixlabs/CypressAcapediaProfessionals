@@ -10,7 +10,7 @@ BeforeAll(function () {
     cy.loginAccount(credentials.incompleteProfile);
   });
   cy.visit('/');
-  cy.wait(1000);
+  cy.wait(3000);
 
   cy.get('body').then($body => {
     if (!$body.find(':contains("Complete profile")').is(':visible')) {
