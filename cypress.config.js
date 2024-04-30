@@ -44,7 +44,7 @@ module.exports = defineConfig({
           const files = fs.readdirSync(dirPath);
 
           files.forEach(file => {
-            const filePath = path.join(folderPath, file);
+            const filePath = path.join(dirPath, file);
             if (fs.existsSync(filePath)) {
               fs.unlinkSync(filePath);
             }
