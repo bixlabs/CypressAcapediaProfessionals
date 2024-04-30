@@ -1,9 +1,9 @@
 import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 
 BeforeAll(function () {
-  const folderPath = 'cypress/downloads';
+  const filePath = './cypress/downloads/user_Course_Activity_Test_2_2024.pdf';
   // delete created any files before run to avoid false positives
-  cy.task('deleteAllFilesInFolder', folderPath).then(result => {
+  cy.task('deleteFile', filePath).then(result => {
     expect(result).to.be.null;
   });
 });

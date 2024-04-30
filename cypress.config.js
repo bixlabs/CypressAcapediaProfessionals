@@ -33,8 +33,9 @@ module.exports = defineConfig({
         deleteFile(filePath) {
           if (fs.existsSync(filePath)) {
             fs.unlinkSync(filePath);
-            return null;
           }
+
+          return null;
         }
       });
 
