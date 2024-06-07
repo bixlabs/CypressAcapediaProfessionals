@@ -37,11 +37,7 @@ describe('SignUp E2E Test', () => {
     cy.contains('10').click();
 
     // TODO: we need a test-id here as we cannot get it by text value
-    cy.get(
-      '.v-window-item--active > .mt-5 > :nth-child(1) > :nth-child(1) > :nth-child(2) > .container-actions > :nth-child(1) > .heading',
-    )
-      .as('Continue')
-      .click();
+    cy.contains('Continue').click({ force: true });
 
     cy.intercept({
       method: 'POST',

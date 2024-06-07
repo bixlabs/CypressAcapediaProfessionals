@@ -18,7 +18,7 @@ describe('Transcript Page Copy Validation for Different User Types - Task 8687rx
       cy.contains(MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED ? 'Free plan' : 'Free Trial');
       cy.contains(
         MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED
-          ? ' The Free plan starts with 5 FREE credits. You can earn additional FREE credits up to a maximum of 20 credits by making referrals. For each successful referral, you will earn an additional 5 FREE credits. '
+          ? ' The free plan starts with 5 free credits. You can earn additional free credits up to a maximum of 20 credits by making referrals. For each successful referral, you will earn an additional 5 free credits. '
           : ' Free trials start with 5 FREE credits. You can earn additional FREE credits up to a maximum of 20 credits by making referrals. For each successful referral, you will earn an additional 5 FREE credits. ',
       );
     });

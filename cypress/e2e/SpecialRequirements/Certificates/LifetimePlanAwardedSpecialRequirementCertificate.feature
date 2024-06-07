@@ -16,8 +16,9 @@ Feature: Awarded Special Requirement Certificates for Lifetime Plan Users
     When the user requests to "Download certificate"
     Then the certificate should be downloaded successfully
 
-  Scenario: Lifetime plan users on iOS mobile devices should be advised to download certificates on desktop due to mobile restrictions
-    Given an iOS mobile device is being used
-    When the user selects the "Completed" tab
-    Then the user should be advised to download the certificate from desktop
-    And should not see the call to action to "Download certificate"
+# TODO: To be removed with the FF FEATURE_NEW_SR_CERTIFICATE_PDF_ENABLED
+# Scenario: Lifetime plan users on iOS mobile devices should be advised to download certificates on desktop due to mobile restrictions
+#   Given an iOS mobile device is being used
+#   When the user selects the "Completed" tab
+#   Then the user should be advised to download the certificate from desktop
+#   And should not see the call to action to "Download certificate"
