@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker';
 const presets = ['iphone-x', 'macbook-13'];
 
 describe('SignUp E2E Test', () => {
-  before(function () {
+  beforeEach(function () {
     cy.visit('/register');
 
     cy.fixture('auth/credentialsSignup').as('credentials');
