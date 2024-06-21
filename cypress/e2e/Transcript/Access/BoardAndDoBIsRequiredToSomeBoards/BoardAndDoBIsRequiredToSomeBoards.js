@@ -1,8 +1,14 @@
 import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 
 BeforeAll(function () {
+  
   // we need to reset to the initial status this test before everything
-  cy.intercept('GET', '/api/user').as('getUser');
+  
+  // Trick to get the api base url from the request
+  let apiBaseUrl = 'http://localhost:8000';
+  cy.intercept('/api/user', (req) => {
+    apiBaseUrl = req.url.split('/api')[0];
+  }).as('getUser');
 
   cy.fixture('/Transcripts/credentials').then((credentials) => {
     cy.loginAccount(credentials.incompleteProfile);
@@ -11,10 +17,13 @@ BeforeAll(function () {
   cy.visit('/');
   cy.wait('@getUser');
 
+  
   cy.window().then((window) => {
+    cy.log('The api base url is ' + apiBaseUrl);
+
     cy.request({
       method: 'PUT',
-      url: 'http://localhost:8080/api/user/boards',
+      url: `${apiBaseUrl}/api/user/boards`,
       headers: {
         'content-type': 'application/json',
         accept: 'application/json',
