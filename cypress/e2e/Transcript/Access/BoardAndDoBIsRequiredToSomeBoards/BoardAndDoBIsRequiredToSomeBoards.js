@@ -2,32 +2,34 @@ import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preproc
 
 BeforeAll(function () {
   // we need to reset to the initial status this test before everything
-  // boardId: 1
-  // boardNumber: ""
-  // dateOfBirth: ""
-  // degree: "M.D."
+  cy.intercept('GET', '/api/user').as('getUser');
+
   cy.fixture('/Transcripts/credentials').then((credentials) => {
     cy.loginAccount(credentials.incompleteProfile);
   });
-  cy.visit('/');
-  cy.wait(3000);
 
-  cy.get('body').then($body => {
-    if (!$body.find(':contains("Complete profile")').is(':visible')) {
-      cy.visit('/profile');
-      cy.contains('Edit info').click();
-      cy.wait(1000);
-      cy.intercept('PUT', '/api/user/boards', (req) => {
-        if (req.body) {
-          req.body.dateOfBirth = '';
-        }
-      }).as('requestModified');
-      cy.contains('Board ID').parents('.v-input').find('input').clear();
-      cy.contains('Confirm information').click();
-    }
+  cy.visit('/');
+  cy.wait('@getUser');
+
+  cy.window().then((window) => {
+    cy.request({
+      method: 'PUT',
+      url: 'http://localhost:8080/api/user/boards',
+      headers: {
+        'content-type': 'application/json',
+        accept: 'application/json',
+        authorization: `Bearer ${window.localStorage.getItem('authToken')}`,
+      },
+      body: {
+        boardId: 1,
+        boardNumber: '',
+        dateOfBirth: '',
+        degree: 'M.D.',
+      },
+    }).then((response) => {
+      expect(response.status).to.eq(200);
+    });
   });
-
-  cy.visit('/');
 });
 
 Given('a registered user', () => {
