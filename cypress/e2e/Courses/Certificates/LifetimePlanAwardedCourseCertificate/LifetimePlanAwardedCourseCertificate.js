@@ -3,7 +3,7 @@ import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preproc
 BeforeAll(function () {
   const folderPath = './cypress/downloads/';
   // delete created any files before run to avoid false positives
-  cy.task('deleteAllFilesInFolder', folderPath).then(result => {
+  cy.task('deleteAllFilesInFolder', folderPath).then((result) => {
     expect(result).to.be.null;
   });
 });
@@ -51,6 +51,25 @@ Given('the call to action "Download certificate" is displayed to the user', () =
   cy.contains('Download certificate').should('exist');
 });
 
+Given('the "Course overview" page has been navigated to', () => {
+  cy.visit('/premium-courses/65/overview');
+});
+
+Given('the user has an incomplete profile', () => {
+  cy.intercept(
+    {
+      method: 'GET',
+      url: '/api/user/profile',
+    },
+    {
+      boardId: 1,
+      boardNumber: '',
+      dateOfBirth: '',
+      degree: 'M.D.',
+    },
+  );
+});
+
 When('the user selects the "Completed" tab', () => {
   cy.intercept('GET', '/api/feed/premium-courses?enrollmentStatus=completed').as('completedCourses');
   cy.contains('Completed').click();
@@ -82,4 +101,8 @@ Then('the certificate should be downloaded successfully', () => {
   const filePath = './cypress/downloads/Course_Activity_Example_2024.pdf';
 
   cy.readFile(filePath).should('exist');
+});
+
+Then('a modal is shown requiring the user to fill the missing profile details', () => {
+  cy.contains('Complete profile to get your credits').should('exist');
 });

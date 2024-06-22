@@ -15,6 +15,7 @@ Feature: Awarded Premium Course Certificates for Standard Plan Users
 
   Scenario: Standard plan users can successfully download certificate for completed and awarded premium courses
     Given a standard plan user has some completed awarded premium courses
+    # NOW: I think I break this as we have some previous stetps and we deleted the navigated that check with matches regex
     And the "Course overview" page has been navigated to
     And the call to action "Download certificate" is displayed to the user
     When the user requests to "Download certificate"
