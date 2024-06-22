@@ -3,7 +3,7 @@ import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preproc
 BeforeAll(function () {
   const folderPath = './cypress/downloads/';
   // delete created any files before run to avoid false positives
-  cy.task('deleteAllFilesInFolder', folderPath).then(result => {
+  cy.task('deleteAllFilesInFolder', folderPath).then((result) => {
     expect(result).to.be.null;
   });
 });
@@ -54,6 +54,21 @@ Given('an iOS mobile device is being used', () => {
   });
 });
 
+Given('the user has an incomplete profile', () => {
+  cy.intercept(
+    {
+      method: 'GET',
+      url: '/api/user/profile',
+    },
+    {
+      boardId: 1,
+      boardNumber: '',
+      dateOfBirth: '',
+      degree: 'M.D.',
+    },
+  );
+});
+
 When('the user selects the "Completed" tab', () => {
   cy.intercept('GET', '/api/special-requirements/feed/completed').as('completedSpecialRequirements');
   cy.contains('Completed').click();
@@ -95,4 +110,8 @@ Then('the user should be advised to download the certificate from desktop', () =
 
 Then('should not see the call to action to "Download certificate"', () => {
   cy.contains(/^Download certificate$/).should('not.exist');
+});
+
+Then('a modal is shown requiring the user to fill the missing profile details', () => {
+  cy.contains('Complete profile to get your credits').should('exist');
 });
