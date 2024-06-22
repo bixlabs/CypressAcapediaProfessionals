@@ -3,7 +3,7 @@ import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preproc
 BeforeAll(function () {
   const folderPath = './cypress/downloads/';
   // delete created any files before run to avoid false positives
-  cy.task('deleteAllFilesInFolder', folderPath).then(result => {
+  cy.task('deleteAllFilesInFolder', folderPath).then((result) => {
     expect(result).to.be.null;
   });
 });
@@ -33,21 +33,27 @@ Given('the call to action "Review course" is displayed to the user', () => {
   });
 });
 
-Given('a standard plan user in the "Course overview" page', () => {
-  cy.intercept('GET', '/api/feed/premium-courses?enrollmentStatus=completed').as('completedCourses');
-  cy.contains('Completed').click();
-  cy.wait('@completedCourses').then((interception) => {
-    interception.response.body.data.forEach((course, index) => {
-      if (course.isAwarded) {
-        cy.getByTestId('status-completed').eq(index).contains('Review course').click();
-      }
-    });
-  });
-  cy.url().should('match', /\/premium-courses\/.+\/overview/);
-});
-
 Given('the call to action "Download certificate" is displayed to the user', () => {
   cy.contains('Download certificate').should('exist');
+});
+
+Given('the user has an incomplete profile', () => {
+  cy.intercept(
+    {
+      method: 'GET',
+      url: '/api/user/profile',
+    },
+    {
+      boardId: 1,
+      boardNumber: '',
+      dateOfBirth: '',
+      degree: 'M.D.',
+    },
+  );
+});
+
+Given('the "Course overview" page has been navigated to', () => {
+  cy.visit('/premium-courses/63/overview');
 });
 
 When('the user selects the "Completed" tab', () => {
@@ -81,4 +87,8 @@ Then('the certificate should be downloaded successfully', () => {
   const filePath = './cypress/downloads/Testing_The_greatest_activity_of_all_the_time_2024.pdf';
 
   cy.readFile(filePath).should('exist');
+});
+
+Then('a modal is shown requiring the user to fill the missing profile details', () => {
+  cy.contains('Complete profile to get your credits').should('exist');
 });
