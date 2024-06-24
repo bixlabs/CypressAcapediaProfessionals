@@ -7,23 +7,39 @@ Given('a logged in user having an incomplete profile', function () {
   });
 });
 
-When('the user navigates to one of the following pages:', function (table) {
-  const rows = table.hashes();
-
-  cy.wrap(rows).each((row) => {
-    cy.visit(row['Page Path']).then(() => {
-      cy.get('main[data-booted="true"]').then(($main) => {
-        const notificationText = $main.find('.notification-banner-container').text();
-        const pageName = row['Page Name'];
-
-        this.notificationAppearanceResultPerPage.push({ pageName, notificationText });
-      });
-    });
+const addResultPerPage = (pageName) => {
+  cy.get('main[data-booted="true"]').then(function ($main) {
+    const notificationText = $main.find('.notification-banner-container').text();
+    this.notificationAppearanceResultPerPage.push({ pageName, notificationText });
   });
+};
+
+When('the user navigates to the Main Feed page', function (pageName) {
+  const pagePath = '/';
+
+  cy.visit(pagePath).then(() => addResultPerPage(pageName));
+});
+
+When('the user navigates to the Premium Courses Feed page', function (pageName) {
+  const pagePath = '/premium-courses';
+
+  cy.visit(pagePath).then(() => addResultPerPage(pageName));
+});
+
+When('the user navigates to the Topics page', function (pageName) {
+  const pagePath = '/special-requirements';
+
+  cy.visit(pagePath).then(() => addResultPerPage(pageName));
+});
+
+When('the user navigates to the Special Requirement Feed page', function (pageName) {
+  const pagePath = '/special-requirements/topics/controlled-substances/states/alaska/feed';
+
+  cy.visit(pagePath).then(() => addResultPerPage(pageName));
 });
 
 Then(
-  'each page should display a banner prompting the user to complete their profile to manage MOC and CME credits with the text {string}',
+  'the page should display a banner prompting the user to complete their profile to manage MOC and CME credits with the text {string}',
   function (expectedNotificationText) {
     cy.wrap(this.notificationAppearanceResultPerPage).each((notificationAppearance) => {
       expect(
