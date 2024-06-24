@@ -33,6 +33,19 @@ Given('the call to action "Review course" is displayed to the user', () => {
   });
 });
 
+Given('a standard plan user in the "Course overview" page', () => {
+  cy.intercept('GET', '/api/feed/premium-courses?enrollmentStatus=completed').as('completedCourses');
+  cy.contains('Completed').click();
+  cy.wait('@completedCourses').then((interception) => {
+    interception.response.body.data.forEach((course, index) => {
+      if (course.isAwarded) {
+        cy.getByTestId('status-completed').eq(index).contains('Review course').click();
+      }
+    });
+  });
+  cy.url().should('match', /\/premium-courses\/.+\/overview/);
+});
+
 Given('the call to action "Download certificate" is displayed to the user', () => {
   cy.contains('Download certificate').should('exist');
 });
