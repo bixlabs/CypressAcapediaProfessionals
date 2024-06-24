@@ -27,4 +27,4 @@ Feature: Awarded Premium Course Certificates for Lifetime Plan Users
     And the "Course overview" page has been navigated to
     And the call to action "Download certificate" is displayed to the user
     When the user requests to "Download certificate"
-    Then a modal is shown requiring the user to fill the missing profile details
+    Then a dialog is shown requiring the user to fill the missing profile details

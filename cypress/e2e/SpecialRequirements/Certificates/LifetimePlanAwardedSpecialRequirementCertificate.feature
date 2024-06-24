@@ -23,7 +23,7 @@ Feature: Awarded Special Requirement Certificates for Lifetime Plan Users
     And the "Completed" tab is selected
     And the call to action "Download certificate" is displayed to the user
     When the user requests to "Download certificate"
-    Then a modal is shown requiring the user to fill the missing profile details
+    Then a dialog is shown requiring the user to fill the missing profile details
 
 # TODO: To be removed with the FF FEATURE_NEW_SR_CERTIFICATE_PDF_ENABLED
 # Scenario: Lifetime plan users on iOS mobile devices should be advised to download certificates on desktop due to mobile restrictions
