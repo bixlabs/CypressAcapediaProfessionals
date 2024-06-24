@@ -88,7 +88,3 @@ Then('the certificate should be downloaded successfully', () => {
 
   cy.readFile(filePath).should('exist');
 });
-
-Then('a modal is shown requiring the user to fill the missing profile details', () => {
-  cy.contains('Complete profile to get your credits').should('exist');
-});

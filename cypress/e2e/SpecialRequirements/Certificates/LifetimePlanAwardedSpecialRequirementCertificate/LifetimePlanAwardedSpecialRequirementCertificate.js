@@ -121,7 +121,3 @@ Then('the user should be advised to download the certificate from desktop', () =
 Then('should not see the call to action to "Download certificate"', () => {
   cy.contains(/^Download certificate$/).should('not.exist');
 });
-
-Then('a modal is shown requiring the user to fill the missing profile details', () => {
-  cy.contains('Complete profile to get your credits').should('exist');
-});

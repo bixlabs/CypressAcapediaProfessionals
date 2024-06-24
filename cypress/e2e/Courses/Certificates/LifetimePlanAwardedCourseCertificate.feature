@@ -1,4 +1,3 @@
-## when FF MILESTONE_FREE_AND_LIFETIME_UPDATES_V2_ENABLED is activate please remove .hold extension from this file
 Feature: Awarded Premium Course Certificates for Lifetime Plan Users
   Scenario: Lifetime plan users should see the call to action "Review course" for completed and awarded premium courses
     Given a lifetime plan user has some completed awarded premium courses
@@ -17,7 +16,6 @@ Feature: Awarded Premium Course Certificates for Lifetime Plan Users
   Scenario: Lifetime plan users can successfully download certificate for completed and awarded premium courses
     Given a lifetime plan user has some completed awarded premium courses
     And the premium courses page has been navigated to
-    # NOW: weird this combinations, maybe reword this step
     And a lifetime plan user in the "Course overview" page
     And the call to action "Download certificate" is displayed to the user
     When the user requests to "Download certificate"
