@@ -1,29 +1,15 @@
 import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
 
 BeforeAll(function () {
-  
   // we need to reset to the initial status this test before everything
-  
-  // Trick to get the api base url from the request
-  let apiBaseUrl = 'http://localhost:8000';
-  cy.intercept('/api/user', (req) => {
-    apiBaseUrl = req.url.split('/api')[0];
-  }).as('getUser');
-
   cy.fixture('/Transcripts/credentials').then((credentials) => {
     cy.loginAccount(credentials.incompleteProfile);
   });
 
-  cy.visit('/');
-  cy.wait('@getUser');
-
-  
   cy.window().then((window) => {
-    cy.log('The api base url is ' + apiBaseUrl);
-
     cy.request({
       method: 'PUT',
-      url: `${apiBaseUrl}/api/user/boards`,
+      url: `${Cypress.env('API_BASE_URL')}/user/boards`,
       headers: {
         'content-type': 'application/json',
         accept: 'application/json',
@@ -61,13 +47,21 @@ Given('a user does not fill the board details required by their board selection'
 Given('the modal to fill the board details is shown', () => {
   cy.visit('/transcripts');
   cy.contains('Complete profile to get your credits').should('be.visible');
-  cy.contains('Board ID').parents('.v-input').find('input').invoke('val').then((inputValue) => {
-    expect(inputValue).to.be.equal('');
-  });
-  cy.contains('Date of Birth').parents('.v-input').find('input').invoke('val').then((inputValue) => {
-    // this is the empty value for that dob plugin we are using
-    expect(inputValue).to.be.equal('undefined/undefined/wn');
-  });
+  cy.contains('Board ID')
+    .parents('.v-input')
+    .find('input')
+    .invoke('val')
+    .then((inputValue) => {
+      expect(inputValue).to.be.equal('');
+    });
+  cy.contains('Date of Birth')
+    .parents('.v-input')
+    .find('input')
+    .invoke('val')
+    .then((inputValue) => {
+      // this is the empty value for that dob plugin we are using
+      expect(inputValue).to.be.equal('undefined/undefined/wn');
+    });
   cy.contains('Confirm information').parent().parent().find('.v-btn--disabled').should('exist');
 });
 
@@ -81,9 +75,7 @@ When('the user submits the missing board details', () => {
   cy.contains('Date of Birth').parents('.v-input').find('input').click();
   cy.contains('1990').click();
   cy.contains('Jan').click();
-  cy.get('.v-date-picker-header.theme--light').parent()
-  .find('.v-date-picker-table')
-  .contains('31').parent().click();
+  cy.get('.v-date-picker-header.theme--light').parent().find('.v-date-picker-table').contains('31').parent().click();
 
   cy.contains('Confirm information').parent().parent().click();
 });

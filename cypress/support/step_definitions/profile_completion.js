@@ -1,15 +1,10 @@
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 
 Given('the user has an incomplete profile', () => {
-  // NOW:
-  let apiBaseUrl = 'localhost:8080';
-
   cy.window().then((window) => {
-    cy.log('The api base url is ' + apiBaseUrl);
-
     cy.request({
       method: 'PUT',
-      url: `${apiBaseUrl}/api/user/boards`,
+      url: `${Cypress.env('API_BASE_URL')}/user/boards`,
       headers: {
         'content-type': 'application/json',
         accept: 'application/json',
@@ -28,15 +23,10 @@ Given('the user has an incomplete profile', () => {
 });
 
 Given('the user has a complete profile', () => {
-  // NOW:
-  let apiBaseUrl = 'localhost:8080';
-
   cy.window().then((window) => {
-    cy.log('The api base url is ' + apiBaseUrl);
-
     cy.request({
       method: 'PUT',
-      url: `${apiBaseUrl}/api/user/boards`,
+      url: `${Cypress.env('API_BASE_URL')}/user/boards`,
       headers: {
         'content-type': 'application/json',
         accept: 'application/json',
