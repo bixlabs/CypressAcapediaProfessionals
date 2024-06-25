@@ -1,6 +1,6 @@
-import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then, Before } from '@badeball/cypress-cucumber-preprocessor';
 
-BeforeAll(function () {
+Before(function () {
   const folderPath = './cypress/downloads/';
   // delete created any files before run to avoid false positives
   cy.task('deleteAllFilesInFolder', folderPath).then((result) => {
@@ -18,10 +18,6 @@ Given('the special requirements page has been navigated to', () => {
   cy.visit('/special-requirements');
 });
 
-Given('an iOS mobile device is not being used', () => {
-  this.userAgent = undefined;
-});
-
 Given('the "Completed" tab is selected', () => {
   cy.contains('Completed').click();
 
@@ -36,37 +32,17 @@ Given('the call to action "Download certificate" is displayed to the user', () =
   cy.contains('Download certificate').should('exist');
 });
 
-Given('an iOS mobile device is being used', () => {
-  const userAgent =
-    'Mozilla/5.0 (iPhone; CPU iPhone OS 17_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/123.0.6312.52 Mobile/15E148 Safari/604.1';
-  cy.viewport('iphone-6');
+Given('the certificate was requested to be downloaded', () => {
+  cy.visit('/special-requirements');
+  cy.contains('Completed').click();
 
-  // Cypress necessitates visiting a page to set a custom user agent. Given that our Gherkin background
-  // includes navigating to the premium courses page, we employ a workaround by revisiting the same page.
-  // This approach allows us to simulate the background navigation with the desired user agent in place,
-  // ensuring the user agent is effectively set for subsequent tests.
-  cy.visit('/special-requirements', {
-    onBeforeLoad: (win) => {
-      Object.defineProperty(win.navigator, 'userAgent', {
-        value: userAgent,
-      });
-    },
-  });
-});
+  // There is a weird situation that only happens in the e2e tests where
+  // after clicking the first time the tab is moved quickly to the Topics tab
+  // so we need to re-click the Completed tab
+  cy.wait(100);
 
-Given('the user has an incomplete profile', () => {
-  cy.intercept(
-    {
-      method: 'GET',
-      url: '/api/user/profile',
-    },
-    {
-      boardId: 1,
-      boardNumber: '',
-      dateOfBirth: '',
-      degree: 'M.D.',
-    },
-  );
+  cy.contains('Completed').click();
+  cy.contains('Download certificate').click();
 });
 
 When('the user selects the "Completed" tab', () => {
@@ -110,4 +86,21 @@ Then('the user should be advised to download the certificate from desktop', () =
 
 Then('should not see the call to action to "Download certificate"', () => {
   cy.contains(/^Download certificate$/).should('not.exist');
+});
+
+Then('the special requirements page is still displayed in the background', () => {
+  cy.url().should('match', /\/special-requirements/);
+});
+
+Then('the special requirements page is still displayed', () => {
+  cy.url().should('match', /\/special-requirements/);
+});
+
+Then('the user will need to click again to download the certificate', () => {
+  const filePath = './cypress/downloads/SR_standard_Controlled_Substances_Alaska_2024.pdf';
+  cy.readFile(filePath).should('not.exist');
+
+  cy.contains('Download certificate').click();
+  cy.contains('Complete profile to get your credits').should('not.exist');
+  cy.readFile(filePath).should('exist');
 });
