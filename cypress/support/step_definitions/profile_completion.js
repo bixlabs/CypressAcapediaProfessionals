@@ -45,18 +45,30 @@ Given('the user has a complete profile', () => {
 });
 
 Given('the complete profile dialogue is displayed', () => {
-  cy.contains('Complete profile to get your credits').should('exist');
+  cy.isFeatureFlagEnabled('MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED').then((isEnabled) => {
+    if (isEnabled) {
+      cy.contains('Complete profile to get your credits').should('exist');
+    } else {
+      cy.log('Feature flag MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED is disabled, skipping');
+    }
+  });
 });
 
 When('the user completes the profile from the complete profile dialogue', () => {
-  cy.contains('Board ID').parents('.v-input').find('input').type('12345');
+  cy.isFeatureFlagEnabled('MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED').then((isEnabled) => {
+    if (isEnabled) {
+      cy.contains('Board ID').parents('.v-input').find('input').type('12345');
 
-  cy.contains('Date of Birth').parents('.v-input').find('input').click();
-  cy.get('.v-date-picker-years').contains('1990').click();
-  cy.get('.v-date-picker-table').contains('Jan').click();
-  cy.get('.v-date-picker-table').contains('31').click();
+      cy.contains('Date of Birth').parents('.v-input').find('input').click();
+      cy.get('.v-date-picker-years').contains('1990').click();
+      cy.get('.v-date-picker-table').contains('Jan').click();
+      cy.get('.v-date-picker-table').contains('31').click();
 
-  cy.contains('Confirm information').click();
+      cy.contains('Confirm information').click();
+    } else {
+      cy.log('Feature flag MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED is disabled, skipping');
+    }
+  });
 });
 
 Then('the complete profile dialog is shown requiring the user to fill the missing profile details', () => {
@@ -64,7 +76,7 @@ Then('the complete profile dialog is shown requiring the user to fill the missin
     if (isEnabled) {
       cy.contains('Complete profile to get your credits').should('exist');
     } else {
-      cy.log('Feature flag MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED is disabled, skipping assertion');
+      cy.log('Feature flag MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED is disabled, skipping');
     }
   });
 });
