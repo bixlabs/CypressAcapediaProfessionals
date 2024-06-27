@@ -25,18 +25,9 @@ Given('the user has complete board details in its profile', () => {
     }
   });
 
-  cy.get('#boardId')
-    .invoke('val')
-    .then((inputValue) => {
-      expect(inputValue).to.not.be.null;
-      expect(inputValue).to.not.equal('');
-    });
-  cy.get('#dateOfBirth')
-    .invoke('val')
-    .then((inputValue) => {
-      expect(inputValue).to.not.be.null;
-      expect(inputValue).to.not.equal('');
-    });
+  cy.contains('Board ID').siblings().first().invoke('text').should('not.be.empty');
+  cy.contains('Date of Birth').siblings().first().invoke('text').should('not.be.empty');
+
   // once we double check board details and that we can actually go to profile page then we go back to main page
   cy.visit('/');
 });
