@@ -47,16 +47,12 @@ Given('a user does not fill the board details required by their board selection'
 Given('the modal to fill the board details is shown', () => {
   cy.visit('/transcripts');
   cy.contains('Complete profile to get your credits').should('be.visible');
-  cy.contains('Board ID')
-    .parents('.v-input')
-    .find('input')
+  cy.get('#boardId')
     .invoke('val')
     .then((inputValue) => {
       expect(inputValue).to.be.equal('');
     });
-  cy.contains('Date of Birth')
-    .parents('.v-input')
-    .find('input')
+  cy.get('#dateOfBirth')
     .invoke('val')
     .then((inputValue) => {
       // this is the empty value for that dob plugin we are using
@@ -70,9 +66,9 @@ When('the user tries to access the transcripts page', () => {
 });
 
 When('the user submits the missing board details', () => {
-  cy.contains('Board ID').parents('.v-input').find('input').type('12345');
+  cy.get('#boardId').type('12345');
 
-  cy.contains('Date of Birth').parents('.v-input').find('input').click();
+  cy.get('#dateOfBirth').click();
   cy.contains('1990').click();
   cy.contains('Jan').click();
   cy.get('.v-date-picker-header.theme--light').parent().find('.v-date-picker-table').contains('31').parent().click();

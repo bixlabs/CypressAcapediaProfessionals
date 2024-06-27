@@ -57,9 +57,9 @@ Given('the complete profile dialogue is displayed', () => {
 When('the user completes the profile from the complete profile dialogue', () => {
   cy.isFeatureFlagEnabled('MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED').then((isEnabled) => {
     if (isEnabled) {
-      cy.contains('Board ID').parents('.v-input').find('input').type('12345');
+      cy.get('#boardId').type('12345');
 
-      cy.contains('Date of Birth').parents('.v-input').find('input').click();
+      cy.get('#dateOfBirth').click();
       cy.get('.v-date-picker-years').contains('1990').click();
       cy.get('.v-date-picker-table').contains('Jan').click();
       cy.get('.v-date-picker-table').contains('31').click();
