@@ -1,9 +1,9 @@
-import { Given, When, Then, BeforeAll } from '@badeball/cypress-cucumber-preprocessor';
+import { Given, When, Then, Before } from '@badeball/cypress-cucumber-preprocessor';
 
-BeforeAll(function () {
+Before(function () {
   const folderPath = './cypress/downloads/';
   // delete created any files before run to avoid false positives
-  cy.task('deleteAllFilesInFolder', folderPath).then(result => {
+  cy.task('deleteAllFilesInFolder', folderPath).then((result) => {
     expect(result).to.be.null;
   });
 });
@@ -51,6 +51,15 @@ Given('the call to action "Download certificate" is displayed to the user', () =
   cy.contains('Download certificate').should('exist');
 });
 
+Given('the "Course overview" page has been navigated to', () => {
+  cy.visit('/premium-courses/65/overview');
+});
+
+Given('the certificate was requested to be downloaded', () => {
+  cy.visit('/premium-courses/65/overview');
+  cy.contains('Download certificate').click();
+});
+
 When('the user selects the "Completed" tab', () => {
   cy.intercept('GET', '/api/feed/premium-courses?enrollmentStatus=completed').as('completedCourses');
   cy.contains('Completed').click();
@@ -81,5 +90,22 @@ Then('the user should see the call to action "Review course" for awarded courses
 Then('the certificate should be downloaded successfully', () => {
   const filePath = './cypress/downloads/Course_Activity_Example_2024.pdf';
 
+  cy.readFile(filePath).should('exist');
+});
+
+Then('the "Course overview" page is still displayed in the background', () => {
+  cy.url().should('match', /\/premium-courses\/.+\/overview/);
+});
+
+Then('the "Course overview" page is still displayed', () => {
+  cy.url().should('match', /\/premium-courses\/.+\/overview/);
+});
+
+Then('the user will need to click again to download the certificate', () => {
+  const filePath = './cypress/downloads/Course_Activity_Example_2024.pdf';
+  cy.readFile(filePath).should('not.exist');
+
+  cy.contains('Download certificate').click();
+  cy.contains('Complete profile to get your credits').should('not.exist');
   cy.readFile(filePath).should('exist');
 });

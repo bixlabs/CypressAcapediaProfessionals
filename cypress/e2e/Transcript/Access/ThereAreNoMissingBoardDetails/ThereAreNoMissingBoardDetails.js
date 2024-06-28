@@ -14,7 +14,7 @@ Given('they provided the required <MedicalBoardInformation> if any', () => {
 
 Given('the user has complete board details in its profile', () => {
   // Simply to grab the menu options when they are visible or hidden (mobile version)
-  cy.get('body').then($body => {
+  cy.get('body').then(($body) => {
     if ($body.find(':contains("Account")').is(':visible')) {
       cy.contains('Account').parents('.menu-item').parent().click();
       cy.contains('Profile').parents('.menu-item').click();
@@ -25,14 +25,9 @@ Given('the user has complete board details in its profile', () => {
     }
   });
 
-  cy.contains('Board ID').parents('.v-input').find('input').invoke('val').then((inputValue) => {
-    expect(inputValue).to.not.be.null;
-    expect(inputValue).to.not.equal('');
-  });
-  cy.contains('Date of Birth').parents('.v-input').find('input').invoke('val').then((inputValue) => {
-    expect(inputValue).to.not.be.null;
-    expect(inputValue).to.not.equal('');
-  });
+  cy.contains('Board ID').siblings().first().invoke('text').should('not.be.empty');
+  cy.contains('Date of Birth').siblings().first().invoke('text').should('not.be.empty');
+
   // once we double check board details and that we can actually go to profile page then we go back to main page
   cy.visit('/');
 });

@@ -2,33 +2,34 @@
 
 ## How to run the tests
 
-### #1 Run the tests by opening the Cypress UI
--  Open the Cypress UI with the command:
-```
-npx cypress open
-```
--  Select the E2E Testing option
--  Select the browser
--  Select the Test to run
+// TODO
 
-### #2 Run all tests from the command line
+### Using Feature Flags
+
+#### Example of Use: Check if a Feature Flag is Enabled
+
+This example demonstrates how to use the custom Cypress command to check the enablement status of a feature flag within your tests. We use a string to specify the feature flag instead of a constant because importing JS in files handled by the Cucumber preprocessor can lead to the preprocessor not responding to changes made in the file. Using a direct string avoids this issue and ensures more stable behavior.
+
+```javascript
+cy.isFeatureFlagEnabled('MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED').then((isEnabled) => {
+  if (isEnabled) {
+    cy.contains('Complete profile to get your credits').should('exist');
+  } else {
+    cy.log('Feature flag MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED is disabled, skipping assertion');
+  }
+});
 ```
-npx cypress run
-```
-### #3 Select the test to run from the command line
-```
-npx cypress run --spec "cypress/e2e/Quizz/TakeQuizz.cy.js" 
-```
-### #4 Select the browser to run the tests from the command line
-Chrome
-```
-npm run cy:run:chrome 
-```
-Firefox
-```
-npm run cy:run:firefox 
-```
-Edge
-```
-npm run cy:run:edge
-```
+
+### Troubleshooting
+
+#### Issue: Changes Not Reflecting in Tests
+
+While working with our Cucumber preprocessor, you might encounter an issue where changes made to `.feature` files or `.js` scripts are not reflected when running the tests. This problem seems to occur intermittently and the exact cause is currently under investigation.
+
+[Issue Link](https://github.com/cypress-io/cypress/issues/19423)
+
+##### Temporary Solution
+
+If you face this issue, try the following workaround:
+
+- **Create a New File**: Copy the contents of the affected file into a new file with a slightly different name. This can sometimes help in getting the changes to be picked up by the testing framework (or at least to confirm that we are not getting crazy).
