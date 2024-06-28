@@ -2,7 +2,7 @@
 // import { slowCypressDown } from 'cypress-slow-down';
 // slowCypressDown();
 
-// import { getFeatureFlagProvider } from '../../featureFlagProvider';
+import { getFeatureFlagProvider } from '../../featureFlagProvider';
 
 Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe, selector) => {
   Cypress.log({
@@ -53,6 +53,6 @@ Cypress.Commands.add('getWithinIframe', (targetElement) => {
   return cy.get('iframe').iframeLoaded().its('document').getInDocument(targetElement);
 });
 
-// Cypress.Commands.add('isFeatureFlagEnabled', (featureFlag) => {
-//   return cy.wrap(getFeatureFlagProvider().isFeatureEnabled(featureFlag));
-// });
+Cypress.Commands.add('isFeatureFlagEnabled', (featureFlag) => {
+  return cy.wrap(getFeatureFlagProvider().isFeatureEnabled(featureFlag));
+});

@@ -11,7 +11,7 @@ Given('the authenticated user has a free account', function () {
     req.continue((res) => {
       res.body.hasActivePaidSubscription = false;
     });
-  }).as('user');
+  });
 
   cy.fixture('/common/credentials').then((credentials) => {
     cy.loginAccount(credentials.incompleteProfile);
@@ -45,7 +45,7 @@ Given('the authenticated user has a paid account', function () {
       res.body.status = 'active';
       res.body.endAt = '2030/03/12';
     });
-  }).as('user');
+  });
 
   cy.fixture('/common/credentials').then((credentials) => {
     cy.loginAccount(credentials.incompleteProfile);
