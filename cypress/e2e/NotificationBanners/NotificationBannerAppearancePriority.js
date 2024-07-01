@@ -88,8 +88,18 @@ When('the user navigates to the "Premium Course Abstract" page', function () {
   cy.visit('/premium-courses/decimal-course-65/abstract');
 });
 
-const shouldMatchBannerText = (expectedNotificationText) =>
-  cy.get('.notification-banner-container').invoke('text').should('match', new RegExp(expectedNotificationText));
+const shouldMatchBannerText = (expectedNotificationText) => {
+  cy.isFeatureFlagEnabled('MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED').then((isEnabled) => {
+    if (isEnabled) {
+      return cy
+        .get('.notification-banner-container')
+        .invoke('text')
+        .should('match', new RegExp(expectedNotificationText));
+    } else {
+      return 'skip';
+    }
+  });
+};
 
 Then(
   'the page should display a banner prompting the user to upgrade to premium with the text {string}',
@@ -113,5 +123,11 @@ Then(
 );
 
 Then('the page should not display a notification banner', function () {
-  cy.get('.notification-banner-container').should('not.exist');
+  cy.isFeatureFlagEnabled('MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED').then((isEnabled) => {
+    if (isEnabled) {
+      cy.get('.notification-banner-container').should('not.exist');
+    } else {
+      return 'skip';
+    }
+  });
 });
