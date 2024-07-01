@@ -25,8 +25,29 @@ Given('the user has complete board details in its profile', () => {
     }
   });
 
-  cy.contains('Board ID').siblings().first().invoke('text').should('not.be.empty');
-  cy.contains('Date of Birth').siblings().first().invoke('text').should('not.be.empty');
+  cy.isFeatureFlagEnabled('MIGRATE_TEXT_FIELD_PROFILE_ENABLED').then((isEnabled) => {
+    if (isEnabled) {
+      cy.contains('Board ID').siblings().first().invoke('text').should('not.be.empty');
+      cy.contains('Date of Birth').siblings().first().invoke('text').should('not.be.empty');
+    } else {
+      cy.contains('Board ID')
+        .parents('.v-input')
+        .find('input')
+        .invoke('val')
+        .then((inputValue) => {
+          expect(inputValue).to.not.be.null;
+          expect(inputValue).to.not.equal('');
+        });
+      cy.contains('Date of Birth')
+        .parents('.v-input')
+        .find('input')
+        .invoke('val')
+        .then((inputValue) => {
+          expect(inputValue).to.not.be.null;
+          expect(inputValue).to.not.equal('');
+        });
+    }
+  });
 
   // once we double check board details and that we can actually go to profile page then we go back to main page
   cy.visit('/');

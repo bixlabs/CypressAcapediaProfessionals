@@ -21,8 +21,17 @@ When('the user navigates to the Main Feed page', function (pageName) {
 });
 
 When('the user navigates to the Premium Courses Feed page', function (pageName) {
-  const pagePath = '/premium-courses';
+  // we need a paid user otherwise the upgrade banner is shown
+  cy.intercept('/api/subscription/user', (req) => {
+    req.continue((res) => {
+      res.body.hasActivePaidSubscription = true;
+      res.body.planName = 'Pro';
+      res.body.status = 'active';
+      res.body.endAt = '2030/03/12';
+    });
+  });
 
+  const pagePath = '/premium-courses';
   cy.visit(pagePath).then(() => addResultPerPage(pageName));
 });
 
