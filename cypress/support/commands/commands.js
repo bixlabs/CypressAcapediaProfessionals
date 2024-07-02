@@ -30,6 +30,10 @@ Cypress.Commands.add('seedDB', () => {
   cy.request('POST', '/api/testing/db/seed', { timeout: 15000 });
 });
 
+Cypress.Commands.add('deleteReferrals', () => {
+  cy.request('POST', '/api/testing/db/delete-referral-test-users', { timeout: 15000 });
+});
+
 // Iframe commands taken from
 // https://www.mikefettes.com/blog/cypress-and-stripe-payments-testing
 Cypress.Commands.add('iframeLoaded', { prevSubject: 'element' }, ($iframe) => {
