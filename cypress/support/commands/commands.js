@@ -30,8 +30,14 @@ Cypress.Commands.add('seedDB', () => {
   cy.request('POST', '/api/testing/db/seed', { timeout: 15000 });
 });
 
-Cypress.Commands.add('deleteReferrals', () => {
-  cy.request('POST', '/api/testing/db/delete-referral-test-users', { timeout: 15000 });
+Cypress.Commands.add('deleteTestingReferrals', () => {
+  const backendUrl = 'http://localhost:8000/api/testing/db/delete-referral-test-users';
+
+  cy.request({
+    method: 'POST',
+    url: backendUrl,
+    timeout: 15000
+  });
 });
 
 // Iframe commands taken from
