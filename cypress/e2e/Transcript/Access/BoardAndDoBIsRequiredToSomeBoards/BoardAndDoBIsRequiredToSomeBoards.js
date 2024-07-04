@@ -46,7 +46,7 @@ Given('a user does not fill the board details required by their board selection'
 
 Given('the modal to fill the board details is shown', () => {
   cy.visit('/transcripts');
-  cy.contains('Complete profile to get your credits').should('be.visible');
+  cy.getByTestId('complete-profile-dialog').should('be.visible');
   cy.get('#boardId')
     .invoke('val')
     .then((inputValue) => {

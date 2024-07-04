@@ -35,7 +35,7 @@ Feature: Sidebar Notification for Incomplete Profile
     And the "Complete profile" has been clicked from the sidebar
     And the complete profile dialogue is displayed
     When the user completes the profile from the complete profile dialogue opened from the sidebar
-    Then the complete profile dialogue is closed
+    Then the Complete Profile dialog should be closed
     And the <page> page is still displayed
     And the sidebar should not display the text "Complete profile"
     And the sidebar should display the text "Profile"

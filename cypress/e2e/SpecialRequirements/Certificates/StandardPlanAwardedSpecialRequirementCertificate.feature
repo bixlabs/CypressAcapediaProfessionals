@@ -30,6 +30,6 @@ Feature: Awarded Special Requirement Certificates for Standard Plan Users
     And the certificate was requested to be downloaded
     And the complete profile dialogue is displayed
     When the user completes the profile from the complete profile dialogue
-    Then the complete profile dialogue is closed
+    Then the Complete Profile dialog should be closed
     And the special requirements page is still displayed
     And the user will need to click again to download the certificate

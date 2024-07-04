@@ -98,6 +98,6 @@ Then('the user will need to click again to download the certificate', () => {
   cy.readFile(filePath).should('not.exist');
 
   cy.contains('Download certificate').click();
-  cy.contains('Complete profile to get your credits').should('not.exist');
+  cy.getByTestId('complete-profile-dialog').should('not.exist');
   cy.readFile(filePath).should('exist');
 });
