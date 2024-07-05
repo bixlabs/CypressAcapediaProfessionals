@@ -35,11 +35,7 @@ When('the user clicks on {string} from the sidebar', function (sidebarText) {
 });
 
 Then('the sidebar should display the text {string}', function (expectedSidebarText) {
-  cy.get(profileSelector)
-    .invoke('text')
-    .then((text) => {
-      expect(text.trim()).to.equal(expectedSidebarText);
-    });
+  cy.get(profileSelector).invoke('text').should('have.exactText', expectedSidebarText);
 });
 
 Then('the Main Feed page is still displayed in the background', function () {
@@ -67,9 +63,5 @@ Then('the Topics page is still displayed', function () {
 });
 
 Then('the sidebar should not display the text {string}', function (expectedSidebarText) {
-  cy.get(profileSelector)
-    .invoke('text')
-    .then((text) => {
-      expect(text.trim()).to.not.equal(expectedSidebarText);
-    });
+  cy.get(profileSelector).invoke('text').should('not.have.exactText', expectedSidebarText);
 });

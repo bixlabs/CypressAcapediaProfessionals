@@ -91,10 +91,7 @@ When('the user navigates to the "Premium Course Abstract" page', function () {
 const shouldMatchBannerText = (expectedNotificationText) => {
   cy.isFeatureFlagEnabled('MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED').then((isEnabled) => {
     if (isEnabled) {
-      return cy
-        .get('.notification-banner-container')
-        .invoke('text')
-        .should('match', new RegExp(expectedNotificationText));
+      return cy.get('.notification-banner-container').invoke('text').should('have.exactText', expectedNotificationText);
     } else {
       return 'skip';
     }
@@ -125,7 +122,7 @@ Then(
 Then('the page should not display a notification banner', function () {
   cy.isFeatureFlagEnabled('MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED').then((isEnabled) => {
     if (isEnabled) {
-      cy.get('.notification-banner-container').should('not.exist');
+      cy.getByTestId('notification-banner').should('not.exist');
     } else {
       return 'skip';
     }

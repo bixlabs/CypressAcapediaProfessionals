@@ -47,11 +47,15 @@ Given('the user has a complete profile', () => {
 Given('the complete profile dialogue is displayed', () => {
   cy.isFeatureFlagEnabled('MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED').then((isEnabled) => {
     if (isEnabled) {
-      cy.contains('Complete profile to get your credits').should('exist');
+      cy.getByTestId('complete-profile-dialog').should('exist');
     } else {
       cy.log('Feature flag MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED is disabled, skipping');
     }
   });
+});
+
+Given('the Complete Profile dialog is shown', function () {
+  cy.getByTestId('complete-profile-dialog').should('be.visible');
 });
 
 When('the user completes the profile from the complete profile dialogue', () => {
@@ -85,13 +89,17 @@ When('the user completes the profile from the complete profile dialogue opened f
 Then('the complete profile dialog is shown requiring the user to fill the missing profile details', () => {
   cy.isFeatureFlagEnabled('MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED').then((isEnabled) => {
     if (isEnabled) {
-      cy.contains('Complete profile to get your credits').should('exist');
+      cy.getByTestId('complete-profile-dialog').should('be.visible');
     } else {
       cy.log('Feature flag MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED is disabled, skipping');
     }
   });
 });
 
-Then('the complete profile dialogue is closed', () => {
-  cy.contains('Complete profile to get your credits').should('not.exist');
+Then('the Complete Profile dialog should be closed', () => {
+  cy.getByTestId('complete-profile-dialog').should('not.exist');
+});
+
+Then('the Complete Profile dialog should be shown', function () {
+  cy.getByTestId('complete-profile-dialog').should('be.visible');
 });
