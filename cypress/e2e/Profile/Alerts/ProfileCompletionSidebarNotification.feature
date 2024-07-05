@@ -17,6 +17,7 @@ Feature: Sidebar Notification for Incomplete Profile
     Given the user is authenticated
     And the user has an incomplete profile
     And the <page> page has been navigated to
+    And the "Account" has been clicked from the sidebar
     When the user clicks on "Complete profile" from the sidebar
     Then the complete profile dialog is shown requiring the user to fill the missing profile details
     And the <page> page is still displayed in the background

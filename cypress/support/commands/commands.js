@@ -72,3 +72,7 @@ Cypress.Commands.add('getWithinIframe', (targetElement) => {
 Cypress.Commands.add('isFeatureFlagEnabled', (featureFlag) => {
   return cy.wrap(getFeatureFlagProvider().isFeatureEnabled(featureFlag));
 });
+
+Cypress.Commands.add('getSidebarMenuByText', (menuText) => {
+  return cy.getByTestId('sidebar').contains(menuText);
+});

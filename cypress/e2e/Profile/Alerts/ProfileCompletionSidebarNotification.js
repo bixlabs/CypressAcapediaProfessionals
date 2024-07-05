@@ -7,12 +7,10 @@ Given('the user is authenticated', function () {
   cy.fixture('/common/credentials').then((credentials) => {
     cy.loginAccount(credentials.incompleteProfile);
   });
-
-  cy.viewport('macbook-15');
 });
 
 Given('the {string} has been clicked from the sidebar', function (callToActionText) {
-  cy.contains(callToActionText).click();
+  cy.getSidebarMenuByText(callToActionText).click();
 });
 
 Given('the Main Feed page has been navigated to', function () {
@@ -31,7 +29,7 @@ Given('the Topics page has been navigated to', function () {
 });
 
 When('the user clicks on {string} from the sidebar', function (sidebarText) {
-  cy.contains(sidebarText).click();
+  cy.getSidebarMenuByText(sidebarText).click();
 });
 
 Then('the sidebar should display the text {string}', function (expectedSidebarText) {
