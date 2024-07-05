@@ -8,10 +8,14 @@ Cypress.Commands.add(
       password = 'Ab1234567-',
       firstName = faker.name.firstName(),
       lastName = faker.name.lastName(),
-      phoneNumber = faker.phone.number('6#########'),
     } = {},
     { hasToVisitUrl = true } = {},
   ) => {
+    cy.intercept({
+      method: 'POST',
+      url: '/api/register',
+    }).as('register');
+
     if (hasToVisitUrl) {
       cy.visit('/register');
     }
@@ -41,11 +45,6 @@ Cypress.Commands.add(
 
     // TODO: we need a test-id here as we cannot get it by text value
     cy.contains('Continue').click({ force: true });
-
-    cy.intercept({
-      method: 'POST',
-      url: '/api/register',
-    }).as('register');
 
     cy.wait('@register').its('response.statusCode').should('equal', 200);
 
