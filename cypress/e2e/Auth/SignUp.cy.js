@@ -11,6 +11,11 @@ describe('SignUp E2E Test', () => {
 
   presets.forEach((preset) => {
     it(`SignUp in device ${preset}`, function () {
+      cy.intercept({
+        method: 'POST',
+        url: '/api/register',
+      }).as('register');
+
       cy.viewport(preset);
 
       const email = faker.internet.email();
@@ -43,11 +48,6 @@ describe('SignUp E2E Test', () => {
 
       // TODO: we need a test-id here as we cannot get it by text value
       cy.contains('Continue').click({ force: true });
-
-      cy.intercept({
-        method: 'POST',
-        url: '/api/register',
-      }).as('register');
 
       cy.wait('@register').its('response.statusCode').should('equal', 200);
 
