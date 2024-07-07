@@ -19,12 +19,6 @@ Given('the "Completed" tab is selected', () => {
 When('the user selects the "Completed" tab', () => {
   cy.intercept('GET', '/api/special-requirements/feed/completed').as('completedSpecialRequirements');
   cy.contains('Completed').click();
-
-  // There is a weird situation that only happens in the e2e tests where
-  // after clicking the first time the tab is moved quickly to the Topics tab
-  // so we need to re-click the Completed tab
-  cy.wait(100);
-  cy.contains('Completed').click();
 });
 
 When('the user requests to "Upgrade for certificate"', () => {
