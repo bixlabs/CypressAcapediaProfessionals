@@ -23,16 +23,7 @@ Then('the user should see a warning style for unawarded special requirements', (
 
       if (!isAwarded) {
         cy.getByTestId('status-completed').eq(index).contains('Contact support').should('exist');
-      }
-    });
-  });
 
-  cy.wait('@completedSpecialRequirements').then((interception) => {
-    interception.response.body.data.forEach((specialRequirement, index) => {
-      // There is a bug in the value of the api response
-      const isAwarded = !specialRequirement.wasCompletedWithAllCreditsAwarded;
-
-      if (!isAwarded) {
         const warningStyleColor = 'rgb(234, 120, 14)';
 
         cy.getByTestId('status-completed').eq(index).contains('1/1').should('have.css', 'color', warningStyleColor);
