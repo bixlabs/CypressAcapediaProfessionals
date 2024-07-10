@@ -34,12 +34,7 @@ describe('SignUp E2E Test', () => {
 
       cy.contains('Continue').click();
 
-      // TODO: we need a test-id here as we cannot get it by text value
-      cy.get(
-        '.text-left > .v-text-field--single-line > .v-input__control > .v-input__slot > .v-select__slot > .v-select__selections',
-      )
-        .as('selectMedicalBoard')
-        .click();
+      cy.get('#medical-board').click();
       cy.contains('American Board of Anesthesia').click();
       cy.getByTestId('boardDateOfBirdInput').click();
       cy.contains('1991').click();
