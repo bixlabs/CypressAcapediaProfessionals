@@ -17,7 +17,7 @@ module.exports = defineConfig({
     inlineAssets: true,
   },
   e2e: {
-    baseUrl: 'https://develop-professionals.acapedia.com',
+    baseUrl: 'http://localhost:8081',
     defaultCommandTimeout: 20000,
     requestTimeout: 20000,
     async setupNodeEvents(on, config) {
@@ -36,7 +36,7 @@ module.exports = defineConfig({
           }
 
           return null;
-        }
+        },
       });
 
       on('task', {
@@ -44,15 +44,15 @@ module.exports = defineConfig({
           const dirPath = path.resolve(__dirname, folderPath);
           const files = fs.readdirSync(dirPath);
 
-          files.forEach(file => {
+          files.forEach((file) => {
             const filePath = path.join(dirPath, file);
             if (fs.existsSync(filePath)) {
               fs.unlinkSync(filePath);
             }
           });
-    
-          return null; 
-        }
+
+          return null;
+        },
       });
 
       return config;
@@ -65,4 +65,7 @@ module.exports = defineConfig({
     runMode: 2,
     openMode: 0,
   },
+  video: true,
+  viewportWidth: 1440,
+  viewportHeight: 900,
 });

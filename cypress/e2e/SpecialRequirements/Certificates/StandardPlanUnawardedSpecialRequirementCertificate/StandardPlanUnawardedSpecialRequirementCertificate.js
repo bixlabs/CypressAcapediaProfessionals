@@ -13,12 +13,6 @@ Given('the special requirements page has been navigated to', () => {
 When('the user selects the "Completed" tab', () => {
   cy.intercept('GET', '/api/special-requirements/feed/completed').as('completedSpecialRequirements');
   cy.contains('Completed').click();
-
-  // There is a weird situation that only happens in the e2e tests where
-  // after clicking the first time the tab is moved quickly to the Topics tab
-  // so we need to re-click the Completed tab
-  cy.wait(100);
-  cy.contains('Completed').click();
 });
 
 Then('the user should see a warning style for unawarded special requirements', () => {
@@ -29,16 +23,7 @@ Then('the user should see a warning style for unawarded special requirements', (
 
       if (!isAwarded) {
         cy.getByTestId('status-completed').eq(index).contains('Contact support').should('exist');
-      }
-    });
-  });
 
-  cy.wait('@completedSpecialRequirements').then((interception) => {
-    interception.response.body.data.forEach((specialRequirement, index) => {
-      // There is a bug in the value of the api response
-      const isAwarded = !specialRequirement.wasCompletedWithAllCreditsAwarded;
-
-      if (!isAwarded) {
         const warningStyleColor = 'rgb(234, 120, 14)';
 
         cy.getByTestId('status-completed').eq(index).contains('1/1').should('have.css', 'color', warningStyleColor);

@@ -4,6 +4,22 @@
 
 import { getFeatureFlagProvider } from '../../featureFlagProvider';
 
+const exactText = (_chai) => {
+  _chai.Assertion.addMethod('exactText', function (expectedText) {
+    const actualText = this._obj.trim();
+
+    this.assert(
+      actualText === expectedText,
+      'expected #{this} to have exact text #{exp} but got #{act}',
+      'expected #{this} not to have exact text #{act}',
+      expectedText,
+      actualText,
+    );
+  });
+};
+
+chai.use(exactText);
+
 Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe, selector) => {
   Cypress.log({
     name: 'iframe',
@@ -65,4 +81,8 @@ Cypress.Commands.add('getWithinIframe', (targetElement) => {
 
 Cypress.Commands.add('isFeatureFlagEnabled', (featureFlag) => {
   return cy.wrap(getFeatureFlagProvider().isFeatureEnabled(featureFlag));
+});
+
+Cypress.Commands.add('getSidebarMenuByText', (menuText) => {
+  return cy.getByTestId('sidebar').contains(menuText);
 });

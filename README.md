@@ -33,3 +33,6 @@ While working with our Cucumber preprocessor, you might encounter an issue where
 If you face this issue, try the following workaround:
 
 - **Create a New File**: Copy the contents of the affected file into a new file with a slightly different name. This can sometimes help in getting the changes to be picked up by the testing framework (or at least to confirm that we are not getting crazy).
+- **Delete the cache**: Cypress caches files to speed up the test execution. They are stored in the `~/.config/Cypress/cy/production` directory. Try to delete the .feature file in the children directory following the same path as the file you are working on.
+
+Example: If you are working on the file `e2e/Courses/Certificates/LifetimePlanAwardedCourseCertificate.feature`, you should delete the file in the following path: `~/.config/Cypress/cy/production/projects/e2e-<current-hash>/bundles/cypress/e2e/Courses/Certificates/LifetimePlanAwardedCourseCertificate.feature`

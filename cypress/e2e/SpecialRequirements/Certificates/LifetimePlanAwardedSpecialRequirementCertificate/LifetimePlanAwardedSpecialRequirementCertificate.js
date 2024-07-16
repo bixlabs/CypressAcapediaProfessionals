@@ -20,12 +20,6 @@ Given('the special requirements page has been navigated to', () => {
 
 Given('the "Completed" tab is selected', () => {
   cy.contains('Completed').click();
-
-  // There is a weird situation that only happens in the e2e tests where
-  // after clicking the first time the tab is moved quickly to the Topics tab
-  // so we need to re-click the Completed tab
-  cy.wait(100);
-  cy.contains('Completed').click();
 });
 
 Given('the call to action "Download certificate" is displayed to the user', () => {
@@ -35,24 +29,11 @@ Given('the call to action "Download certificate" is displayed to the user', () =
 Given('the certificate was requested to be downloaded', () => {
   cy.visit('/special-requirements');
   cy.contains('Completed').click();
-
-  // There is a weird situation that only happens in the e2e tests where
-  // after clicking the first time the tab is moved quickly to the Topics tab
-  // so we need to re-click the Completed tab
-  cy.wait(100);
-
-  cy.contains('Completed').click();
   cy.contains('Download certificate').click();
 });
 
 When('the user selects the "Completed" tab', () => {
   cy.intercept('GET', '/api/special-requirements/feed/completed').as('completedSpecialRequirements');
-  cy.contains('Completed').click();
-
-  // There is a weird situation that only happens in the e2e tests where
-  // after clicking the first time the tab is moved quickly to the Topics tab
-  // so we need to re-click the Completed tab
-  cy.wait(100);
   cy.contains('Completed').click();
 });
 
@@ -111,6 +92,6 @@ Then('the user will need to click again to download the certificate', () => {
   cy.readFile(filePath).should('not.exist');
 
   cy.contains('Download certificate').click();
-  cy.contains('Complete profile to get your credits').should('not.exist');
+  cy.getByTestId('complete-profile-dialog').should('not.exist');
   cy.readFile(filePath).should('exist');
 });

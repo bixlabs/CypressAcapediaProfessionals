@@ -11,6 +11,11 @@ describe('SignUp E2E Test', () => {
 
   presets.forEach((preset) => {
     it(`SignUp in device ${preset}`, function () {
+      cy.intercept({
+        method: 'POST',
+        url: '/api/register',
+      }).as('register');
+
       cy.viewport(preset);
 
       const email = faker.internet.email();
@@ -29,12 +34,7 @@ describe('SignUp E2E Test', () => {
 
       cy.contains('Continue').click();
 
-      // TODO: we need a test-id here as we cannot get it by text value
-      cy.get(
-        '.text-left > .v-text-field--single-line > .v-input__control > .v-input__slot > .v-select__slot > .v-select__selections',
-      )
-        .as('selectMedicalBoard')
-        .click();
+      cy.get('#medical-board').click();
       cy.contains('American Board of Anesthesia').click();
       cy.getByTestId('boardDateOfBirdInput').click();
       cy.contains('1991').click();
@@ -43,11 +43,6 @@ describe('SignUp E2E Test', () => {
 
       // TODO: we need a test-id here as we cannot get it by text value
       cy.contains('Continue').click({ force: true });
-
-      cy.intercept({
-        method: 'POST',
-        url: '/api/register',
-      }).as('register');
 
       cy.wait('@register').its('response.statusCode').should('equal', 200);
 
