@@ -1,4 +1,4 @@
-describe('UserTakeQuiz', () => {
+describe('UserTakeQuiz', { tags: ['@article-quiz', '@business:critical'] }, () => {
   before(() => {
     cy.fixture('/auth/credentialsLogin').as('credentials');
     cy.registerAccount();

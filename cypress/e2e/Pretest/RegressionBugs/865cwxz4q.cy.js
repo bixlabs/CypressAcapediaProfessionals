@@ -1,6 +1,6 @@
 // https://app.clickup.com/t/865cwxz4q
 
-describe('Regression Bug: Pre-test "End" screen without having done the pre-test yet', () => {
+describe('Regression Bug: Pre-test "End" screen without having done the pre-test yet', { tags: ['@article-quiz', '@regression', '@business:high-impact', '@low-likely'] }, () => {
   beforeEach(() => {
     cy.registerAccount();
   });

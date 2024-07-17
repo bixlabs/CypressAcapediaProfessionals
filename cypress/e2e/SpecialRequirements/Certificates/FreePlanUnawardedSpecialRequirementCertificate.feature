@@ -1,3 +1,4 @@
+@special-requirement @certificate @free-plan @business:high-impact
 Feature: Unawarded Special Requirement Certificates for Free Plan Users
   Background:
     Given a free plan user has some completed unawarded special requirements

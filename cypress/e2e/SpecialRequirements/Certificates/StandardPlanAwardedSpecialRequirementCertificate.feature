@@ -1,3 +1,4 @@
+@special-requirement @certificate @pro-plan @business:low-impact
 Feature: Awarded Special Requirement Certificates for Standard Plan Users
   Scenario: Standard plan users should see the "Download certificate" option for completed and awarded special requirements
     Given a standard plan user has some completed awarded special requirements

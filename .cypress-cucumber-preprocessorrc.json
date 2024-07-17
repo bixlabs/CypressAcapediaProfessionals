@@ -4,5 +4,8 @@
     "cypress/e2e/[filepath].{js,ts}",
     "cypress/e2e/[filepart]/shared_step_definitions/**/*.{js,ts}",
     "cypress/support/step_definitions/**/*.{js,ts}"
-  ]
+  ],
+  "filterSpecs": true,
+  "filterSpecsMixedMode": "show",
+  "omitFiltered": true
 }

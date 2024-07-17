@@ -1,3 +1,4 @@
+@transcript @profile-completion @business:low-impact
 Feature: Transcripts Access with Complete Profile
 
   Scenario: User with complete profile is allowed to access to the Transcripts page
@@ -7,9 +8,15 @@ Feature: Transcripts Access with Complete Profile
     When the user tries to access the Transcripts page via <access_method>
     Then the user should be in the Transcripts page
     And the Complete Profile dialog should be closed
-
+    
+    @full-examples
     Examples:
       | access_method          |
       | the CME counter link   |
       | the sidebar navigation |
       | the URL                |
+
+    @minimal-examples
+    Examples:
+      | access_method        |
+      | the CME counter link |

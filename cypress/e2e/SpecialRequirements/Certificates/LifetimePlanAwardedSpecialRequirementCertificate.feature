@@ -1,3 +1,4 @@
+@special-requirement @certificate @lifetime-plan @business:low-impact
 Feature: Awarded Special Requirement Certificates for Lifetime Plan Users
   Scenario: Lifetime plan users should see the "Download certificate" option for completed and awarded special requirements
     Given a lifetime plan user has some completed awarded special requirements

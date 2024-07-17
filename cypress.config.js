@@ -21,6 +21,7 @@ module.exports = defineConfig({
     defaultCommandTimeout: 20000,
     requestTimeout: 20000,
     async setupNodeEvents(on, config) {
+      require('@cypress/grep/src/plugin')(config);
       await addCucumberPreprocessorPlugin(on, config);
       on(
         'file:preprocessor',

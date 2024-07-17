@@ -1,3 +1,4 @@
+@special-requirement @certificate @pro-plan @business:high-impact
 Feature: Unawarded Special Requirement Certificates for Standard Plan Users
   Background:
     Given a standard plan user has some completed unawarded special requirements

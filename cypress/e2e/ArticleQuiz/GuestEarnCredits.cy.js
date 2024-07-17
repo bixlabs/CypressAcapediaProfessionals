@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-describe('GuestEarnCredits', () => {
+describe('GuestEarnCredits', { tags: ['@article-quiz', '@guest', '@business:medium-impact'] }, () => {
   it('should add the ability to earn credits after sign up', () => {
     cy.visit('/');
 
