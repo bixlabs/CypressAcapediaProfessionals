@@ -1,3 +1,4 @@
+@course @certificate @free-plan @business:high-impact @low-likely
 Feature: Unawarded Premium Course Certificates for Free Plan Users
   Background:
     Given a free plan user has some completed unawarded premium courses

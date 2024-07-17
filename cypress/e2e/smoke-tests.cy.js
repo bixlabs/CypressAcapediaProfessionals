@@ -1,4 +1,4 @@
-describe('Smoke Tests', () => {
+describe('Smoke Tests', { tags: ['@smoke', '@business:critical'] }, () => {
   const pages = [
     { url: '/', element: 'Fast. Relevant. All in one place' },
     { url: '/premium-courses', element: 'Fast. Relevant. All in one place' },

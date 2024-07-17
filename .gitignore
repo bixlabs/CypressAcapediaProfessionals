@@ -31,3 +31,5 @@ cypress/reports
 cypress/downloads
 
 cypress/featureFlags.js
+
+.DS_Store

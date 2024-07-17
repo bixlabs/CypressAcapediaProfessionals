@@ -1,7 +1,7 @@
 {
   "name": "qa-e2e-acapedia-professionals",
   "scripts": {
-    "ci:test": "npm run cy:test",
+    "ci:test": "npm run cy:test --",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:run:chrome": "npm run cy:run b- Chrome",
@@ -12,6 +12,7 @@
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^20.0.2",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
+    "@cypress/grep": "^4.1.0",
     "@faker-js/faker": "^8.0.2",
     "cypress": "^13.12.0",
     "cypress-file-upload": "^5.0.8",

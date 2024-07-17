@@ -1,14 +1,16 @@
-## when FF MILESTONE_PLANS_UPDATES_PART_ONE_ENABLED is activate please remove .hold extension from this file
+@course @certificate @free-plan @business:high-impact @low-likely
 Feature: Unawarded Premium Course Certificates for Standard Plan Users
   Background:
     Given a standard plan user has some completed unawarded premium courses
     And the premium courses page has been navigated to
 
+  @contained
   Scenario: Standard plan users should see the call to action "Review course" for completed and unawarded premium courses
     When the user selects the "Completed" tab
     Then the user should see a warning style for unawarded courses
     And should see the call to action "Review course"
 
+  @contained
   Scenario: Standard plan users can successfully go to "Course overview" page for completed and unawarded premium courses
     Given the "Completed" tab is selected
     When the user requests to "Review course"

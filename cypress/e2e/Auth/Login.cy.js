@@ -3,7 +3,7 @@ describe('LogIn E2E Test', () => {
     cy.fixture('auth/credentialsLogin').as('credentials');
   });
 
-  it('LogIn', function () {
+  it('LogIn', { tags: ['@auth', '@business:critical', '@contained'] }, function () {
     cy.visit('/login');
     cy.getByTestId('email').type(this.credentials.email);
     cy.getByTestId('password').type(this.credentials.password);

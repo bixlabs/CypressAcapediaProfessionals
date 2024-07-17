@@ -1,10 +1,14 @@
+@course @certificate @lifetime-plan @business:low-impact
 Feature: Awarded Premium Course Certificates for Lifetime Plan Users
+
+  @contained
   Scenario: Lifetime plan users should see the call to action "Review course" for completed and awarded premium courses
     Given a lifetime plan user has some completed awarded premium courses
     And the premium courses page has been navigated to
     When the user selects the "Completed" tab
     Then the user should see the call to action "Review course" for awarded courses
 
+  @contained
   Scenario: Lifetime plan users can successfully go to "Course overview" page for completed and awarded premium courses
     Given a lifetime plan user has some completed awarded premium courses
     And the premium courses page has been navigated to
@@ -22,6 +26,7 @@ Feature: Awarded Premium Course Certificates for Lifetime Plan Users
     When the user requests to "Download certificate"
     Then the certificate should be downloaded successfully
 
+  @contained
   Scenario: Lifetime plan users with incomplete profile should be asked to complete their profile before downloading certificates
     Given a lifetime plan user has some completed awarded premium courses
     And the user has an incomplete profile

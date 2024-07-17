@@ -1,10 +1,13 @@
+@course @certificate @pro-plan @business:low-impact
 Feature: Awarded Premium Course Certificates for Standard Plan Users
+  @contained
   Scenario: Standard plan users should see the call to action "Review course" for completed and awarded premium courses
     Given a standard plan user has some completed awarded premium courses
     And the premium courses page has been navigated to
     When the user selects the "Completed" tab
     Then the user should see the call to action "Review course" for awarded courses
 
+  @contained
   Scenario: Standard plan users can successfully go to "Course overview" page for completed and awarded premium courses
     Given a standard plan user has some completed awarded premium courses
     And the premium courses page has been navigated to
@@ -22,6 +25,7 @@ Feature: Awarded Premium Course Certificates for Standard Plan Users
     When the user requests to "Download certificate"
     Then the certificate should be downloaded successfully
 
+  @contained
   Scenario: Standard plan users with incomplete profile should be asked to complete their profile before downloading certificates
     Given a standard plan user has some completed awarded premium courses
     And the user has an incomplete profile
