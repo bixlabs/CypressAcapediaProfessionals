@@ -59,19 +59,20 @@ describe('Free referred E2E Test', () => {
 
     cy.visit('/');
 
-    // Simply to grab the menu options when they are visible or hidden (mobile version)
-    cy.get('body').then(($body) => {
-      if ($body.find(':contains("Account")').is(':visible')) {
-        cy.contains('Logout').click();
-        cy.visit('/');
-      } else {
-        cy.getByTestId('menu-drawer-btn').click();
-        cy.contains('Logout').click();
-        cy.visit('/');
-      }
-    });
-
     cy.wait('@feed').then( ()=> {
+
+      // Simply to grab the menu options when they are visible or hidden (mobile version)
+      cy.get('body').then(($body) => {
+        if ($body.find(':contains("Account")').is(':visible')) {
+          cy.contains('Logout').click();
+          cy.visit('/');
+        } else {
+          cy.getByTestId('menu-drawer-btn').click();
+          cy.contains('Logout').click();
+          cy.visit('/');
+        }
+      });
+
       cy.log(referredUrl);
 
       const url = new URL(referredUrl);
@@ -183,39 +184,54 @@ describe('Free referred E2E Test', () => {
     // when the quiz is completed or failed, because of the async nature of Cypress
     answerQuestion({ failedAnswerNumber: 0 });
 
-    cy.visit('/');
-
-    // Simply to grab the menu options when they are visible or hidden (mobile version)
-    cy.get('body').then(($body) => {
-      if ($body.find(':contains("Account")').is(':visible')) {
-        cy.contains('Logout').click();
-        cy.visit('/login');
-      } else {
-        cy.getByTestId('menu-drawer-btn').click();
-        cy.contains('Logout').click();
-        cy.visit('/login');
-      }
-    });
-
-    // Back to referred
-
-    cy.getByTestId('email').type(email);
-    cy.getByTestId('password').type(password);
-
-    cy.contains('Log in').click();
-
     cy.intercept({
       method: 'GET',
       url: '/api/feed/popular?sort=newest',
     }).as('feedSecond');
 
+    cy.visit('/');
+
+    cy.intercept({
+      method: 'POST',
+      url: '/api/logout',
+    }).as('logout');
+
     cy.wait('@feedSecond').then( ()=> {
-      cy.visit('/referrals');
+
+      // Simply to grab the menu options when they are visible or hidden (mobile version)
+      cy.get('body').then(($body) => {
+
+        if ($body.find(':contains("Account")').is(':visible')) {
+          cy.contains('Logout').click();
+        } else {
+          cy.getByTestId('menu-drawer-btn').click();
+          cy.contains('Logout').click();
+        }
+      });
     });
 
-    cy.getByTestId('referralStatus')
-    .eq(0)
-    .contains('Success');
+    cy.intercept({
+      method: 'POST',
+      url: '/api/login',
+    }).as('login');
+
+    // Back to referred
+    cy.wait('@logout').then( ()=> {
+
+      cy.getByTestId('email').type(email);
+      cy.getByTestId('password').type(password);
+
+      cy.contains('Log in').click();
+    });
+
+    cy.wait('@login').then( ()=> {
+
+      cy.visit('/referrals');
+
+      cy.getByTestId('referralStatus')
+      .eq(0)
+      .contains('Success');
+    });
 
   });
 });
