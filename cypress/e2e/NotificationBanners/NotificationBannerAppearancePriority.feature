@@ -1,3 +1,4 @@
+@notification-banner @business:low-impact
 Feature: Notification Banner Appearance Priority Based on User Criteria
 
   Scenario: Exclusive display of upgrade banner for guest users on premium course abstract page

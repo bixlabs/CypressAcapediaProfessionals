@@ -1,4 +1,4 @@
-describe('Lifetime plan upgrade', () => {
+describe('Lifetime plan upgrade', { tags: ['@purchase', '@business:high-impact'] }, () => {
   before(() => {
     cy.registerAccount();
   });

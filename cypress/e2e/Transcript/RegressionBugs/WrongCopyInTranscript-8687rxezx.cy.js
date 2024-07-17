@@ -4,7 +4,7 @@
 const MILESTONE_PLANS_UPDATES_PART_ONE_ENABLED = true;
 const MILESTONE_USERS_CAN_PAY_FOR_A_PRO_PLAN_ENABLED = true;
 
-describe('Transcript Page Copy Validation for Different User Types - Task 8687rxezx', () => {
+describe('Transcript Page Copy Validation for Different User Types - Task 8687rxezx', { tags: ['@transcript', '@regression', '@business:low-impact', '@low-likely'] }, () => {
   beforeEach(() => {
     cy.fixture('/auth/credentialsLogin').then((credentials) => {
       cy.loginAccount(credentials);

@@ -1,3 +1,4 @@
+@special-requirement @certificate @free-plan @business:low-impact
 Feature: Awarded Special Requirement Certificates for Free Plan Users
   Scenario: Free plan users should see the "Download certificate" option for completed and awarded special requirements
     Given a free plan user has some completed awarded special requirements
