@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 
 const presets = ['iphone-x', 'macbook-13'];
 
-describe('SignUp E2E Test', () => {
+describe('SignUp E2E Test', { tags: ['@auth', '@business:critical'] }, () => {
   beforeEach(function () {
     cy.visit('/register');
 

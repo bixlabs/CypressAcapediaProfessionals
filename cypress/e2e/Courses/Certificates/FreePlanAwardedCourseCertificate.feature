@@ -1,3 +1,4 @@
+@course @certificate @free-plan @business:low-impact
 Feature: Awarded Premium Course Certificates for Free Plan Users
   Scenario: Free plan users should see the "Download certificate" option for completed and awarded premium courses
     Given a free plan user has some completed awarded premium courses
