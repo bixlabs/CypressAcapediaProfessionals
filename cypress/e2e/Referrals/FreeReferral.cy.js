@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-describe('Free referred E2E Test', () => {
+describe('Free referred E2E Test', { tags: ['@referral', '@free-plan', '@low-likely', '@business:low-impact'] }, () => {
 
   beforeEach(function () {
     cy.deleteTestingReferrals();

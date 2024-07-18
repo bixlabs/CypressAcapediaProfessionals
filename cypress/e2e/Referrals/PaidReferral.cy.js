@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-describe('Paid referred E2E Test', () => {
+describe('Paid referred E2E Test', { tags: ['@referral', '@paid-plan', '@low-likely', '@business:low-impact'] }, () => {
 
   beforeEach(function () {
     cy.deleteTestingReferrals();
@@ -51,8 +51,6 @@ describe('Paid referred E2E Test', () => {
       method: 'GET',
       url: '/api/subscription/payment-intent',
     }).as('formCheckout');
-
-    cy.getByTestId('upgrade-downgrade-button').click();
 
     cy.wait('@formCheckout').then( ()=> {
 
@@ -153,8 +151,6 @@ describe('Paid referred E2E Test', () => {
       method: 'GET',
       url: '/api/subscription/payment-intent',
     }).as('formCheckout2');
-
-    cy.getByTestId('upgrade-downgrade-button').click();
 
     cy.wait('@formCheckout2').then( ()=> {
 
