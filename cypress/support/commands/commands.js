@@ -47,7 +47,7 @@ Cypress.Commands.add('seedDB', () => {
 });
 
 Cypress.Commands.add('deleteTestingReferrals', () => {
-  const backendUrl = 'http://localhost:8000/api/testing/db/delete-referral-test-users';
+  const backendUrl = 'https://testing.acapedia.com/api/testing/db/delete-referral-test-users';
 
   cy.request({
     method: 'POST',
