@@ -47,7 +47,7 @@ Cypress.Commands.add('seedDB', () => {
 });
 
 Cypress.Commands.add('deleteTestingReferrals', () => {
-  const backendUrl = `${Cypress.env('API_BASE_URL')}testing/db/delete-referral-test-users`;
+  const backendUrl = `${Cypress.env('API_BASE_URL')}/testing/db/delete-referral-test-users`;
 
   cy.request({
     method: 'POST',
