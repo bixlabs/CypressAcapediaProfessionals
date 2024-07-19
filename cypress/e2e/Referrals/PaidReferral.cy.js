@@ -63,16 +63,21 @@ describe('Paid referred E2E Test', { tags: ['@referral', '@paid-plan', '@low-lik
       cy.getWithinIframe('[name="expiry"]').type('1235');
       cy.getWithinIframe('[name="cvc"]').type('244');
 
-      cy.intercept({
-        method: 'POST',
-        url: '/api/subscription/confirm-payment',
-      }).as('confirmPayment');
-
       cy.contains('Confirm payment').click();
+    });
 
-      cy.wait('@confirmPayment').then( ()=> {
-        cy.get('h1').should('have.text', ' Pro plan ');
-      });
+    cy.intercept({
+      method: 'GET',
+      url: '/api/subscription/user',
+    }).as('updatedSubscription');
+
+    cy.wait('@updatedSubscription').then( (interception)=> {
+      const response = interception.response.body;
+      const hasActivePaidSubscription = response.hasActivePaidSubscription;
+      const planName = response.planName;
+
+      expect(hasActivePaidSubscription).to.equal(true);
+      expect(planName).to.equal('Pro');
     });
 
     cy.contains('Make a paid referral').should('exist');
@@ -163,16 +168,21 @@ describe('Paid referred E2E Test', { tags: ['@referral', '@paid-plan', '@low-lik
       cy.getWithinIframe('[name="expiry"]').type('1235');
       cy.getWithinIframe('[name="cvc"]').type('244');
 
-      cy.intercept({
-        method: 'POST',
-        url: '/api/subscription/confirm-payment',
-      }).as('confirmPayment2');
-
       cy.contains('Confirm payment').click();
+    });
 
-      cy.wait('@confirmPayment2').then( ()=> {
-        cy.get('h1').should('have.text', ' Pro plan ');
-      });  
+    cy.intercept({
+      method: 'GET',
+      url: '/api/subscription/user',
+    }).as('updatedSubscription2');
+
+    cy.wait('@updatedSubscription2').then( (interception)=> {
+      const response = interception.response.body;
+      const hasActivePaidSubscription = response.hasActivePaidSubscription;
+      const planName = response.planName;
+
+      expect(hasActivePaidSubscription).to.equal(true);
+      expect(planName).to.equal('Pro');
     });
 
     cy.intercept({
