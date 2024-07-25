@@ -1,7 +1,5 @@
 import { Given, When, Then, Before } from '@badeball/cypress-cucumber-preprocessor';
 
-const PAYMENT_FAILURE_URL = '/payment-failure';
-
 Before(() => {
   cy.intercept('GET', '/lottie-animations/payment-failure.json').as('failureAnimation');
 });
@@ -14,11 +12,11 @@ const billingFormData = {
   postalCode: '10001',
 };
 
-Given('the pro plan has been failed to purchase', () => {
+Given('the Lifetime plan has been failed to purchase', () => {
   cy.getSidebarMenuByText('Account').click();
   cy.getSidebarMenuByText('My Plan').click();
   cy.contains('Upgrade plan').click();
-  cy.contains('Upgrade to Pro').click();
+  cy.contains('Upgrade to Lifetime').click();
 
   cy.fillBillingForm(billingFormData);
   cy.fillPaymentFormWithInvalidCard();
@@ -26,20 +24,16 @@ Given('the pro plan has been failed to purchase', () => {
   cy.contains('Confirm payment').click();
 });
 
-When('the user fails to purchase the Pro plan', () => {
+When('the user fails to purchase the Lifetime plan', () => {
   cy.getSidebarMenuByText('Account').click();
   cy.getSidebarMenuByText('My Plan').click();
   cy.contains('Upgrade plan').click();
-  cy.contains('Upgrade to Pro').click();
+  cy.contains('Upgrade to Lifetime').click();
 
   cy.fillBillingForm(billingFormData);
   cy.fillPaymentFormWithInvalidCard();
 
   cy.contains('Confirm payment').click();
-});
-
-When('the user tries to navigate to the success payment page using the url directly', () => {
-  cy.visit(PAYMENT_FAILURE_URL);
 });
 
 Then('the billing information should be still filled', () => {
@@ -50,6 +44,6 @@ Then('the billing information should be still filled', () => {
   cy.get('#card-holder-postalcode').should('have.value', billingFormData.postalCode);
 });
 
-Then('the user should be navigated to the success page for the pro plan', () => {
-  cy.url().should('eq', `${Cypress.config().baseUrl}/subscription/pro/payment-success`);
+Then('the user should be navigated to the success page for the Lifetime plan', () => {
+  cy.url().should('eq', `${Cypress.config().baseUrl}/subscription/lifetime/payment-success`);
 });

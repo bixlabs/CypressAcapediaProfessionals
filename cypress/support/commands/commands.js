@@ -52,7 +52,7 @@ Cypress.Commands.add('deleteTestingReferrals', () => {
   cy.request({
     method: 'POST',
     url: backendUrl,
-    timeout: 15000
+    timeout: 15000,
   });
 });
 
@@ -85,4 +85,42 @@ Cypress.Commands.add('isFeatureFlagEnabled', (featureFlag) => {
 
 Cypress.Commands.add('getSidebarMenuByText', (menuText) => {
   return cy.getByTestId('sidebar').contains(menuText);
+});
+
+Cypress.Commands.add(
+  'fillBillingForm',
+  (
+    billingForm = {
+      chn: 'John Doe',
+      address: '123 Main St',
+      city: 'New York',
+      state: 'NY',
+      postalCode: '10001',
+    },
+  ) => {
+    cy.get('#chn').type(billingForm.chn);
+    cy.get('#card-holder-address').type(billingForm.address);
+    cy.get('#card-holder-city').type(billingForm.city);
+    cy.get('#card-holder-state').type(billingForm.state);
+    cy.get('#card-holder-postalcode').type(billingForm.postalCode);
+  },
+);
+
+Cypress.Commands.add('fillPaymentForm', () => {
+  cy.getWithinIframe('[name="number"]').type('4242424242424242');
+  cy.getWithinIframe('[name="expiry"]').type('1235');
+  cy.getWithinIframe('[name="cvc"]').type('244');
+});
+
+Cypress.Commands.add('fillPaymentFormWithInvalidCard', () => {
+  const invalidCardNumber = '4000000000000002';
+
+  cy.getWithinIframe('[name="number"]').type(invalidCardNumber);
+  cy.getWithinIframe('[name="expiry"]').type('1235');
+  cy.getWithinIframe('[name="cvc"]').type('244');
+});
+
+Cypress.Commands.add('fillValidCheckoutForm', () => {
+  cy.fillBillingForm();
+  cy.fillPaymentForm();
 });

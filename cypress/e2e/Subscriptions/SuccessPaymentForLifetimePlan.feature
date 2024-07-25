@@ -1,15 +1,17 @@
+@purchase @purchase-success @lifetime-plan @business:high-impact @low-likely
 Feature: Success payment for Lifetime Plan Users
 
 	Scenario: User can see the success payment page for the lifetime plan
 		Given the user has a free plan
 		When the user successfully purchases the Lifetime plan
-		Then the success payment page for the lifetime plan should be shown
-		And the page should show an animation for the lifetime plan
-		And the page should show the title "Successful lifetime payment"
+		Then the success payment page for the Lifetime plan should be shown
+		And the page should show an animation for the Lifetime plan
+		And the page should show the success title "Successful lifetime payment"
 		And the page should show the description "Thank you for choosing Acapedia for your Continuing Medical Education!"
 		And the page should show the primary action "Go to feed"
 		And the page should show the secondary action "Review billing"
 
+	@low-likely
 	Scenario: User can navigate to feed after success payment
 		Given the user has a free plan
 		And the lifetime plan has been successfully purchased
@@ -24,7 +26,8 @@ Feature: Success payment for Lifetime Plan Users
 		When the user clicks on the secondary action "Review billing"
 		Then the user should be navigated to the billing page
 
+	@low-likely
 	Scenario: User cannot navigate to the success payment page using the url directly
-		Given the user has a free plan
+		Given the user is authenticated
 		When the user tries to navigate to the success payment page using the url directly
 		Then the user should be navigated to the billing page
