@@ -9,7 +9,7 @@ Cypress.Commands.add(
       firstName = faker.name.firstName(),
       lastName = faker.name.lastName(),
     } = {},
-    { hasToVisitUrl = true } = {},
+    { hasToVisitUrl = true, hasToCompleteOnboarding = true } = {},
   ) => {
     cy.intercept({
       method: 'POST',
@@ -44,10 +44,12 @@ Cypress.Commands.add(
 
     cy.wait('@register').its('response.statusCode').should('equal', 200);
 
-    // TODO: we need a test-id here as we cannot get it by text value
-    cy.get('.onboarding-panel').should('exist');
-    cy.contains('Go to feed').click();
-    cy.get('.text-decoration-none > .d-flex').as('.credit-box').should('exist');
+    if (hasToCompleteOnboarding) {
+      // TODO: we need a test-id here as we cannot get it by text value
+      cy.get('.onboarding-panel').should('exist');
+      cy.contains('Go to feed').click();
+      cy.get('.text-decoration-none > .d-flex').as('.credit-box').should('exist');
+    }
   },
 );
 
