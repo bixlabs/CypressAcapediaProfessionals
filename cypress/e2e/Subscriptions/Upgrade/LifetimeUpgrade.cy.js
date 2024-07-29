@@ -1,4 +1,5 @@
-describe('Lifetime plan upgrade', { tags: ['@purchase', '@business:high-impact'] }, () => {
+// TODO: delete this test when the FF FEAT_CHECKOUT_PAGE_ENABLED is deleted
+describe.skip('Lifetime plan upgrade', { tags: ['@purchase', '@business:high-impact', '@lifetime-plan'] }, () => {
   before(() => {
     cy.registerAccount();
   });

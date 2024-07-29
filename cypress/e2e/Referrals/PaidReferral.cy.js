@@ -1,7 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-describe('Paid referred E2E Test', { tags: ['@referral', '@paid-plan', '@low-likely', '@business:low-impact'] }, () => {
-
+describe('Paid referred E2E Test', { tags: ['@referral', '@pro-plan', '@low-likely', '@business:low-impact'] }, () => {
   beforeEach(function () {
     cy.deleteTestingReferrals();
     cy.visit('/register');
@@ -10,7 +9,6 @@ describe('Paid referred E2E Test', { tags: ['@referral', '@paid-plan', '@low-lik
   });
 
   it(`SignUp Paid referred and make Paid referrer`, function () {
-
     // Referred side
 
     const email = this.credentials.paidReferred.email;
@@ -35,7 +33,7 @@ describe('Paid referred E2E Test', { tags: ['@referral', '@paid-plan', '@low-lik
       url: '/api/feed/onboarding',
     }).as('onboarding');
 
-    cy.wait('@onboarding').then( ()=> {
+    cy.wait('@onboarding').then(() => {
       cy.get('.onboarding-panel').should('exist');
       cy.getByTestId('goToFeedOnboardingBtn').click({ timeout: 15000 });
       cy.get('.text-decoration-none > .d-flex').as('.credit-box').should('exist');
@@ -52,8 +50,7 @@ describe('Paid referred E2E Test', { tags: ['@referral', '@paid-plan', '@low-lik
       url: '/api/subscription/payment-intent',
     }).as('formCheckout');
 
-    cy.wait('@formCheckout').then( ()=> {
-
+    cy.wait('@formCheckout').then(() => {
       cy.get('#chn').type('John Doe');
       cy.get('#card-holder-address').type('123 Main St');
       cy.get('#card-holder-city').type('New York');
@@ -71,7 +68,7 @@ describe('Paid referred E2E Test', { tags: ['@referral', '@paid-plan', '@low-lik
       url: '/api/subscription/user',
     }).as('updatedSubscription');
 
-    cy.wait('@updatedSubscription').then( (interception)=> {
+    cy.wait('@updatedSubscription').then((interception) => {
       const response = interception.response.body;
       const hasActivePaidSubscription = response.hasActivePaidSubscription;
       // TODO: for some reason testing enviroment not fetching the plan name
@@ -81,14 +78,15 @@ describe('Paid referred E2E Test', { tags: ['@referral', '@paid-plan', '@low-lik
       // expect(planName).to.equal('Pro');
     });
 
+    cy.visit('/my-plan');
     cy.contains('Make a paid referral').should('exist');
 
     cy.get(`[data-test-id="makeAReferralUrl"]`, { timeout: 15000, force: true })
-    .invoke('text')
-    .then((text) => {
-      referredUrl = text;
-      cy.log(referredUrl);
-    });
+      .invoke('text')
+      .then((text) => {
+        referredUrl = text;
+        cy.log(referredUrl);
+      });
 
     cy.intercept({
       method: 'GET',
@@ -97,8 +95,7 @@ describe('Paid referred E2E Test', { tags: ['@referral', '@paid-plan', '@low-lik
 
     cy.visit('/');
 
-    cy.wait('@feed').then( ()=> {
-
+    cy.wait('@feed').then(() => {
       // Simply to grab the menu options when they are visible or hidden (mobile version)
       cy.get('body').then(($body) => {
         if ($body.find(':contains("Account")').is(':visible')) {
@@ -141,7 +138,7 @@ describe('Paid referred E2E Test', { tags: ['@referral', '@paid-plan', '@low-lik
       url: '/api/feed/onboarding',
     }).as('onboarding');
 
-    cy.wait('@onboarding').then( ()=> {
+    cy.wait('@onboarding').then(() => {
       cy.get('.onboarding-panel').should('exist');
       cy.getByTestId('goToFeedOnboardingBtn').click({ timeout: 15000 });
       cy.get('.text-decoration-none > .d-flex').as('.credit-box').should('exist');
@@ -158,8 +155,7 @@ describe('Paid referred E2E Test', { tags: ['@referral', '@paid-plan', '@low-lik
       url: '/api/subscription/payment-intent',
     }).as('formCheckout2');
 
-    cy.wait('@formCheckout2').then( ()=> {
-
+    cy.wait('@formCheckout2').then(() => {
       cy.get('#chn').type('John Doe');
       cy.get('#card-holder-address').type('123 Main St');
       cy.get('#card-holder-city').type('New York');
@@ -177,7 +173,7 @@ describe('Paid referred E2E Test', { tags: ['@referral', '@paid-plan', '@low-lik
       url: '/api/subscription/user',
     }).as('updatedSubscription2');
 
-    cy.wait('@updatedSubscription2').then( (interception)=> {
+    cy.wait('@updatedSubscription2').then((interception) => {
       const response = interception.response.body;
       const hasActivePaidSubscription = response.hasActivePaidSubscription;
       // TODO: for some reason testing enviroment not fetching the plan name
@@ -199,11 +195,9 @@ describe('Paid referred E2E Test', { tags: ['@referral', '@paid-plan', '@low-lik
       url: '/api/logout',
     }).as('logout');
 
-    cy.wait('@feedSecond').then( ()=> {
-
+    cy.wait('@feedSecond').then(() => {
       // Simply to grab the menu options when they are visible or hidden (mobile version)
       cy.get('body').then(($body) => {
-
         if ($body.find(':contains("Account")').is(':visible')) {
           cy.contains('Logout').click();
         } else {
@@ -219,16 +213,14 @@ describe('Paid referred E2E Test', { tags: ['@referral', '@paid-plan', '@low-lik
     }).as('login');
 
     // Back to referred
-    cy.wait('@logout').then( ()=> {
-
+    cy.wait('@logout').then(() => {
       cy.getByTestId('email').type(email);
       cy.getByTestId('password').type(password);
 
       cy.contains('Log in').click();
     });
 
-    cy.wait('@login').then( ()=> {
-
+    cy.wait('@login').then(() => {
       cy.intercept({
         method: 'GET',
         url: '/api/user/referrals/list',
@@ -236,14 +228,11 @@ describe('Paid referred E2E Test', { tags: ['@referral', '@paid-plan', '@low-lik
 
       cy.visit('/referrals');
 
-      cy.wait('@referralsList').then( ()=> {
-        cy.getByTestId('referralStatus')
-        .eq(0)
-        .contains('Success');
-  
+      cy.wait('@referralsList').then(() => {
+        cy.getByTestId('referralStatus').eq(0).contains('Success');
+
         cy.contains('Total saved via referrals').should('exist');
       });
     });
-
   });
 });
