@@ -1,6 +1,6 @@
 import { Given, When, Then, Before } from '@badeball/cypress-cucumber-preprocessor';
 
-const PAYMENT_SUCCESS_URL = '/subscription/pro/payment-success';
+const PAYMENT_SUCCESS_URL = '/plan/pro/payment-success';
 
 Before(() => {
   cy.intercept('GET', '/lottie-animations/payment-success-pro.json').as('proAnimation');

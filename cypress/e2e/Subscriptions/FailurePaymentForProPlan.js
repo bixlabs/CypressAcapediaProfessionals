@@ -51,5 +51,5 @@ Then('the billing information should be still filled', () => {
 });
 
 Then('the user should be navigated to the success page for the pro plan', () => {
-  cy.url().should('eq', `${Cypress.config().baseUrl}/subscription/pro/payment-success`);
+  cy.url().should('eq', `${Cypress.config().baseUrl}/plan/pro/payment-success`);
 });

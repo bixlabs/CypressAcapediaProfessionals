@@ -45,5 +45,5 @@ Then('the billing information should be still filled', () => {
 });
 
 Then('the user should be navigated to the success page for the Lifetime plan', () => {
-  cy.url().should('eq', `${Cypress.config().baseUrl}/subscription/lifetime/payment-success`);
+  cy.url().should('eq', `${Cypress.config().baseUrl}/plan/lifetime/payment-success`);
 });
