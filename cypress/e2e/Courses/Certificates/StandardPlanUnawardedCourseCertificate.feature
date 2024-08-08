@@ -19,9 +19,9 @@ Feature: Unawarded Premium Course Certificates for Standard Plan Users
   Scenario: Standard plan users with unawarded course credits can not download certificate for completed and unawarded premium courses
     Given a standard plan user in the "Course overview" page
     Then the call to action "Download certificate" is not displayed to the user
-    And the call to action "contact support" is displayed to the user
-    And shows a copy text encouraging to the user to contact support
+    And the call to action "Upgrade" is displayed to the user
+    And shows a copy text encouraging to the user to upgrade
 
-  Scenario: Standard plan users with unawarded course credits can contact support for completed and unawarded premium courses
+  Scenario: Standard plan users with unawarded course credits can upgrade for completed and unawarded premium courses
     When a standard plan user access the "Course overview" page
-    Then the user should see the "contact support" with a link to the external page
+    Then the user should be able to click the "Upgrade" button

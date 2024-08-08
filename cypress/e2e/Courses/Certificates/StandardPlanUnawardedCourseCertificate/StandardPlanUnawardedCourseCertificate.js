@@ -32,13 +32,13 @@ Given('the call to action "Download certificate" is not displayed to the user', 
   cy.contains('Download certificate').should('not.exist');
 });
 
-Given('the call to action "contact support" is displayed to the user', () => {
-  cy.get('a').contains('contact support').should('exist');
+Given('the call to action "Upgrade" is displayed to the user', () => {
+  cy.contains('Upgrade').should('exist');
 });
 
-Given('shows a copy text encouraging to the user to contact support', () => {
+Given('shows a copy text encouraging to the user to upgrade', () => {
   cy.contains(
-    'You have reached your CME limit. By completing this course, you are over the limit and cannot download the certificate until the next billing cycle. You can read articles, take another course or contact support to have your limit increased.',
+    'By completing this course, you are over the limit and cannot download the certificate until the next billing cycle. Upgrade to increase your credit limit.',
   ).should('exist');
 });
 
@@ -83,9 +83,6 @@ Then('the user should be navigated to "Course overview" page', () => {
   cy.url().should('match', /\/premium-courses\/.+\/overview/);
 });
 
-Then('the user should see the "contact support" with a link to the external page', () => {
-  // we can't test external pages thus only making sure that the link is correct should be enough
-  cy.get('a')
-    .contains('contact support')
-    .should('have.attr', 'href', 'https://acapedia.zendesk.com/hc/en-us/requests/new');
+Then('the user should be able to click the "Upgrade" button', () => {
+  cy.contains('Upgrade').click();
 });
