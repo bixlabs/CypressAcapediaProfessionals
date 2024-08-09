@@ -22,7 +22,7 @@ Then('the user should see a warning style for unawarded special requirements', (
       const isAwarded = !specialRequirement.wasCompletedWithAllCreditsAwarded;
 
       if (!isAwarded) {
-        cy.getByTestId('status-completed').eq(index).contains('Upgrade for certificate').should('exist');
+        cy.getByTestId('status-completed').eq(index).contains('Contact support').should('exist');
 
         const warningStyleColor = 'rgb(234, 120, 14)';
 
@@ -32,21 +32,23 @@ Then('the user should see a warning style for unawarded special requirements', (
 
         cy.getByTestId('status-completed')
           .eq(index)
-          .contains('Upgrade for certificate')
+          .contains('Contact support')
           .should('have.css', 'background-color', warningStyleColor);
       }
     });
   });
 });
 
-Then('the user should see the call to action "Upgrade for certificate" for unawarded special requirements', () => {
-  cy.contains('Upgrade for certificate').should('exist');
+Then('the user should see the call to action "Contact support" for unawarded special requirements', () => {
+  cy.contains('Contact support').should('exist');
 });
 
-Then('the user should see able to click the "Upgrade for certificate" button', () => {
+Then('the user should see the "Contact support" with a link to the external page', () => {
+  // we can't test external pages thus only making sure that the link is correct should be enough
   cy.getByTestId('status-completed')
     .eq(0)
     .find('a')
-    .contains('Upgrade for certificate')
-    .click();
+    .contains('Contact support')
+    .parent()
+    .should('have.attr', 'href', 'https://acapedia.zendesk.com/hc/en-us/requests/new');
 });
