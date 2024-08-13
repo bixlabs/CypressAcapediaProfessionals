@@ -4,6 +4,13 @@ Given('the user is authenticated', function () {
   cy.fixture('/common/credentials').then((credentials) => {
     cy.loginAccount(credentials.incompleteProfile);
   });
+
+  cy.intercept('/api/subscription/user', (req) => {
+    req.continue((res) => {
+      // we need a paid user otherwise the upgrade banner is shown for premium courses
+      res.body.hasActivePaidSubscription = true;
+    });
+  });
 });
 
 Given('a logged in user having an incomplete profile', function () {

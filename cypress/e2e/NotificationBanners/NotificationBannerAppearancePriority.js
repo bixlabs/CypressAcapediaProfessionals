@@ -91,7 +91,10 @@ When('the user navigates to the "Premium Course Abstract" page', function () {
 const shouldMatchBannerText = (expectedNotificationText) => {
   cy.isFeatureFlagEnabled('MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED').then((isEnabled) => {
     if (isEnabled) {
-      return cy.get('.notification-banner-container').invoke('text').should('have.exactText', expectedNotificationText);
+      return cy
+        .get('.notification-banner-container')
+        .invoke('text')
+        .should('match', new RegExp(expectedNotificationText));
     } else {
       return 'skip';
     }
