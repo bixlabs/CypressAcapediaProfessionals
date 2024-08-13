@@ -12,6 +12,15 @@ Given('a standard plan user has some completed awarded premium courses', () => {
   cy.fixture('/Courses/Certificates/credentials').then((credentials) => {
     cy.loginAccount(credentials.standard);
   });
+
+  cy.intercept('/api/subscription/user', (req) => {
+    req.continue((res) => {
+      res.body.hasActivePaidSubscription = true;
+      res.body.planName = 'Pro';
+      res.body.status = 'active';
+      res.body.endAt = '2030/03/12';
+    });
+  });
 });
 
 Given('the premium courses page has been navigated to', () => {
