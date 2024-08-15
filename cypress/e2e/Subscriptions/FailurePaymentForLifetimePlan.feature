@@ -9,14 +9,14 @@ Feature: Failure payment for Lifetime Plan Users
 		And the page should show the title "Transaction declined"
 		And the page should show the description "Your bank has declined the transaction. Please contact them and/or try again."
 		And the page should show the primary action "Try another payment method"
-		And the page should show the secondary action "Return to feed"
+		And the page should show the secondary action "Go to feed"
 
 	@low-likely
 	Scenario: User can navigate to feed after failure payment
 		Given the user has a free plan
 		And the Lifetime plan has been failed to purchase
 		And the failure payment page has been navigated to
-		When the user clicks on the secondary action "Return to feed"
+		When the user clicks on the secondary action "Go to feed"
 		Then the user should be navigated to the feed page
 
 	Scenario: User can return to checkout after failure payment
