@@ -81,7 +81,7 @@ describe('Paid referred E2E Test', { tags: ['@referral', '@pro-plan', '@low-like
     cy.visit('/my-plan');
     cy.contains('Make a paid referral').should('exist');
 
-    cy.get(`[data-test-id="makeAReferralUrl"]`, { timeout: 15000, force: true })
+    cy.get(`[data-testid="makeAReferralUrl"]`, { timeout: 15000, force: true })
       .invoke('text')
       .then((text) => {
         referredUrl = text;

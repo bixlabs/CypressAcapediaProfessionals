@@ -1,7 +1,6 @@
 import { faker } from '@faker-js/faker';
 
 describe('Free referred E2E Test', { tags: ['@referral', '@free-plan', '@low-likely', '@business:low-impact'] }, () => {
-
   beforeEach(function () {
     cy.deleteTestingReferrals();
     cy.visit('/register');
@@ -10,7 +9,6 @@ describe('Free referred E2E Test', { tags: ['@referral', '@free-plan', '@low-lik
   });
 
   it(`SignUp Free referred and make Free referrer`, function () {
-
     // Referred side
 
     const email = this.credentials.freeReferred.email;
@@ -35,7 +33,7 @@ describe('Free referred E2E Test', { tags: ['@referral', '@free-plan', '@low-lik
       url: '/api/feed/onboarding',
     }).as('onboarding');
 
-    cy.wait('@onboarding').then( ()=> {
+    cy.wait('@onboarding').then(() => {
       cy.get('.onboarding-panel').should('exist');
       cy.getByTestId('goToFeedOnboardingBtn').click();
       cy.get('.text-decoration-none > .d-flex').as('.credit-box').should('exist');
@@ -45,12 +43,12 @@ describe('Free referred E2E Test', { tags: ['@referral', '@free-plan', '@low-lik
     cy.visit('/my-plan');
     cy.contains('Make a referral').should('exist');
 
-    cy.get(`[data-test-id="makeAReferralUrl"]`, { timeout: 15000, force: true })
-    .invoke('text')
-    .then((text) => {
-      referredUrl = text;
-      cy.log(referredUrl);
-    });
+    cy.get(`[data-testid="makeAReferralUrl"]`, { timeout: 15000, force: true })
+      .invoke('text')
+      .then((text) => {
+        referredUrl = text;
+        cy.log(referredUrl);
+      });
 
     cy.intercept({
       method: 'GET',
@@ -59,8 +57,7 @@ describe('Free referred E2E Test', { tags: ['@referral', '@free-plan', '@low-lik
 
     cy.visit('/');
 
-    cy.wait('@feed').then( ()=> {
-
+    cy.wait('@feed').then(() => {
       // Simply to grab the menu options when they are visible or hidden (mobile version)
       cy.get('body').then(($body) => {
         if ($body.find(':contains("Account")').is(':visible')) {
@@ -103,7 +100,7 @@ describe('Free referred E2E Test', { tags: ['@referral', '@free-plan', '@low-lik
       url: '/api/feed/onboarding',
     }).as('onboarding');
 
-    cy.wait('@onboarding').then( ()=> {
+    cy.wait('@onboarding').then(() => {
       cy.get('.onboarding-panel').should('exist');
       cy.getByTestId('goToFeedOnboardingBtn').click();
       cy.get('.text-decoration-none > .d-flex').as('.credit-box').should('exist');
@@ -196,11 +193,9 @@ describe('Free referred E2E Test', { tags: ['@referral', '@free-plan', '@low-lik
       url: '/api/logout',
     }).as('logout');
 
-    cy.wait('@feedSecond').then( ()=> {
-
+    cy.wait('@feedSecond').then(() => {
       // Simply to grab the menu options when they are visible or hidden (mobile version)
       cy.get('body').then(($body) => {
-
         if ($body.find(':contains("Account")').is(':visible')) {
           cy.contains('Logout').click();
         } else {
@@ -216,22 +211,17 @@ describe('Free referred E2E Test', { tags: ['@referral', '@free-plan', '@low-lik
     }).as('login');
 
     // Back to referred
-    cy.wait('@logout').then( ()=> {
-
+    cy.wait('@logout').then(() => {
       cy.getByTestId('email').type(email);
       cy.getByTestId('password').type(password);
 
       cy.contains('Log in').click();
     });
 
-    cy.wait('@login').then( ()=> {
-
+    cy.wait('@login').then(() => {
       cy.visit('/referrals');
 
-      cy.getByTestId('referralStatus')
-      .eq(0)
-      .contains('Success');
+      cy.getByTestId('referralStatus').eq(0).contains('Success');
     });
-
   });
 });
