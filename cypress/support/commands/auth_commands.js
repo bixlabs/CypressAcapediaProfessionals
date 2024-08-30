@@ -53,22 +53,39 @@ Cypress.Commands.add(
   },
 );
 
-Cypress.Commands.add('loginAccount', ({ email, password } = {}) => {
-  cy.session(email, () => {
-    cy.visit('/login');
-    cy.getByTestId('email').type(email);
-    cy.getByTestId('password').type(password);
+Cypress.Commands.add(
+  'loginAccount',
+  (
+    { email, password } = {},
+    { hasToVisitUrl = true, hasToReuseSession = true, hasToAssertLoginResult = true } = {},
+  ) => {
+    function login() {
+      if (hasToVisitUrl) {
+        cy.visit('/login');
+      }
 
-    cy.intercept({
-      method: 'POST',
-      url: '/api/login',
-    }).as('login');
+      cy.getByTestId('email').type(email);
+      cy.getByTestId('password').type(password);
 
-    cy.contains('Log in').click();
+      cy.intercept({
+        method: 'POST',
+        url: '/api/login',
+      }).as('login');
 
-    cy.wait('@login').its('response.statusCode').should('equal', 200);
+      cy.contains('Log in').click();
 
-    // TODO: we need a test-id here as we cannot get it by text value
-    cy.get('.text-decoration-none > .d-flex').as('.credit-box').should('exist');
-  });
-});
+      cy.wait('@login').its('response.statusCode').should('equal', 200);
+
+      if (hasToAssertLoginResult) {
+        // TODO: we need a test-id here as we cannot get it by text value
+        cy.get('.text-decoration-none > .d-flex').as('.credit-box').should('exist');
+      }
+    }
+
+    hasToReuseSession
+      ? cy.session(email, () => {
+          login();
+        })
+      : login();
+  },
+);
