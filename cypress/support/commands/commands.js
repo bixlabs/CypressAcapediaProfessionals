@@ -35,7 +35,7 @@ Cypress.Commands.add('iframe', { prevSubject: 'element' }, ($iframe, selector) =
 });
 
 Cypress.Commands.add('getByTestId', (testId, ...args) => {
-  return cy.get(`[data-testid=${testId}]`, { timeout: 15000, ...args });
+  return cy.get(`[data-testid=${testId}]`, { timeout: 5000, ...args });
 });
 
 Cypress.Commands.add('cleanUpDB', () => {
