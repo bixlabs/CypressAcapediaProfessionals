@@ -41,26 +41,27 @@ describe(
         },
       });
 
-      cy.visit('/checkout/pro');
+      cy.visit('/checkout/lifetime');
 
-      cy.get('.selected-card > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
+      cy.get(':nth-child(1) > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
         'have.text',
         ' $17 ',
       );
-      cy.get('.selected-card > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
+      cy.get(':nth-child(1) > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
         'have.class',
         'fluorosafety-discount-crossed-price',
       );
-      cy.get(':nth-child(2) > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
+      cy.get('.selected-card > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
         'have.text',
         ' $998 ',
       );
-      cy.get(':nth-child(2) > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
+      cy.get('.selected-card > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
         'have.class',
         'fluorosafety-discount-crossed-price',
       );
 
       cy.getByTestId('discount-expiration-section').should('not.exist');
+      cy.getByTestId('discount-code-section').should('not.exist');
     });
   },
 );
