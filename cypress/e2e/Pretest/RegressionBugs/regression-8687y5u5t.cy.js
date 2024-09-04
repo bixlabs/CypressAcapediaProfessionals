@@ -24,7 +24,6 @@ describe(
 
       cy.url().should('include', '/pretest/onboarding');
 
-      cy.pause();
       cy.contains('Next').click();
       cy.contains('Start pre-test').click();
 
