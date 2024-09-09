@@ -26,16 +26,30 @@ describe(
       });
     });
 
-    const toTimestamp = (date) => Math.floor(date.getTime() / 1000);
-    const enableFluoroSafetyDiscount = ({ discountStartDate, discountEndDate }) => {
+    const toTimestamp = (date) => {
+      return Math.floor(date.getTime() / 1000);
+    };
+    const enableFluoroSafetyDiscount = ({
+      // for pro and lifetime unless lifetime specific is provided
+      discountStartDate,
+      discountEndDate,
+      couponCode,
+
+      lifetimeDiscountStartDate,
+      lifetimeDiscountEndDate,
+      lifetimeCouponCode,
+    }) => {
       const requestUrl = `${Cypress.env('API_BASE_URL')}/testing/db/enable-fluoro-safety-former-discount`;
       cy.request({
         method: 'POST',
         url: requestUrl,
         body: {
-          couponCode: 'E2EFLUORO50OFF',
+          couponCode: couponCode ?? 'E2EFLUORO50OFF',
+          lifetimeCouponCode,
           discountStartDate: discountStartDate ? toTimestamp(discountStartDate) : null,
+          lifetimeDiscountStartDate: lifetimeDiscountStartDate ? toTimestamp(lifetimeDiscountStartDate) : null,
           discountEndDate: discountStartDate ? toTimestamp(discountEndDate) : null,
+          lifetimeDiscountEndDate: lifetimeDiscountEndDate ? toTimestamp(lifetimeDiscountEndDate) : null,
         },
       });
     };
@@ -47,7 +61,20 @@ describe(
       const discountEndDate = new Date();
       discountEndDate.setDate(discountEndDate.getDate() + 3);
 
-      enableFluoroSafetyDiscount({ discountStartDate, discountEndDate });
+      const lifetimeDiscountStartDate = new Date();
+      lifetimeDiscountStartDate.setDate(lifetimeDiscountStartDate.getDate() - 3);
+
+      const lifetimeDiscountEndDate = new Date();
+      lifetimeDiscountEndDate.setDate(lifetimeDiscountEndDate.getDate() + 4);
+
+      enableFluoroSafetyDiscount({
+        discountStartDate,
+        discountEndDate,
+        couponCode: 'E2EFLUORO50OFF',
+        lifetimeDiscountStartDate,
+        lifetimeDiscountEndDate,
+        lifetimeCouponCode: 'E2EFLUORO20OFF',
+      });
 
       cy.fixture('/FluoroSafety/credentials').then((credentials) => {
         cy.loginAccount(credentials.downgradedFree);
@@ -55,6 +82,7 @@ describe(
 
       cy.visit('/checkout');
 
+      cy.get('.selected-card > .row > .text-right > .heading-l-small').should('have.text', ' $17  $8.5  /month');
       cy.get('.selected-card > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
         'have.text',
         ' $17 ',
@@ -63,6 +91,8 @@ describe(
         'have.class',
         'fluorosafety-discount-crossed-price',
       );
+
+      cy.get(':nth-child(2) > .row > .text-right > .heading-l-small').should('have.text', ' $998  $798.4 ');
       cy.get(':nth-child(2) > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
         'have.text',
         ' $998 ',
@@ -76,14 +106,32 @@ describe(
         day: '2-digit',
         month: 'short',
         year: 'numeric',
-        timeZone: 'America/Los_Angeles',
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       });
       cy.getByTestId('discount-expiration-section').should('have.text', `Discount expires on ${formattedEndDate} `);
 
       // TODO: improve this selector to be less brittle
       cy.get('.mt-2').should('have.text', ' (E2E) FluoroSafety 50% off  -$102.00 ');
+      cy.get('[data-testid="payment-summary-price"] > :nth-child(5)').should('have.text', 'Total payment $102.00 ');
 
       cy.getByTestId('discount-code-section').should('not.exist');
+
+      // Select lifetime
+      cy.get(':nth-child(2) > .row > .text-left > .text').click();
+
+      const formattedLifetimeEndDate = lifetimeDiscountEndDate.toLocaleDateString('en-US', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      });
+
+      cy.getByTestId('discount-expiration-section').should(
+        'have.text',
+        `Discount expires on ${formattedLifetimeEndDate} `,
+      );
+      cy.get('.mt-2').should('have.text', ' (E2E) FluoroSafety 20% off  -$199.60 ');
+      cy.get('[data-testid="payment-summary-price"] > :nth-child(4)').should('have.text', 'Total payment $798.40 ');
     });
 
     it('should not display any discount outside of the discount period', () => {
@@ -212,7 +260,7 @@ describe(
       const discountEndDate = new Date();
       discountEndDate.setDate(discountEndDate.getDate() + 3);
 
-      enableFluoroSafetyDiscount({ discountStartDate, discountEndDate });
+      enableFluoroSafetyDiscount({ discountStartDate, discountEndDate, couponCode: 'E2EFLUORO20OFF' });
 
       const email = faker.internet.email();
       cy.registerAccount({
@@ -239,7 +287,7 @@ describe(
       cy.url().should('include', '/payment-success');
       cy.contains('Review billing').click();
 
-      cy.get('tbody > tr > :nth-child(2)').should('have.text', '$499.00');
+      cy.get('tbody > tr > :nth-child(2)').should('have.text', '$798.40');
     });
   },
 );
