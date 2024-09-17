@@ -82,7 +82,7 @@ describe(
 
       cy.visit('/checkout');
 
-      cy.get('.selected-card > .row > .text-right > .heading-l-small').should('have.text', ' $17  $8.5  /month');
+      cy.get('.selected-card > .row > .text-right > .heading-l-small').should('have.text', ' $17  $8.50  /month');
       cy.get('.selected-card > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
         'have.text',
         ' $17 ',
