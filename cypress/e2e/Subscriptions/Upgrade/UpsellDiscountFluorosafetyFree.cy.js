@@ -92,7 +92,7 @@ describe(
         'fluorosafety-discount-crossed-price',
       );
 
-      cy.get(':nth-child(2) > .row > .text-right > .heading-l-small').should('have.text', ' $998  $798.4 ');
+      cy.get(':nth-child(2) > .row > .text-right > .heading-l-small').should('have.text', ' $998  $798.40 ');
       cy.get(':nth-child(2) > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
         'have.text',
         ' $998 ',
