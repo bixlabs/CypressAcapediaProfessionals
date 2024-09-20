@@ -45,13 +45,7 @@ Given('the user has a complete profile', () => {
 });
 
 Given('the complete profile dialogue is displayed', () => {
-  cy.isFeatureFlagEnabled('MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED').then((isEnabled) => {
-    if (isEnabled) {
-      cy.getByTestId('complete-profile-dialog').should('exist');
-    } else {
-      cy.log('Feature flag MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED is disabled, skipping');
-    }
-  });
+  cy.getByTestId('complete-profile-dialog').should('exist');
 });
 
 Given('the Complete Profile dialog is shown', function () {
@@ -59,20 +53,14 @@ Given('the Complete Profile dialog is shown', function () {
 });
 
 When('the user completes the profile from the complete profile dialogue', () => {
-  cy.isFeatureFlagEnabled('MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED').then((isEnabled) => {
-    if (isEnabled) {
-      cy.get('#boardId').type('12345');
+  cy.get('#boardId').type('12345');
 
-      cy.get('#dateOfBirth').click();
-      cy.get('.v-date-picker-years').contains('1990').click();
-      cy.get('.v-date-picker-table').contains('Jan').click();
-      cy.get('.v-date-picker-table').contains('31').click();
+  cy.get('#dateOfBirth').click();
+  cy.get('.v-date-picker-years').contains('1990').click();
+  cy.get('.v-date-picker-table').contains('Jan').click();
+  cy.get('.v-date-picker-table').contains('31').click();
 
-      cy.contains('Confirm information').click();
-    } else {
-      cy.log('Feature flag MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED is disabled, skipping');
-    }
-  });
+  cy.contains('Confirm information').click();
 });
 
 When('the user completes the profile from the complete profile dialogue opened from the sidebar', () => {
@@ -98,13 +86,7 @@ When('the user completes the profile via the Complete Profile dialog', () => {
 });
 
 Then('the complete profile dialog is shown requiring the user to fill the missing profile details', () => {
-  cy.isFeatureFlagEnabled('MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED').then((isEnabled) => {
-    if (isEnabled) {
-      cy.getByTestId('complete-profile-dialog').should('be.visible');
-    } else {
-      cy.log('Feature flag MILESTONE_COMPLETE_PROFILE_CERTIFICATES_ENABLED is disabled, skipping');
-    }
-  });
+  cy.getByTestId('complete-profile-dialog').should('be.visible');
 });
 
 Then('the Complete Profile dialog should be closed', () => {
