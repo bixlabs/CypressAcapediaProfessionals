@@ -1,13 +1,13 @@
 {
   "name": "qa-e2e-acapedia-professionals",
   "scripts": {
-    "ci:test": "npm run cy:test --",
+    "ci:test": "pnpm cy:test --",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "cy:run:chrome": "npm run cy:run b- Chrome",
-    "cy:run:edge": "npm run cy:run b- Edge",
-    "cy:run:firefox": "npm run cy:run b- Firefox",
-    "cy:test": "npm run cy:run --"
+    "cy:run:chrome": "pnpm cy:run b- Chrome",
+    "cy:run:edge": "pnpm cy:run b- Edge",
+    "cy:run:firefox": "pnpm cy:run b- Firefox",
+    "cy:test": "pnpm cy:run --"
   },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^20.0.2",
@@ -20,5 +20,10 @@
     "cypress-slow-down": "^1.2.1",
     "cypress-xpath": "^2.0.0",
     "lodash.range": "^3.2.0"
-  }
+  },
+  "engines": {
+    "node": "20.17.0",
+    "npm": "9.11.0"
+  },
+  "type": "module"
 }
