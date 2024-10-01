@@ -125,8 +125,8 @@ describe('Free referred E2E Test', { tags: ['@referral', '@free-plan', '@low-lik
 
     function answerQuestion({ failedAnswerNumber }) {
       // select a choice
-      // TODO: we need a test-id here as we cannot get it by text value
-      cy.get(`.v-input--radio-group__input > :nth-child(${answerIndex})`).click();
+      cy.getQuizOptionByIndex(answerIndex).click();
+
       cy.wait('@answerQuestion').then((interception) => {
         const responseBody = interception.response.body;
         const isCorrectAnswer = responseBody.success === 1;
