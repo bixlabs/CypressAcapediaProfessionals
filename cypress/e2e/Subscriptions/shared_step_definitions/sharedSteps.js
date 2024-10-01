@@ -57,7 +57,7 @@ Then('the page should show a failure animation', () => {
 });
 
 Then('the page should show the title {string}', (title) => {
-  cy.contains(title).should('have.class', 'text-grey');
+  cy.contains(title).should('have.class', 'text-grey-darken-1');
 });
 
 Then('the page should show the success title {string}', (title) => {
