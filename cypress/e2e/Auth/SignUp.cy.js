@@ -37,8 +37,7 @@ describe('SignUp E2E Test', { tags: ['@auth', '@business:critical'] }, () => {
       cy.get('#medical-board').parent().click();
       cy.contains('American Board of Anesthesia').click();
       cy.getByTestId('boardDateOfBirdInput').click();
-      cy.contains('1991').click();
-      cy.contains('10').click();
+      cy.selectDate({ year: '1991', month: 'Oct', day: '10' });
 
       // TODO: we need a test-id here as we cannot get it by text value
       cy.contains('Continue').click({ force: true });
