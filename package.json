@@ -7,7 +7,8 @@
     "cy:run:chrome": "pnpm cy:run b- Chrome",
     "cy:run:edge": "pnpm cy:run b- Edge",
     "cy:run:firefox": "pnpm cy:run b- Firefox",
-    "cy:test": "pnpm cy:run --"
+    "cy:test": "pnpm cy:run --",
+    "cy:lint": "eslint ."
   },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^20.0.2",
@@ -19,6 +20,8 @@
     "cypress-mochawesome-reporter": "^3.2.0",
     "cypress-slow-down": "^1.2.1",
     "cypress-xpath": "^2.0.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-cypress": "^3.5.0",
     "lodash.range": "^3.2.0"
   },
   "engines": {
