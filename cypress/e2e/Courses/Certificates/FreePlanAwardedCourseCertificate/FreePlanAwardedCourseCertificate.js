@@ -23,17 +23,7 @@ When('the user requests to "Download certificate"', () => {
 });
 
 Given('the premium courses page has been navigated to', () => {
-  const options = this.userAgent
-    ? {
-        onBeforeLoad: (win) => {
-          Object.defineProperty(win.navigator, 'userAgent', {
-            value: this.userAgent,
-          });
-        },
-      }
-    : {};
-
-  cy.visit('/premium-courses', options);
+  cy.visit('/premium-courses');
 });
 
 Given('the "Completed" tab is selected', () => {
@@ -62,13 +52,7 @@ Then('the certificate should be downloaded successfully', () => {
 });
 
 Given('the user navigates to the premium courses page', () => {
-  cy.visit('/premium-courses', {
-    onBeforeLoad(win) {
-      Object.defineProperty(win.navigator, 'userAgent', {
-        value: this.userAgent,
-      });
-    },
-  });
+  cy.visit('/premium-courses');
 });
 
 Then('the user should be advised to download the certificate from desktop', () => {

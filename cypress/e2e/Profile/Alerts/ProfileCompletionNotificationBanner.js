@@ -41,8 +41,8 @@ Given('the Special Requirement Feed page has been navigated to', function () {
   cy.visit(pagePath);
 });
 
-When('the {string} has been clicked from the banner', function (callToActionText) {
-  cy.contains(callToActionText).click();
+When('the "Complete profile" has been clicked from the banner', function () {
+  cy.getByTestId('notification-banner-complete-profile-button').click();
 });
 
 When('the user navigates to the Main Feed page', function () {
@@ -78,8 +78,8 @@ When('the user navigates to the Special Requirement Feed page', function () {
   cy.visit(pagePath);
 });
 
-When('the user clicks on {string} from the banner', function (callToActionText) {
-  cy.contains(callToActionText).click();
+When('the user clicks on "Complete profile" from the banner', function () {
+  cy.getByTestId('notification-banner-complete-profile-button').click();
 });
 
 Then(

@@ -13,13 +13,12 @@ describe('GuestEarnCredits', { tags: ['@article-quiz', '@guest', '@business:medi
       cy.contains('Agree and start').click();
       cy.contains('Take quiz').click();
 
-      let firstOptionSelector = '.v-input--radio-group__input > :nth-child(1)';
       for (let i = 0; i < 4; i++) {
-        cy.get(firstOptionSelector).click();
+        cy.getQuizOptionByIndex(0).click();
         cy.contains('Next question').click();
       }
       // the last question does not have a "Next question" button
-      cy.get(firstOptionSelector).click();
+      cy.getQuizOptionByIndex(0).click();
 
       if (!isLastArticle) {
         cy.contains('Go to feed').click();

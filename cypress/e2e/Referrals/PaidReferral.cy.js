@@ -21,8 +21,8 @@ describe('Paid referred E2E Test', { tags: ['@referral', '@pro-plan', '@low-like
     cy.getByTestId('password').type(password);
 
     cy.contains('Sign up').click();
-    cy.get('[name=firstName]').type(firstName);
-    cy.get('[name=lastName]').type(lastName);
+    cy.getByTestId('firstName').type(firstName);
+    cy.getByTestId('lastName').type(lastName);
     cy.get('[name=degree]').parent().click();
     cy.contains('P.A.').click();
 
@@ -126,8 +126,8 @@ describe('Paid referred E2E Test', { tags: ['@referral', '@pro-plan', '@low-like
     cy.getByTestId('password').type(passwordReferrer);
 
     cy.contains('Sign up').click();
-    cy.get('[name=firstName]').type(firstNameReferrer);
-    cy.get('[name=lastName]').type(lastNameReferrer);
+    cy.getByTestId('firstName').type(firstNameReferrer);
+    cy.getByTestId('lastName').type(lastNameReferrer);
     cy.get('[name=degree]').parent().click();
     cy.contains('P.A.').click();
 

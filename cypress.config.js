@@ -1,11 +1,12 @@
-const { defineConfig } = require('cypress');
-const fs = require('fs');
-const path = require('path');
+import { defineConfig } from 'cypress';
+import fs from 'fs';
+import path from 'path';
 import { addCucumberPreprocessorPlugin } from '@badeball/cypress-cucumber-preprocessor';
 import createBundler from '@bahmutov/cypress-esbuild-preprocessor';
-import createEsbuildPlugin from '@badeball/cypress-cucumber-preprocessor/esbuild';
+import { createEsbuildPlugin } from '@badeball/cypress-cucumber-preprocessor/esbuild';
+import { dirname } from 'path';
 
-module.exports = defineConfig({
+export default defineConfig({
   projectId: 'c1jrzq',
   reporter: 'cypress-mochawesome-reporter',
   chromeWebSecurity: false,
@@ -21,7 +22,8 @@ module.exports = defineConfig({
     defaultCommandTimeout: 20000,
     requestTimeout: 20000,
     async setupNodeEvents(on, config) {
-      require('@cypress/grep/src/plugin')(config);
+      const grepPlugin = await import('@cypress/grep/src/plugin');
+      grepPlugin.default(config);
       await addCucumberPreprocessorPlugin(on, config);
       on(
         'file:preprocessor',
@@ -42,7 +44,7 @@ module.exports = defineConfig({
 
       on('task', {
         deleteAllFilesInFolder(folderPath) {
-          const dirPath = path.resolve(__dirname, folderPath);
+          const dirPath = path.resolve(dirname, folderPath);
 
           if (!fs.existsSync(dirPath)) return null;
 
