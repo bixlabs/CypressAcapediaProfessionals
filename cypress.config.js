@@ -4,6 +4,7 @@ import path from 'path';
 import { addCucumberPreprocessorPlugin } from '@badeball/cypress-cucumber-preprocessor';
 import createBundler from '@bahmutov/cypress-esbuild-preprocessor';
 import { createEsbuildPlugin } from '@badeball/cypress-cucumber-preprocessor/esbuild';
+import { dirname } from 'path';
 
 export default defineConfig({
   projectId: 'c1jrzq',
@@ -43,7 +44,7 @@ export default defineConfig({
 
       on('task', {
         deleteAllFilesInFolder(folderPath) {
-          const dirPath = path.resolve(__dirname, folderPath);
+          const dirPath = path.resolve(dirname, folderPath);
 
           if (!fs.existsSync(dirPath)) return null;
 
