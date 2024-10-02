@@ -43,22 +43,20 @@ describe(
 
       cy.visit('/checkout/lifetime');
 
-      cy.get(':nth-child(1) > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
+      cy.get(':nth-child(1) > .v-row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
         'have.text',
-        ' $17 ',
+        ' $17',
       );
-      cy.get(':nth-child(1) > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
+      cy.get(':nth-child(1) > .v-row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
         'have.class',
         'fluorosafety-discount-crossed-price',
       );
-      cy.get('.selected-card > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
-        'have.text',
-        ' $998 ',
-      );
-      cy.get('.selected-card > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
-        'have.class',
-        'fluorosafety-discount-crossed-price',
-      );
+      cy.get(
+        '.selected-card > .v-row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]',
+      ).should('have.text', ' $998');
+      cy.get(
+        '.selected-card > .v-row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]',
+      ).should('have.class', 'fluorosafety-discount-crossed-price');
 
       cy.getByTestId('discount-expiration-section').should('not.exist');
       cy.getByTestId('discount-code-section').should('not.exist');
