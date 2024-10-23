@@ -1,10 +1,11 @@
-import { defineConfig } from 'cypress';
 import fs from 'fs';
-import path from 'path';
+import path, { dirname } from 'path';
+import { defineConfig } from 'cypress';
+
 import { addCucumberPreprocessorPlugin } from '@badeball/cypress-cucumber-preprocessor';
-import createBundler from '@bahmutov/cypress-esbuild-preprocessor';
 import { createEsbuildPlugin } from '@badeball/cypress-cucumber-preprocessor/esbuild';
-import { dirname } from 'path';
+import createBundler from '@bahmutov/cypress-esbuild-preprocessor';
+import grepPlugin from '@cypress/grep/src/plugin.js';
 
 export default defineConfig({
   projectId: 'c1jrzq',
@@ -22,8 +23,7 @@ export default defineConfig({
     defaultCommandTimeout: 20000,
     requestTimeout: 20000,
     async setupNodeEvents(on, config) {
-      const grepPlugin = await import('@cypress/grep/src/plugin');
-      grepPlugin.default(config);
+      grepPlugin(config);
       await addCucumberPreprocessorPlugin(on, config);
       on(
         'file:preprocessor',
