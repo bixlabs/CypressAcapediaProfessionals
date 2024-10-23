@@ -1,11 +1,10 @@
 import fs from 'fs';
-import path, { dirname } from 'path';
-import { defineConfig } from 'cypress';
-
+import path from 'path';
 import { addCucumberPreprocessorPlugin } from '@badeball/cypress-cucumber-preprocessor';
 import { createEsbuildPlugin } from '@badeball/cypress-cucumber-preprocessor/esbuild';
 import createBundler from '@bahmutov/cypress-esbuild-preprocessor';
 import grepPlugin from '@cypress/grep/src/plugin.js';
+import { defineConfig } from 'cypress';
 
 export default defineConfig({
   projectId: 'c1jrzq',
@@ -44,7 +43,7 @@ export default defineConfig({
 
       on('task', {
         deleteAllFilesInFolder(folderPath) {
-          const dirPath = path.resolve(dirname, folderPath);
+          const dirPath = path.resolve(import.meta.dirname, folderPath);
 
           if (!fs.existsSync(dirPath)) return null;
 
