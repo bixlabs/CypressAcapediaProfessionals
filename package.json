@@ -1,13 +1,13 @@
 {
   "name": "qa-e2e-acapedia-professionals",
   "scripts": {
-    "ci:test": "pnpm cy:test --",
+    "ci:test": "pnpm cy:test",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:run:chrome": "pnpm cy:run b- Chrome",
     "cy:run:edge": "pnpm cy:run b- Edge",
     "cy:run:firefox": "pnpm cy:run b- Firefox",
-    "cy:test": "pnpm cy:run --",
+    "cy:test": "pnpm cy:run",
     "cy:lint": "eslint ."
   },
   "devDependencies": {
