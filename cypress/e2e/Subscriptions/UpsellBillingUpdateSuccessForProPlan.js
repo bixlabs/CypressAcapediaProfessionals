@@ -1,7 +1,5 @@
 import { Given, When, Then, Before } from '@badeball/cypress-cucumber-preprocessor';
 
-import { faker } from '@faker-js/faker';
-
 const UPSELL_BILLING_UPDATE__SUCCESS_URL = '/plan/pro/billing-update-success';
 
 Before(() => {

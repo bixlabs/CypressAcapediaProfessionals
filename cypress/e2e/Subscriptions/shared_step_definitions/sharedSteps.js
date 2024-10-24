@@ -57,11 +57,11 @@ Then('the page should show a failure animation', () => {
 });
 
 Then('the page should show the title {string}', (title) => {
-  cy.contains(title).should('have.class', 'grey--text');
+  cy.contains(title).should('have.class', 'text-grey-darken-1');
 });
 
 Then('the page should show the success title {string}', (title) => {
-  cy.contains(title).should('have.class', 'success--text');
+  cy.contains(title).should('have.class', 'text-success');
 });
 
 Then('the page should show the description {string}', (description) => {
@@ -69,7 +69,7 @@ Then('the page should show the description {string}', (description) => {
 });
 
 Then('the page should show the primary action {string}', (callToAction) => {
-  const primaryClass = 'aca-button--variant-primary'
+  const primaryClass = 'aca-button--variant-primary';
 
   cy.contains(callToAction).should('have.class', primaryClass);
 });
@@ -88,7 +88,7 @@ Then('the user should be navigated to the feed page', () => {
   cy.url().should('eq', `${Cypress.config().baseUrl}/`);
 });
 
-Then('the {string} plan should be still selected', (planName) => { 
+Then('the {string} plan should be still selected', (planName) => {
   cy.get('.selected-card').contains(planName);
 });
 

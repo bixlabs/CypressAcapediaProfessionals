@@ -56,9 +56,7 @@ When('the user completes the profile from the complete profile dialogue', () => 
   cy.get('#boardId').type('12345');
 
   cy.get('#dateOfBirth').click();
-  cy.get('.v-date-picker-years').contains('1990').click();
-  cy.get('.v-date-picker-table').contains('Jan').click();
-  cy.get('.v-date-picker-table').contains('31').click();
+  cy.selectDate({ year: '1990', month: 'Jan', day: '31' });
 
   cy.contains('Confirm information').click();
 });
@@ -67,9 +65,7 @@ When('the user completes the profile from the complete profile dialogue opened f
   cy.get('#boardId').type('12345');
 
   cy.get('#dateOfBirth').click();
-  cy.get('.v-date-picker-years').contains('1990').click();
-  cy.get('.v-date-picker-table').contains('Jan').click();
-  cy.get('.v-date-picker-table').contains('31').click();
+  cy.selectDate({ year: '1990', month: 'Jan', day: '31' });
 
   cy.contains('Confirm information').click();
 });
@@ -78,9 +74,7 @@ When('the user completes the profile via the Complete Profile dialog', () => {
   cy.get('#boardId').type('12345');
 
   cy.get('#dateOfBirth').click();
-  cy.get('.v-date-picker-years').contains('1990').click();
-  cy.get('.v-date-picker-table').contains('Jan').click();
-  cy.get('.v-date-picker-table').contains('31').click();
+  cy.selectDate({ year: '1990', month: 'Jan', day: '31' });
 
   cy.contains('Confirm information').click();
 });

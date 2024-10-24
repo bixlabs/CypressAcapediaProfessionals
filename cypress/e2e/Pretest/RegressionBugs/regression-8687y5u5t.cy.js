@@ -30,9 +30,9 @@ describe(
       cy.url().should('not.include', '/pretest/onboarding');
 
       // Selecting the pretest options
-      cy.get(':nth-child(1) > .v-label').click();
-      cy.get('.v-item--active').click();
-      cy.get('.v-item--active').click();
+      cy.getQuizOptionByIndex(0).click();
+      cy.getQuizOptionByIndex(0).click();
+      cy.getQuizOptionByIndex(0).click();
 
       // Now that the pretest is finished, we delete the mock so the pretest is not shown again
       cy.intercept('GET', '/api/user/pretest/show', (req) => {
