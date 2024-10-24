@@ -108,12 +108,13 @@ describe('Free referred E2E Test', { tags: ['@referral', '@free-plan', '@low-lik
 
     // [fast] article
     // https://testing-professionals.acapedia.com/article/firefighers-pfas-donations-trial
+    // const correctChoices = [0,0,0,0,0];
     cy.visit('/article/firefighers-pfas-donations-trial');
     cy.contains('Get CME').click();
     cy.contains('Agree and start').click();
     cy.contains('Take quiz').click();
 
-    let answerIndex = 1;
+    let answerIndex = 0;
     let questionNumber = 1;
     let totalQuizFailedQuestions = 0;
     let correctQuestionsNumber = 0;
@@ -172,7 +173,7 @@ describe('Free referred E2E Test', { tags: ['@referral', '@free-plan', '@low-lik
     function nextQuestion() {
       cy.contains('Next question').click();
       questionNumber++;
-      answerIndex = 1;
+      answerIndex = 0;
       cy.get('.question-number').contains(questionNumber).should('be.visible');
       answerQuestion({ failedAnswerNumber: 0 });
     }
