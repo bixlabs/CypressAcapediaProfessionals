@@ -73,4 +73,5 @@ export default defineConfig({
   video: true,
   viewportWidth: 1440,
   viewportHeight: 900,
+  experimentalMemoryManagement: true,
 });
