@@ -69,13 +69,13 @@ Then('the page should show the description {string}', (description) => {
 });
 
 Then('the page should show the primary action {string}', (callToAction) => {
-  const primaryClass = 'primary';
+  const primaryClass = 'aca-button--variant-primary'
 
   cy.contains(callToAction).should('have.class', primaryClass);
 });
 
 Then('the page should show the secondary action {string}', (secondaryAction) => {
-  const secondaryClass = 'grey';
+  const secondaryClass = 'aca-button--variant-secondary';
 
   cy.contains(secondaryAction).should('have.class', secondaryClass);
 });
