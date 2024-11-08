@@ -83,8 +83,8 @@ Cypress.Commands.add('isFeatureFlagEnabled', (featureFlag) => {
   return cy.wrap(getFeatureFlagProvider().isFeatureEnabled(featureFlag));
 });
 
-Cypress.Commands.add('getSidebarMenuByText', (menuText) => {
-  return cy.getByTestId('sidebar').contains(menuText);
+Cypress.Commands.add('getSidebarMenuByText', (menuText, options) => {
+  return cy.getByTestId('sidebar').contains(menuText, options);
 });
 
 Cypress.Commands.add(
