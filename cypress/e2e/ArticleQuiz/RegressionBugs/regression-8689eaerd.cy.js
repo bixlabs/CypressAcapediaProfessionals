@@ -7,6 +7,7 @@ describe(
     it('should keep the user logged in after starting an SR quiz', () => {
       cy.clearAllCookies();
       cy.visit('/');
+      cy.wait(20000);
       cy.getSidebarMenuByText('Special requirements', { timeout: 10000 }).click();
       cy.contains('Explore content').click();
       cy.contains('Alaska').click();
