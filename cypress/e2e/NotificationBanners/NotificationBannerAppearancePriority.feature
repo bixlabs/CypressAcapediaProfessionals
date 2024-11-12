@@ -18,7 +18,7 @@ Feature: Notification Banner Appearance Priority Based on User Criteria
     And the user has reached their credit limit
     And the user has not completed their profile
     When the user navigates to the "Main Feed" page
-    Then the page should display a banner prompting the user to complete their profile to manage MOC and CME credits with the text "Provide your medical board to report your MOC and CME credits."
+    Then the page should display a banner prompting the user to complete their profile to manage MOC and CME credits with the text "Provide your medical board to report credits."
 
   Scenario: Exclusive display of credit limit banner for free users with complete profile on main feed
     Given the authenticated user has a free account
