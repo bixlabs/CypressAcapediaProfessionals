@@ -21,6 +21,8 @@ describe('Smoke Tests', { tags: ['@smoke', '@business:critical'] }, () => {
       // Check if the main identifying element of the page is present
       // This ensures the page has loaded and is displaying its main content
       cy.contains(page.element).should('be.visible');
+
+      cy.percySnapshot(page.url);
     });
   });
 });
