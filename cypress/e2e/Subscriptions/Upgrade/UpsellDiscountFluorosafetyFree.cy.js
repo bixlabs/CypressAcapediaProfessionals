@@ -82,22 +82,20 @@ describe(
 
       cy.visit('/checkout');
 
-      cy.get('.selected-card > .row > .text-right > .heading-l-small').should('have.text', ' $17  $8.50  /month');
-      cy.get('.selected-card > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
-        'have.text',
-        ' $17 ',
-      );
-      cy.get('.selected-card > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
-        'have.class',
-        'fluorosafety-discount-crossed-price',
-      );
+      cy.get('.selected-card > .v-row > .text-right > .heading-l-small').should('have.text', ' $17 $8.50  /month');
+      cy.get(
+        '.selected-card > .v-row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]',
+      ).should('have.text', ' $17');
+      cy.get(
+        '.selected-card > .v-row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]',
+      ).should('have.class', 'fluorosafety-discount-crossed-price');
 
-      cy.get(':nth-child(2) > .row > .text-right > .heading-l-small').should('have.text', ' $998  $798.40 ');
-      cy.get(':nth-child(2) > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
+      cy.get(':nth-child(2) > .v-row > .text-right > .heading-l-small').should('have.text', ' $998 $798.40 ');
+      cy.get(':nth-child(2) > .v-row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
         'have.text',
-        ' $998 ',
+        ' $998',
       );
-      cy.get(':nth-child(2) > .row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
+      cy.get(':nth-child(2) > .v-row > .text-right > .heading-l-small > [data-testid="discount-crossed-price"]').should(
         'have.class',
         'fluorosafety-discount-crossed-price',
       );
@@ -108,16 +106,16 @@ describe(
         year: 'numeric',
         timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       });
-      cy.getByTestId('discount-expiration-section').should('have.text', `Discount expires on ${formattedEndDate} `);
+      cy.getByTestId('discount-expiration-section').should('have.text', `Discount expires on${formattedEndDate}`);
 
       // TODO: improve this selector to be less brittle
-      cy.get('.mt-2').should('have.text', ' (E2E) FluoroSafety 50% off  -$102.00 ');
-      cy.get('[data-testid="payment-summary-price"] > :nth-child(5)').should('have.text', 'Total payment $102.00 ');
+      cy.get('.mt-2').should('have.text', '(E2E) FluoroSafety 50% off-$102.00');
+      cy.get('[data-testid="payment-summary-price"] > :nth-child(5)').should('have.text', 'Total payment$102.00');
 
       cy.getByTestId('discount-code-section').should('not.exist');
 
       // Select lifetime
-      cy.get(':nth-child(2) > .row > .text-left > .text').click();
+      cy.get(':nth-child(2) > .v-row > .text-left > .text').click();
 
       const formattedLifetimeEndDate = lifetimeDiscountEndDate.toLocaleDateString('en-US', {
         day: '2-digit',
@@ -128,10 +126,10 @@ describe(
 
       cy.getByTestId('discount-expiration-section').should(
         'have.text',
-        `Discount expires on ${formattedLifetimeEndDate} `,
+        `Discount expires on${formattedLifetimeEndDate}`,
       );
-      cy.get('.mt-2').should('have.text', ' (E2E) FluoroSafety 20% off  -$199.60 ');
-      cy.get('[data-testid="payment-summary-price"] > :nth-child(4)').should('have.text', 'Total payment $798.40 ');
+      cy.get('.mt-2').should('have.text', '(E2E) FluoroSafety 20% off-$199.60');
+      cy.get('[data-testid="payment-summary-price"] > :nth-child(4)').should('have.text', 'Total payment$798.40');
     });
 
     it('should not display any discount outside of the discount period', () => {

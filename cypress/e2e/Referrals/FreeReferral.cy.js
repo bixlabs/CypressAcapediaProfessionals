@@ -21,8 +21,8 @@ describe('Free referred E2E Test', { tags: ['@referral', '@free-plan', '@low-lik
     cy.getByTestId('password').type(password);
 
     cy.contains('Sign up').click();
-    cy.get('[name=firstName]').type(firstName);
-    cy.get('[name=lastName]').type(lastName);
+    cy.getByTestId('firstName').type(firstName);
+    cy.getByTestId('lastName').type(lastName);
     cy.get('[name=degree]').parent().click();
     cy.contains('P.A.').click();
 
@@ -88,8 +88,8 @@ describe('Free referred E2E Test', { tags: ['@referral', '@free-plan', '@low-lik
     cy.getByTestId('password').type(passwordReferrer);
 
     cy.contains('Sign up').click();
-    cy.get('[name=firstName]').type(firstNameReferrer);
-    cy.get('[name=lastName]').type(lastNameReferrer);
+    cy.getByTestId('firstName').type(firstNameReferrer);
+    cy.getByTestId('lastName').type(lastNameReferrer);
     cy.get('[name=degree]').parent().click();
     cy.contains('P.A.').click();
 
@@ -108,12 +108,13 @@ describe('Free referred E2E Test', { tags: ['@referral', '@free-plan', '@low-lik
 
     // [fast] article
     // https://testing-professionals.acapedia.com/article/firefighers-pfas-donations-trial
+    // const correctChoices = [0,0,0,0,0];
     cy.visit('/article/firefighers-pfas-donations-trial');
     cy.contains('Get CME').click();
     cy.contains('Agree and start').click();
     cy.contains('Take quiz').click();
 
-    let answerIndex = 1;
+    let answerIndex = 0;
     let questionNumber = 1;
     let totalQuizFailedQuestions = 0;
     let correctQuestionsNumber = 0;
@@ -125,8 +126,8 @@ describe('Free referred E2E Test', { tags: ['@referral', '@free-plan', '@low-lik
 
     function answerQuestion({ failedAnswerNumber }) {
       // select a choice
-      // TODO: we need a test-id here as we cannot get it by text value
-      cy.get(`.v-input--radio-group__input > :nth-child(${answerIndex})`).click();
+      cy.getQuizOptionByIndex(answerIndex).click();
+
       cy.wait('@answerQuestion').then((interception) => {
         const responseBody = interception.response.body;
         const isCorrectAnswer = responseBody.success === 1;
@@ -172,7 +173,7 @@ describe('Free referred E2E Test', { tags: ['@referral', '@free-plan', '@low-lik
     function nextQuestion() {
       cy.contains('Next question').click();
       questionNumber++;
-      answerIndex = 1;
+      answerIndex = 0;
       cy.get('.question-number').contains(questionNumber).should('be.visible');
       answerQuestion({ failedAnswerNumber: 0 });
     }

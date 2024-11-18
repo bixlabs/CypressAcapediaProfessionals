@@ -83,8 +83,8 @@ Cypress.Commands.add('isFeatureFlagEnabled', (featureFlag) => {
   return cy.wrap(getFeatureFlagProvider().isFeatureEnabled(featureFlag));
 });
 
-Cypress.Commands.add('getSidebarMenuByText', (menuText) => {
-  return cy.getByTestId('sidebar').contains(menuText);
+Cypress.Commands.add('getSidebarMenuByText', (menuText, options) => {
+  return cy.getByTestId('sidebar').contains(menuText, options);
 });
 
 Cypress.Commands.add(
@@ -123,4 +123,15 @@ Cypress.Commands.add('fillPaymentFormWithInvalidCard', () => {
 Cypress.Commands.add('fillValidCheckoutForm', () => {
   cy.fillBillingForm();
   cy.fillPaymentForm();
+});
+
+Cypress.Commands.add('selectDate', ({ year, month, day }) => {
+  cy.get('.v-date-picker-years').contains(year).click();
+  cy.get('.v-date-picker-controls__month-btn').click();
+  cy.get('.v-date-picker-months').contains(month).click();
+  cy.get('.v-date-picker-month').contains(day).click();
+});
+
+Cypress.Commands.add('getQuizOptionByIndex', (index) => {
+  cy.get(`.v-selection-control-group > :nth-child(${index + 1})`);
 });
