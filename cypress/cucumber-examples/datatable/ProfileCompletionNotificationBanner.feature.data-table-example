@@ -9,4 +9,4 @@ Feature: Profile Completion Notification Banner
       | Premium Courses Feed     | /premium-courses                                                      |
       | Topics                   | /special-requirements                                                 |
       | Special Requirement Feed | /special-requirements/topics/controlled-substances/states/alaska/feed |
-    Then each page should display a banner prompting the user to complete their profile to manage MOC and CME credits with the text "Provide your medical board to report your MOC and CME credits."
+    Then each page should display a banner prompting the user to complete their profile to manage MOC and CME credits with the text "Provide your medical board to report credits."

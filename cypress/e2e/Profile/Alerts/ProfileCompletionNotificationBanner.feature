@@ -6,7 +6,7 @@ Feature: Profile Completion Notification Banner
     Given the user is authenticated
     And the user has an incomplete profile
     When the user navigates to the <page> page
-    Then the page should display a banner prompting the user to complete their profile to manage MOC and CME credits with the text "Provide your medical board to report your MOC and CME credits."
+    Then the page should display a banner prompting the user to complete their profile to manage MOC and CME credits with the text "Provide your medical board to report credits."
     And the banner should display a call to action with the text "Complete profile"
 
     @full-examples
