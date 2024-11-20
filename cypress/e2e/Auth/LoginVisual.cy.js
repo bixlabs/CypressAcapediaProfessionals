@@ -18,7 +18,7 @@ describe('Integration test with visual testing', function () {
     // Load the page or perform any other interactions with the app.
     cy.viewport('samsung-s10');
     cy.visit('/checkout');
-    cy.wait(5000);
+    cy.wait(10000);
     // Take a snapshot for visual diffing
     cy.percySnapshot('payment-details-referrals', {
       widths: [360],
