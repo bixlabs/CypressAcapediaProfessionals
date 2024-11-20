@@ -23,7 +23,6 @@ describe('Integration test with visual testing', function () {
     cy.percySnapshot('payment-details-referrals', {
       widths: [360],
       scope: '.payment-details',
-      enableJavaScript: true,
     });
   });
 });
