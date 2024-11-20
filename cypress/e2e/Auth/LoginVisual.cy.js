@@ -22,7 +22,6 @@ describe('Integration test with visual testing', function () {
     // Take a snapshot for visual diffing
     cy.percySnapshot('payment-details-referrals', {
       widths: [360],
-      scope: '.payment-details',
     });
   });
 });
