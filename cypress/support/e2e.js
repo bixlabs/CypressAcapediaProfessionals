@@ -12,6 +12,8 @@
 // You can read more here:
 // https://on.cypress.io/configuration
 // ***********************************************************
+
+import '@chromatic-com/cypress/support';
 import '@percy/cypress';
 
 import registerCypressGrep from '@cypress/grep/src/support';
