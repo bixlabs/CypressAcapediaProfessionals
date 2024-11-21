@@ -13,8 +13,10 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-import registerCypressGrep from '@cypress/grep/src/support'
-registerCypressGrep()
+import '@chromatic-com/cypress/support';
+import '@percy/cypress';
+
+import registerCypressGrep from '@cypress/grep/src/support';
 
 // Import commands.js using ES2015 syntax:
 import './commands/commands';
@@ -22,11 +24,13 @@ import './commands/auth_commands';
 import 'cypress-file-upload';
 import 'cypress-mochawesome-reporter/register';
 
+registerCypressGrep();
+
 Cypress.on('uncaught:exception', (err, runnable) => {
-    // returning false have prevents Cypress from
-    // failing the test
-    return false
-})
+  // returning false have prevents Cypress from
+  // failing the test
+  return false;
+});
 
 require('cypress-xpath');
 
